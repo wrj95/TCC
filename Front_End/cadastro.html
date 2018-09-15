@@ -1,0 +1,361 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <!--Refereciando o arquivo de css style.css-->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>TCC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- First include jquery js -->
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        
+    <!-- Refenciando o JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Inclusão do Plugin jQuery Validation-->
+    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
+    
+    <!--JQuery Mask Plugin-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+    <!-- Iniciando as tarefas com o JQuery -->
+    <script type="text/JavaScript">
+        $(document).ready(function(){
+
+            $('#dataNascimento').mask("99/99/9999"); //Tratando o Data
+            $('#tel').mask("(99)9999-9999"); //Tratando Numero de Telefone
+            $('#cel').mask("(99)99999-9999"); //Tratando Numero de Celular
+
+            $('#cadastrar').click(function (e) { //Quando o botao do formulario e acionado
+                $('#myform').validate({ //Validação dos campos do formulário
+                    rules: { //Regras de Validacao
+                        name:{required: true}, //Nao aceita o campo Nome vazio
+                        sobName:{required: true}, //Nao aceita o campo SobreNome vazio
+                        cpfCnpj:{required: true}, //Nao aceita o campo CPF vazio
+                        tel:{required: true}, //Nao aceita o campo Telefone vazio
+                        end:{required: true}, //Nao aceita o campo Endereco vazio
+                        num:{required: true}, //Nao aceita o campo Numero do Endereco vazio
+                        cidade:{required: true}, //Nao aceita o campo Numero do Endereco vazio
+                        uf:{required: true}, //Nao aceita o campo UF do Endereco vazio
+                        email:{required: true}, //Nao aceita o campo Email vazio
+                        emailAlt:{required: true}, //Nao aceita o campo Email Alternativo vazio
+                        passwd:{required: true}, //Nao aceita o campo Senha do Endereco vazio
+                        passwdConfirm:{required: true}, //Nao aceita o campo Confirmacao de Senha do Endereco vazio
+                        dataNascimento:{required: true,
+                                        date: true}
+                    },
+                    messages: {
+                        name:{required: 'Campo Obrigatório'},
+                        sobName:{required: 'Campo Obrigatório'},
+                        cpfCnpj:{required: 'Campo Obrigatório'},
+                        tel:{required: 'Campo Obrigatório'},
+                        end:{required: 'Campo Obrigatório'},
+                        num:{required: 'Campo Obrigatório'},
+                        cidade:{required: 'Campo Obrigatório'},
+                        uf:{required: 'Campo Obrigatório'},
+                        email:{required: 'Campo Obrigatório'},
+                        emailAlt:{required: 'Campo Obrigatório'},
+                        passwd:{required: 'Campo Obrigatório'},
+                        passwdConfirm:{required: 'Campo Obrigatório'},
+                        dataNascimento:{required: 'Campo Obrigatório'}
+                    },
+                    submitHandler: function(form){
+                        //Aqui pega o formulário e o converte em JSON
+                        var json = JSON.parse(JSON.stringify(jQuery('#myform').serializeArray()));
+                        
+                        //Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
+                        $.post({
+                            type: 'POST', //Tipo de Conexao
+                            url: 'http://localhost:3000/produto', //URL da API
+                            dataType: 'json', //Tipo de dado que sera transferido
+                            data: json, //Enviando o formulario em formato JSON
+                            contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
+                            success: function(data) {
+                                 //??
+                            },
+                            error: function(){
+                                alert('Erro')
+                            }
+                        }).done(function(result){
+                                //Aqui será tratada à resposta do Servidor
+                        }).fail(function(jqXHR,textStatus,errorThrown){
+                                //alert(errorThrown);
+                                //Aqui será mostrado o erro que retornará do Servidor
+                        });
+                    }                
+                });
+            });
+        })
+    </script>
+</head>
+<body>
+    <!--Menu Superior-->
+    <nav class="navbar navbar-inverse">
+            <ul class="nav nav-pills"> <!--Menu Superior-->
+                <li role="presentation"><a href="./index.html">Home</a></li>  <!--Home-->
+                <li role="presentation" class="active"><a href="./cadastro.html">Cadastro</a></li>  <!--Vai para cadastro-->
+                <li role="presentation"><a href="./empresa.html">Empresa</a></li>  <!--Cadastro Empresa-->
+            </ul>
+    </nav>
+
+    <div class="container" style="background-color: gold">
+        
+        <form class="form-horizontal" id="myform">
+        <div class="row">
+            <!--Nome-->
+            <!--Irá ocupar 5 colunas-->
+            <div class="col-md-5">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para o nome ficar em cima da caixa de texto-->
+                    Nome:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para Nome-->
+                        <input  type="text" class="form-control" name="name" id="name" placeholder="Nome">
+                    </div>
+                </div> 
+            </div>
+        
+            <!--SobreNome-->
+            <!--Irá ocupar 4 colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para o Sobrenome ficar em cima da caixa de texto-->
+                    Sobrenome:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para Sobrenome-->
+                        <input type="text" class="form-control" name="sobName" id="sobName" placeholder="Sobrenome">
+                    </div>                               
+                </div>
+            </div>
+
+            <!--Sexo-->
+            <!--Irá ocupar 3 colunas-->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para o Sexo ficar em cima da radio-->
+                    Sexo:
+                    </div>
+                    <div class="col-md-12">
+                        <!--radio é uma caixa de seleção onde só pode ser escolhido apenas UM dos itens correspondentes
+                        que no caso é o Sexo do usuário ou prestador-->
+                        <input type="radio" name="sex" value="male"> Masculino
+                        <input type="radio" name="sex" value="female"> Feminino
+                    </div>
+                </div> 
+            </div>          
+            
+            <!--CPF/CNPJ-->
+            <!--Irá ocupar 4 colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para o CPF ou CNPJ ficar em cima da caixa de texto-->
+                    CPF/CNPJ:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para CPF/CNPJ-->
+                        <input  type="text" class="form-control" name="cpfCnpj" id="cpfCnpj" placeholder="CPF/CNPJ">
+                    </div>
+                </div> 
+            </div>
+
+            <!--Telefone-->
+            <!--Irá ocupar 4 colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <!--Div para o Telefone ficar em cima da caixa de texto-->
+                    Telefone:
+                    </div>
+                    <div class="col-md-12">
+                        <input  type="text" class="form-control" telefone="tel" id="tel" placeholder="Telefone">
+                    </div>
+                </div> 
+            </div>
+
+            <!--Celular-->
+            <!--Irá ocupar 4 colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para o Celular ficar em cima da caixa de texto-->
+                    Celular:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para Celular-->
+                        <input  type="text" class="form-control" name="cel" id="cel" placeholder="Celular">
+                    </div>
+                </div> 
+            </div>
+
+            <!--Endereco-->
+            <!--Irá ocupar 4 colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para o Endereço ficar em cima da caixa de texto-->
+                    Endereço:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para Endereco-->
+                        <input  type="text" class="form-control" name="end" id="end" placeholder="Endereço">
+                    </div>
+                </div> 
+            </div>
+
+            <!--Numero-->
+            <!--Irá ocupar 1 colunas-->
+            <div class="col-md-1">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para o Numero da Residencia ficar em cima da caixa de texto-->
+                </div>
+                    Nº:
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para Numero-->
+                        <input  type="text" class="form-control" name="num" id="num" placeholder="">
+                    </div>
+                </div> 
+            </div>
+
+            <!--Cidade-->
+            <!--Irá ocupar 4 colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para a ficar em cima da caixa de texto-->
+                    Cidade
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para Cidade-->
+                        <input  type="text" class="form-control" name="cidade" id="cidade" placeholder="Cidade">
+                    </div>
+                </div> 
+            </div>
+
+            <!--UF-->
+            <!--Irá ocupar 2 colunas-->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para a ficar em cima da caixa de texto-->
+                    UF
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para Cidade-->
+                        <input  type="text" class="form-control" name="uf" id="uf" placeholder="UF">
+                    </div>
+                </div> 
+            </div>
+
+        </div>
+
+        <div class="row" style="background-color: palevioletred">
+
+            <!--Email do Cliente-->
+            <!--Irá ocupar 6 colunas-->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para a ficar em cima da caixa de texto-->
+                    Email:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para o Email-->
+                        <input  type="text" class="form-control" name="email" id="email" placeholder="E-mail">
+                    </div>
+                </div> 
+            </div>
+
+            <!--Email Alterativo do Cliente-->
+            <!--Irá ocupar 6 colunas-->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para a ficar em cima da caixa de texto-->
+                    Email Alternativo:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para o Email Alternativo-->
+                        <input  type="text" class="form-control" name="emailAlt" id="emailAlt" placeholder="E-mail Alternativo">
+                    </div>
+                </div> 
+            </div>
+
+            <!--Senha do Cliente-->
+            <!--Irá ocupar 4 colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para a ficar em cima da caixa de texto-->
+                    Senha:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de password para senha-->
+                        <input  type="password" class="form-control" name="passwd" id="passwd" placeholder="Senha">
+                    </div>
+                </div> 
+             </div>
+
+            <!--Confirmar senha-->
+            <!--Irá ocupar 6 colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para a ficar em cima da caixa de texto-->
+                    Confirmar Senha:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Password para Confirmar Senha-->
+                        <input  type="password" class="form-control" name="passwdConfirm" id="passwdConfirm" placeholder="Confirmar senha">
+                    </div>
+                </div> 
+            </div>
+
+            <!--Data de Nascimento-->
+            <!--Irá ocupar 4 colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <!--Div para a ficar em cima da caixa de texto-->
+                        Data de Nascimento:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Password para Confirmar Senha-->
+                        <input  type="text" class="form-control" name="dataNascimento" id="dataNascimento" placeholder="Data de Nascimento">
+                    </div>
+                </div> 
+            </div>
+
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <!--Botao de Cadastrar onde será enviado as informações de Cadastro para validação-->
+                <button type="submit" name="cadastrar" id="cadastrar" class="btn btn-default">Cadastrar</button>
+
+                <!--Botao para Cancelar o Cadastro-->
+                <button type="submit" name="cancelar" id="cancelar" class="btn btn-default">Cancelar</button>
+            </div>
+        </div>
+        
+    </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+.login
+{
+    width: 400px;
+    height: 200px;
+    text-align: center;
+    margin: 0% 0 0 35%;
+    background:rgba(255,255,255,0.0);
+    border-radius: 10px;
+    color: white;
+}
+
+.login label
+{
+    margin-top: 10px;
+}
+
+body{
+    background: url(backgroundSite.jpg)no-repeat;
+    -webkit-background-size:cover;
+    background-size: cover;
+}

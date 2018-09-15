@@ -1,0 +1,121 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <!--Refereciando o arquivo de css style.css-->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>TCC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- First include jquery js -->
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    <!-- Refenciando o JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Inclusão do Plugin jQuery Validation-->
+    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
+
+     <!-- Iniciando as tarefas com o JQuery -->
+    <script type="text/JavaScript">
+        $(document).ready(function(){
+            $('#login').click(function (e) { //Quando o botao do formulario e acionado
+                $('#myform').validate({ //Validação dos campos do formulário
+                    rules: { //Regras de Validacao
+                        inputEmail3:{required: true}, //Nao aceita o campo Nome vazio
+                        inputPassword3:{required: true}, //Nao aceita o campo SobreNome vazio
+                    },
+                    messages: {
+                        inputEmail3:{required: 'Insira E-mail de Login'},
+                        inputPassword3:{required: 'Informe a Senha para Login'},
+                    },
+                    submitHandler: function(form){
+                        //Aqui pega o formulário e o converte em JSON
+                        var json = JSON.parse(JSON.stringify(jQuery('#myform').serializeArray()));
+                        
+                        //Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
+                        $.post({
+                            type: 'POST', //Tipo de Conexao
+                            url: 'http://localhost:3000/produto', //URL da API
+                            dataType: 'json', //Tipo de dado que sera transferido
+                            data: json, //Enviando o formulario em formato JSON
+                            contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
+                            success: function(data) {
+                                 //??
+                            },
+                            error: function(){
+                                alert('Erro')
+                            }
+                        }).done(function(result){
+                                //Aqui será tratada à resposta do Servidor
+                        }).fail(function(jqXHR,textStatus,errorThrown){
+                                //alert(errorThrown);
+                                //Aqui será mostrado o erro que retornará do Servidor
+                        });
+                    }                
+                });
+            });
+        })
+    </script>
+
+</head>
+<body>
+    
+    <div class="container-fluid">
+        <ul class="nav nav-pills"> <!--Menu Superior-->
+            <li role="presentation" class="active"><a href="#">Home</a></li>  <!--Home-->
+            <li role="presentation"><a href="./cadastro.html">Cadastro</a></li>  <!--Vai para cadastro-->
+            <li role="presentation"><a href="./empresa.html">Empresa</a></li>  <!--Cadastro Empresa-->
+        </ul>
+        
+        <!--Div para o Nome ou logo-->
+        <div class="jumbotron" style="background-color: rgba(255,255,255,0.0)">
+            <!--H1 para destacar o nome, na parte superior esqueda da tela-->
+            <h1 style="color: white">Mudanças Já</h1>
+
+            <!--Um pequeno parágrafo para descrever o site em poucas palavras-->
+            <p style="color: white">Solução para as suas Mudanças</p>
+        </div>
+
+        <!--div para o Login-->  
+        <div class="login">
+            <!--Iniciando formulário-->
+            <form class="form-horizontal" id="myform">
+                <div class="form-group">
+                    <!--Label para Email, no lado esquerdo da TextBox-->
+                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <!--Caixa de texto para digitar o email-->
+                        <input type="email" class="form-control" name="inputEmail3" id="inputEmail3" placeholder="Email" name="idUser">
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    <!--Label para Password, no lado esquerdo da TextBox-->
+                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <!--Caixa de texto para digitar a senha com o type password onde mascara o que foi digitado-->
+                        <input type="password" class="form-control" name="inputPassword3" id="inputPassword3" placeholder="Password" name="passwd">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <!--Botão de Sign In onde será enviado as informações de login e senha para validação-->
+                        <button type="submit" id="login" class="btn btn-default">Sign in</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

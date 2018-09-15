@@ -24,11 +24,17 @@ login.post(`/register`, function (req, res) {
     //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
     //Data informed from user that after it'll be load in Database
     var userData = { //Make a mapping of the data that it'll be passed by Front-End
-        "first_name": req.body.first_name,
-        "last_name": req.body.last_name,
+        "nome": req.body.name,
+        "sobrenome": req.body.sobName,
+        "cpf_cnpj": req.body.cpfCnpj,  
         "email": req.body.email,
-        "password": req.body.password, //hashedPassword,
-        "created": today
+        "senha": req.body.passwd, //hashedPassword,
+        "email_alternativo": req.body.emailAlt,
+        "telefone_fixo": req.body.tel,
+        "telefone_celular":req.body.cel,
+        "flg_concorda_termos": req.body.termos,
+        "dt_nasc": req.body.dataNascimento,
+        "data_cadastro": today 
     }
 
     //Try to get a connection on database if has error return 500 status
@@ -40,7 +46,7 @@ login.post(`/register`, function (req, res) {
             res.status(500).json(appData);
             // If no errors do a insert on database to register the user
         } else {
-            connection.query("INSERT INTO users SET ?", userData, function (err, rows, fields) {
+            connection.query("INSERT INTO mydatabase.tab_usuario SET ?", userData, function (err, rows, fields) {
                 if (!err) {
                     appData.error = 0;
                     appData["data"] = "User registered successfully!";
@@ -55,6 +61,7 @@ login.post(`/register`, function (req, res) {
         }
     });
 });
+
 // Route utilized to login the user at app
 login.post('/login', function (req, res) {
 

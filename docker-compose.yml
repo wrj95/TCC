@@ -21,9 +21,9 @@ services:
     container_name: node_app
     ports:
       - 3050:3000
-    volumes:
-      - .:/home/app/portal
-      - /home/app/portal/node_modules
+    # volumes:
+    #   - .:/home/app/portal
+    #   - /home/app/portal/node_modules
     networks: 
       - default 
   mysql:

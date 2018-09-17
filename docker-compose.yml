@@ -21,8 +21,6 @@ services:
     container_name: node_app
     ports:
       - 3050:3000
-    volumes:
-      - .:/home/app/tcc
     networks: 
       - default 
   mysql:

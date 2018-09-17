@@ -4,7 +4,7 @@ var mysql = require('mysql');
 
 function dbConnection(){
     return mysql.createPool({
-        host: /* 'localhost' || */ 'mysql_app1',
+        host: /* 'localhost' || */ 'mysql_app',
         user: 'root',
         password: 'yourpassword',
         database: 'mydatabase'

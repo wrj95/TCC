@@ -6,10 +6,11 @@ ENV HOME=/home/app
 
 WORKDIR $HOME/tcc
 
-COPY package.json npm-shrinkwrap.json $HOME/portal/
+COPY package.json npm-shrinkwrap.json $HOME/tcc/
 
 RUN npm i
 
-COPY . $HOME/portal
+COPY . $HOME/tcc
 
 CMD ["npm","start"]
+

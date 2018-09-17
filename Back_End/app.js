@@ -2,7 +2,7 @@ var express = require('express');
 var cors = require('cors');
 var app = express();
 var consign = require('consign');
-var port = process.env.PORT || 3050;
+var port = process.env.PORT || 3000;
 
 //Loads the middlewares to parse these data format
 app.use(express.urlencoded({
@@ -18,8 +18,7 @@ app.use(cors());
 // app.use('/user', user);
 
 consign()
-    .include("./config")
-    .then("./api/routes/auth.js")
+    .include("./api/routes/auth.js")
     .then("./api/routes")
     .then("./config")
     .into(app)

@@ -1,25 +1,15 @@
-FROM node:latest
+FROM node:8.11.2
 
 LABEL maintainer="Gabriel Pellegrini"
 
-ENV HOME=/home/api
+ENV HOME=/home/app
 
-WORKDIR $HOME/portal
+WORKDIR $HOME/tcc
+
+COPY package.json npm-shrinkwrap.json $HOME/portal/
+
+RUN npm i
 
 COPY . $HOME/portal
 
-RUN npm i npm 
-
-RUN npm install npm
-
-RUN npm install consign
-
-RUN npm install -g nodemon
-
-RUN npm install express 
-
-RUN npm install mysql
-
-
-
-
+CMD ["npm","start"]

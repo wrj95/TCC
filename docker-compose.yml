@@ -14,20 +14,17 @@ services:
     build:
       context: ./Back_End
       dockerfile: Dockerfile
-    image: gabrielpellegrini/nodejs:8.11.2
-    command: nodemon app.js
+    image: gabrielpellegrini/nodejs:TCC.8.11.2
+    command: node app.js
     tty: true
     stdin_open: true
     container_name: node_app
     ports:
       - 3050:3000
-    # volumes:
-    #   - .:/home/app/portal
-    #   - /home/app/portal/node_modules
     networks: 
       - default 
   mysql:
-    image: mysql:5.6
+    image: mysql:5.7
     container_name: mysql_app
     tty: true
     stdin_open: true

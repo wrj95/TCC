@@ -8,14 +8,9 @@ WORKDIR $HOME/tcc
 
 COPY package.json npm-shrinkwrap.json $HOME/tcc/
 
-RUN npm i npm
-
 RUN npm i
 
 COPY . $HOME/tcc
 
 CMD ["npm","start"]
-
-
-
 

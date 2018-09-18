@@ -119,13 +119,6 @@ application.post('/login', function (req, res) {
     });
 });
 
-<<<<<<< HEAD:Back_End/api/routes/auth.js
-}
-
-// module.exports = login;
-=======
-// module.exports = login;
-
 module.exports = function (application) {
 
     application.use(cors());
@@ -246,5 +239,4 @@ module.exports = function (application) {
     });
 
 }
->>>>>>> master:Back_End/Config/auth.js
 

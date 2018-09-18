@@ -3,5 +3,5 @@ function AuthDAO(connection) {
 }
 
 AuthDAO.prototype.register = function (callback) {
-    this._connection.query("INSERT INTO users SET ?", userData,callback)
+    this._connection.query("INSERT INTO mydatabase.tab_usuario SET ?", userData,callback)
 } 

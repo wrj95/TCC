@@ -22,12 +22,12 @@ services:
     ports:
       - 3050:3000
     volumes:
-      - .:/home/app/portal
+      - ./Back_End:/home/app/portal
       - /home/app/portal/node_modules
     networks: 
       - default 
   mysql:
-    image: mysql:5.6
+    image: mysql:5.7
     container_name: mysql_app
     tty: true
     stdin_open: true
@@ -36,9 +36,11 @@ services:
     environment:
       - MYSQL_DATABASE=mydatabase
       - MYSQL_ROOT_PASSWORD=yourpassword
+      - MYSQL_USER=user
     networks: 
       - default
     volumes:
       - ./DB/Data:/var/lib/mysql
 networks:
   default:
+

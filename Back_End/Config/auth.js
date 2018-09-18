@@ -13,7 +13,7 @@ process.env.SECRET_KEY = "mydatabase";
     
 
 // Route utilized to register the users
-login.post(`/register`, function (req, res) {
+login.post('/register', function (req, res) {
     var today = new Date();
     //Data object returned from api
     var appData = {
@@ -26,14 +26,14 @@ login.post(`/register`, function (req, res) {
     var userData = { //Make a mapping of the data that it'll be passed by Front-End
         "nome": req.body.name,
         "sobrenome": req.body.sobName,
-        "cpf_cnpj": req.body.cpfCnpj,  
+        "cpf": req.body.cpfCnpj,  
         "email": req.body.email,
         "senha": req.body.passwd, //hashedPassword,
         "email_alternativo": req.body.emailAlt,
         "telefone_fixo": req.body.tel,
         "telefone_celular":req.body.cel,
         "flg_concorda_termos": req.body.termos,
-        "dt_nasc": req.body.dataNascimento,
+        //"dt_nasc": req.body.dataNascimento,
         "data_cadastro": today 
     }
 
@@ -46,7 +46,7 @@ login.post(`/register`, function (req, res) {
             res.status(500).json(appData);
             // If no errors do a insert on database to register the user
         } else {
-            connection.query("INSERT INTO mydatabase.tab_usuario SET ?", userData, function (err, rows, fields) {
+            connection.query("INSERT INTO tab_usuario SET ?", userData, function (err, rows, fields) {
                 if (!err) {
                     appData.error = 0;
                     appData["data"] = "User registered successfully!";

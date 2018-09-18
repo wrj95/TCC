@@ -2,10 +2,11 @@ var mysql = require('mysql');
 
 //Module utilized to do db connections
 var connection = mysql.createPool({
-    host: 'localhost' || 'mysql_app',
-    user: 'root',
+    host: 'mysql_app',
+    user: 'root',   
     password: 'yourpassword',
-    database: 'mydatabase'
+    database: 'mydatabase',
+    //socketPath: '/var/run/mysqld/mysqld.sock'
 });
 
 //Wrapper

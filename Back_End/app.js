@@ -1,12 +1,6 @@
 var express = require('express');
 var cors = require('cors');
 var app = express();
-<<<<<<< HEAD
-=======
-// var auth = require('./Config/auth');
-var user =require('./Routes/users')
-var hello = require('./Routes/helloWorld')
->>>>>>> master
 var consign = require('consign');
 var port = process.env.PORT || 3000;
 
@@ -17,11 +11,6 @@ app.use(express.urlencoded({
 app.use(express.json())
 app.use(cors());
 
-//Adding to use the users route
-
-// app.use('/user', auth);
-
-// app.use('/user', user);
 
 consign()
     .include("./api/routes/auth.js")
@@ -29,9 +18,6 @@ consign()
     .then("./config")
     .into(app)
 
-consign()
-    .include("./Config")
-    .into(app)
 
 app.listen(port, function () {
     console.log("Server is running on port: " + port);

@@ -29,6 +29,8 @@ application.post(`/register`, function (req, res) {
         "created": today
     }
 
+    var email = req.body.email;
+
        //Data informed from user that after it'll be load in Database
     //    var userData = { //Make a mapping of the data that it'll be passed by Front-End
     //        "nome": req.body.name,
@@ -54,17 +56,32 @@ application.post(`/register`, function (req, res) {
             res.status(500).json(appData);
             // If no errors do a insert on database to register the user
         } else {
-            connection.query("INSERT INTO mydatabase.users SET ?", userData, function (err, rows, fields) {
-                if (!err) {
-                    appData.error = 0;
-                    appData["data"] = "User registered successfully!";
-                    res.status(201).json(appData);
-                } else {
-                    console.log(err)
-                    appData["data"] = "Error Ocurred!";
-                    res.status(400).json(appData);
-                }
-            });
+            connection.query('SELECT * FROM users WHERE email = ?', email, function (err, rows, fields) {
+                        if (err) {
+                            appData.error = 1;
+                            appData["data"] = "Error Occured!";
+                            res.status(400).json(appData);
+                        } else {
+                            if (rows.length > 0){
+                                appData.error = 1;
+                                appData["data"] = "Email is already in use !";
+                                res.status(403).json(appData);
+                            } else {
+                                connection.query("INSERT INTO mydatabase.users SET ?", userData, function (err, rows, fields){
+                                appData.error = 0;
+                                appData["data"] = "User registered successfully!";
+                                res.status(201).json(appData);
+                                })
+                            }
+
+                        }
+                    });
+
+
+
+
+
+
             connection.release();
         }
     });
@@ -120,6 +137,3 @@ application.post('/login', function (req, res) {
 });
 
 }
-
-// module.exports = login;
-

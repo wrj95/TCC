@@ -39,8 +39,5 @@ services:
       - MYSQL_USER=user
     networks: 
       - default
-    volumes:
-      - ./DB/Data:/var/lib/mysql
 networks:
   default:
-

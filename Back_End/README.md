@@ -2,7 +2,7 @@
 
 A sample login and authentication API for my graduating course. 
 
-To test this project on docker you could only tap:
+To test this project only tap:
 
 npm install 
 

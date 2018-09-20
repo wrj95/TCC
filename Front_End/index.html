@@ -31,12 +31,12 @@
             $('#login').click(function (e) { //Quando o botao do formulario e acionado
                 $('#myform').validate({ //Validação dos campos do formulário
                     rules: { //Regras de Validacao
-                        inputEmail3:{required: true}, //Nao aceita o campo Nome vazio
-                        inputPassword3:{required: true}, //Nao aceita o campo SobreNome vazio
+                        email:{required: true}, //Nao aceita o campo Nome vazio
+                        password:{required: true}, //Nao aceita o campo SobreNome vazio
                     },
                     messages: {
-                        inputEmail3:{required: 'Insira E-mail de Login'},
-                        inputPassword3:{required: 'Informe a Senha para Login'},
+                        email:{required: 'Insira E-mail de Login'},
+                        password:{required: 'Informe a Senha para Login'},
                     },
                     submitHandler: function(form){
                         //Aqui pega o formulário e o converte em JSON
@@ -92,19 +92,19 @@
             <form class="form-horizontal" id="myform">
                 <div class="form-group">
                     <!--Label para Email, no lado esquerdo da TextBox-->
-                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <label for="email" class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-10">
                         <!--Caixa de texto para digitar o email-->
-                        <input type="email" class="form-control" name="inputEmail3" id="inputEmail3" placeholder="Email" name="idUser">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" name="idUser">
                     </div>
                 </div>
             
                 <div class="form-group">
                     <!--Label para Password, no lado esquerdo da TextBox-->
-                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                    <label for="password" class="col-sm-2 control-label">Password</label>
                     <div class="col-sm-10">
                         <!--Caixa de texto para digitar a senha com o type password onde mascara o que foi digitado-->
-                        <input type="password" class="form-control" name="inputPassword3" id="inputPassword3" placeholder="Password" name="passwd">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" name="passwd">
                     </div>
                 </div>
 

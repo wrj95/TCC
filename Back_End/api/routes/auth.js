@@ -137,5 +137,3 @@ application.post('/login', function (req, res) {
 });
 
 }
-
-

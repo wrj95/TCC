@@ -9,10 +9,8 @@
     <!--Referenciando Bootstrap-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">  
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         
@@ -43,15 +41,15 @@
                     if(value.length!=10) return false;
                     // verificando data
                     var data= value;
-                    var dia= data.substr(0,2);
+                    var dia= data.substr(0,2); //Capta o dia
                     var barra1= data.substr(2,1);
-                    var mes= data.substr(3,2);
+                    var mes= data.substr(3,2); //Capta o mes
                     var barra2= data.substr(5,1);
-                    var ano= data.substr(6,4);
+                    var ano= data.substr(6,4); //Capta o ano
                     if(data.length!=10||barra1!="/"||barra2!="/"||isNaN(dia)||isNaN(mes)||isNaN(ano)||dia>31||mes>12)return false;
-                    if((mes==4||mes==6||mes==9||mes==11) && dia==31)return false;
-                    if(mes==2  &&  (dia>29||(dia==29 && ano%4!=0)))return false;
-                    if(ano < 1900)return false;
+                    if((mes==4||mes==6||mes==9||mes==11) && dia==31)return false; //Validando meses com dia 31
+                    if(mes==2  &&  (dia>29||(dia==29 && ano%4!=0)))return false; //validando Fevereiro e ano bissexto
+                    if(ano < 1900)return false; //Ano minimo
                     return true;
                 }, "Informe uma data válida"); // Mensagem padrão
 
@@ -61,23 +59,24 @@
                         sobName:{required: true}, //Nao aceita o campo SobreNome vazio
                         cpfCnpj:{required: true}, //Nao aceita o campo CPF vazio
                         tel:{required: true}, //Nao aceita o campo Telefone vazio   
-                        email:{required: true}, //Nao aceita o campo Email vazio
-                        emailAlt:{required: true}, //Nao aceita o campo Email Alternativo vazio
-                        passwd:{required: true}, //Nao aceita o campo Senha do Endereco vazio
-                        passwdConfirm:{required: true}, //Nao aceita o campo Confirmacao de Senha do Endereco vazio
-                        dataNascimento:{required: true,
-                                        dateBR: true}
+                        email:{required: true, email: true}, //Nao aceita o campo Email vazio
+                        emailAlt:{required: true, email: true}, //Nao aceita o campo Email Alternativo vazio
+                        passwd:{required: true, minlength: 3}, //Nao aceita o campo Senha do Endereco vazio
+                        passwdConfirm:{required: true, equalTo: '#passwd'}, //Nao aceita o campo Confirmacao de Senha do Endereco vazio
+                        dataNascimento:{required: true, dateBR: true}, //Nao aceita campo vazio e valida data
+                        checkboxTerm:{required: true} //Checkbox obrigatoriamente assinalado
                     },
                     messages: {
                         name:{required: 'Campo Obrigatório'},
                         sobName:{required: 'Campo Obrigatório'},
                         cpfCnpj:{required: 'Campo Obrigatório'},
                         tel:{required: 'Campo Obrigatório'},
-                        email:{required: 'Campo Obrigatório'},
-                        emailAlt:{required: 'Campo Obrigatório'},
-                        passwd:{required: 'Campo Obrigatório'},
-                        passwdConfirm:{required: 'Campo Obrigatório'},
-                        dataNascimento:{required: 'Campo Obrigatório'}
+                        email:{required: 'Campo Obrigatório', email: 'Insira um email válido'},
+                        emailAlt:{required: 'Campo Obrigatório', email: 'Insira um email válido'},
+                        passwd:{required: 'Campo Obrigatório', minlength: 'Senha de no minimo 3 caracteres'},
+                        passwdConfirm:{required: 'Campo Obrigatório', equalTo: 'Senhas diferentes'},
+                        dataNascimento:{required: 'Campo Obrigatório'},
+                        checkboxTerm:{required: 'Aprove os termos de uso antes de continuar'}
                     },
                     submitHandler: function(form){
                         //Aqui pega o formulário e o converte em JSON
@@ -91,9 +90,11 @@
                             data: json, //Enviando o formulario em formato JSON
                             contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                             success: function(data) {
-                                 //??
+                                alert('Cadastrado com Sucesso');
+                                location.href='./index.html';
                             },
-                            error: function(){
+                            error: function(result){
+                                console.log(result)
                                 alert('Erro')
                             }
                         }).done(function(result){
@@ -199,7 +200,7 @@
                         Telefone:
                         </div>
                         <div class="col-md-12">
-                            <input  type="text" class="form-control" telefone="tel" id="tel" placeholder="Telefone">
+                            <input  type="text" class="form-control" name="tel" id="tel" placeholder="Telefone">
                         </div>
                     </div> 
                 </div>
@@ -305,11 +306,130 @@
             </div>
             
             <!--Termos de Uso-->
-            <div style="height: 300px; width: 400px; overflow: auto; background-color: white; color: black">
-                aqui vai o seu texto do tamanho que for
+            <div class="row" style="height: 300px; width: 400px; overflow: auto; background-color: white; color: black">
+                <h3>TERMOS E CONDIÇÕES GERAIS DE USO
+DO SITE "Mudanças Já"</h3>
+
+<p>
+Estes termos e condições gerais de uso aplicam-se aos serviços prestados pela pessoa jurídica TCC Grupo Official, devidamente registrada sob o CNPJ n. 99.999.999/0001-99, e-mail: tccgrupoofficial@gmail.com, com sede em:<br/>
+Endereço: R. da Paz, 797 
+Chácara Santo Antônio,
+São Paulo - SP, 
+CEP 04713-000
+representada por:
+Victor Hermon, na qualidade de: Administrador, CPF n. 432.508.148-02, Carteira de Identidade (RG) n. 36.386.970-1, expedida por SSP
+<br/>
+doravante denominada EDITOR DO SITE,
+por meio do site Mudanças Já, com o seguinte endereço: (Com contêiner executando) localhost:8000.
+<br/>
+
+<b>I. DO OBJETO</b> <br/>
+O site Mudanças Já caracteriza-se pela prestação dos seguintes serviços:
+Serviço de mudanças onde o cliente através de uma plataforma web fará uma solicitação de transporte de um conjunto de objetos para as empresas de transporte cadastradas na plataforma, que retornarão uma proposta de orçamento para o cliente.
+<br/>
+
+<b>II. DA ACEITAÇÃO DOS TERMOS E CONDIÇÕES GERAIS DE USO</b> <br/>
+Todos aqueles que desejarem ter acesso aos serviços ofertados através do site Mudanças Já deverão, primeiramente, se informar sobre as regras que compõem o presente instrumento, as quais ficarão disponíveis para pronta e ampla consulta, em link direto no próprio site.
+Ao utilizar o site Mudanças Já, o usuário aceita integralmente as presentes normas e compromete-se a observá-las, sob risco de aplicação das penalidades cabíveis. Antes de iniciar qualquer navegação no site, o usuário deverá cientificar-se de eventuais modificações ou atualizações ocorridas neste termos.
+O usuário poderá ainda ser avisado por e-mail ou diretamente no próprio site sobre eventuais mudanças nas presentes normas.
+Caso não concorde com quaisquer das regras aqui descritas, o usuário deve, imediatamente, abster-se de utilizar o serviço. Se for de seu interesse, poderá, ainda, entrar em contato com o serviço de atendimento ao cliente, para apresentar-lhe as suas ressalvas.
+<br/>
+
+<b>III. DA NAVEGAÇÃO</b> <br/>
+O editor do site Mudanças Já se compromete a utilizar todas as soluções técnicas à sua disposição para permitir o acesso ao serviço 24 (vinte e quatro) horas por dia, 7 (sete) dias por semana. Entretanto, ele poderá, a qualquer momento, interromper, limitar ou suspender o acesso ao site ou a algumas de suas páginas, a fim de realizar atualizações, modificações de conteúdo ou qualquer outra ação julgada necessária para o seu bom funcionamento.
+Os presentes termos e condições gerais de uso se aplicam a todas as extensões do site Mudanças Já em redes sociais ou em comunidades, tanto as já existentes, quanto aquelas ainda a serem implementadas.
+<br/>
+
+<b>IV. DA GESTÃO DO SITE</b> <br/>
+Para a boa gestão, o editor do site Mudanças Já poderá, a qualquer momento:
+a) suspender, interromper ou limitar o acesso a todo ou a parte do site a uma categoria específica de internautas;
+b) remover toda informação que possa perturbar o funcionamento do site ou que esteja em conflito com normas de Direito brasileiro ou de Direito internacional;
+c) suspender o site, a fim de realizar atualizações e modificações.
+<br/>
+
+<b>V. DO CADASTRO</b>  <br/>
+Os serviços disponibilizados no site Mudanças Já apenas poderão ser acessados por pessoas plenamente capazes, conforme o Direito brasileiro. Todos aqueles que não possuírem plena capacidade civil - menores de 18 anos não emancipados, pródigos, ébrios habituais ou viciados em tóxicos e pessoas que não puderem exprimir sua vontade, por motivo transitório ou permanente - deverão ser devidamente assistidos por seus representantes legais, que se responsabilizarão pelo cumprimento das presentes regras.
+r0ken!!
+Ao usuário, será permitido manter apenas uma conta junto ao site Mudanças Já. Contas duplicadas serão automaticamente desativadas pelo editor do site, sem prejuízo de demais penalidades cabíveis.
+Para o devido cadastramento junto ao serviço, o usuário deverá fornecer integralmente os dados requeridos. Todas as informações fornecidas pelo usuário devem ser precisas, verdadeiras e atualizadas. Em qualquer caso, o usuário responderá, em âmbito cível e criminal, pela veracidade, exatidão e autenticidade dos dados informados.
+O usuário deverá fornecer um endereço de e-mail válido, através do qual o site realizará todos os contatos necessários. Todas as comunicações enviadas para o referido endereço serão consideradas lidas pelo usuário, que se compromete, assim, a consultar regularmente suas mensagens recebidas e a respondê-las em prazo razoável.
+Após a confirmação de seu cadastro, o usuário possuirá um login (apelido) e uma senha pessoais, que deverão ser por ele utilizados para o acesso a sua conta no site Mudanças Já. Estes dados de conexão não poderão ser informados pelo usuário a terceiros, sendo de sua inteira responsabilidade o uso que deles seja feito. O usuário compromete-se a comunicar imediatamente ao editor do site quaisquer atividades suspeitas ou inesperadas em sua conta.
+Não será permitido ceder, vender, alugar ou transferir, de qualquer forma, a conta, que é pessoal e intransferível.
+Será automaticamente descadastrado o usuário que descumprir quaisquer das normas contidas no presente instrumento, sendo-lhe vedado realizar nova inscrição no site.
+O usuário poderá, a qualquer tempo e sem necessidade de justificação, requerer o cancelamento de seu cadastro junto ao site Mudanças Já. O seu descadastramento será realizado o mais rapidamente possível, desde que não sejam verificados débitos em aberto.
+<br/>
+
+<b>VI. DAS RESPONSABILIDADES</b> <br/>
+O editor se responsabilizará pelos defeitos ou vícios encontrados nos serviços prestados pelo site Mudanças Já, desde que tenha lhes dado causa. Defeitos ou vícios técnicos ou operacionais originados no próprio sistema do usuário não serão de responsabilidade do editor.
+O editor responsabiliza-se apenas pelas informações que foram por ele diretamente divulgadas. Quaisquer informações incluídas pelos usuários, tais como em comentários e em perfis pessoais, serão de inteira responsabilidade dos próprios.
+O usuário é responsável, ainda: <br/>
+a) pela correta utilização do site e de seus serviços, prezando pela boa convivência, pelo respeito e pela cordialidade no relacionamento com os demais usuários;<br/>
+b) pelo cumprimento das regras contidas neste instrumento, bem como normas de Direito nacional e de Direito internacional;<br/>
+c) pela proteção dos dados de acesso à sua conta (login e senha).<br/>
+O editor não será responsável:<br/>
+a) pelas características intrínsecas da internet, principalmente relativas à confiabilidade e à procedência das informações circulando nesta rede;<br/>
+b) pelos conteúdos ou atividades ilícitas praticadas através de seu site.
+<br/>
+
+<b>VII. DOS LINKS EXTERNOS</b> <br/>
+O site Mudanças Já pode conter links externos redirecionando o usuário para outras páginas da internet, sobre os quais o editor não exerce controle. Apesar das verificações prévias e regulares realizadas pelo editor, ele se isenta de qualquer responsabilidade sobre o conteúdo encontrado nestes sites e serviços.
+Poderão ser incluídos links nas páginas e nos documentos do site Mudanças Já, desde que não sirvam para fins comerciais ou publicitários. Esta inclusão dependerá de autorização prévia do editor.
+Não será autorizada a inclusão de páginas que divulguem quaisquer tipos de informações ilícitas, violentas, polêmicas, pornográficas, xenofóbicas, discriminatórias ou ofensivas.
+br0ken!!
+<br/>
+
+<b>VIII. DOS DIREITOS AUTORAIS</b> <br/>
+A estrutura do site Mudanças Já, bem como os textos, os gráficos, as imagens, as fotografias, os sons, os vídeos e as demais aplicações informáticas que o compõem são de propriedade do editor e são protegidas pela legislação brasileira e internacional referente à propriedade intelectual.
+Qualquer representação, reprodução, adaptação ou exploração parcial ou total dos conteúdos, marcas e serviços propostos pelo site, por qualquer meio que seja, sem autorização prévia, expressa e escrita do editor, é estritamente vedada, podendo-se recorrer às medidas cíveis e penais cabíveis. Estão excluídos desta previsão apenas os elementos que estejam expressamente designados no site como livres de direitos autorais.
+O acesso não gera para o usuário qualquer direito de propriedade intelectual relativo a elementos do site, os quais restam sob a propriedade exclusiva do editor.
+É vedado ao usuário incluir no site dados que possam modificar o seu conteúdo ou sua aparência.
+<br/>
+
+<b>IX. DA POLÍTICA DE PRIVACIDADE</b>b <br/>
+1. Dados pessoais <br/>
+Todos os dados pessoais fornecidos pelo usuário no momento de seu cadastro ou que venham a ser solicitados posteriormente, a este título, permanecerão sigilosos e não serão repassados a quaisquer parceiros do site.
+O editor apenas poderá transmitir os dados pessoais a terceiros quando o usuário permiti-lo expressamente ou quando presentes as hipóteses legais previstas no Direito brasileiro, tais como a requisição judicial.
+É de responsabilidade do editor a garantia de confidencialidade dos dados pessoais fornecidos pelos usuários, devendo proteger o site contra tentativas de violações ou acessos clandestinos à sua base de dados.
+<br/>
+2. Dados de navegação <br/>
+O site recorre eventualmente às técnicas de "cookies", que lhe permitem analisar as estatísticas e as informações sobre a navegação do usuário. Podem ser fornecidos, por exemplo, dados sobre o dispositivo utilizado pelo usuário e o seu local de acesso. Esta coleta de informações busca melhorar a navegação, para o conforto do usuário, ao permitir apresentar-lhe serviços personalizados, de acordo com suas preferências.
+Estes dados de navegação poderão, ainda, ser compartilhados com eventuais parceiros do site, buscando o aprimoramento dos produtos e serviços ofertados ao usuário.
+O usuário poderá se opor ao registro de "cookies" pelo site, bastando desativar esta opção no seu próprio navegador ou aparelho. Por outro lado, a desativação deste registro poderá afetar a disponibilidade de algumas ferramentas e alguns serviços do site.
+<br/>
+
+<b>X. DO SERVIÇO DE ATENDIMENTO AO USUÁRIO</b> <br/>
+Em caso de dúvidas, sugestões ou problemas com a utilização do site Mudanças Já, o usuário poderá contatar diretamente o seu serviço de atendimento, através do endereço de e-mail: tccgrupoofficial@gmail.com, bem como do telefone: (11) 9 8373-2112. Estes serviços de atendimento ao usuário estarão disponíveis nos seguintes dias e horários:
+De segunda a sábado, das 10h00 ás 18h00;
+O usuário poderá, ainda, optar por enviar correspondência ao endereço da sede do site Mudanças Já, informado no início deste documento.
+<br/>
+
+<b>XI. DAS SANÇÕES</b> <br/>
+Sem prejuízo das demais medidas legais cabíveis, o editor do site Mudanças Já poderá, a qualquer momento, advertir, suspender ou cancelar a conta do usuário:<br/>
+a) que descumprir quaisquer dos dispositivos contidos no presente instrumento;<br/>
+b) que descumprir os seus deveres de usuário;<br/>
+c) que praticar atos fraudulentos ou dolosos;<br/>
+d) cujo comportamento constitua ou possa vir a importar ofensa ou dano a terceiro ou ao próprio site.
+<br/>
+
+<b>XII. DAS ALTERAÇÕES</b> <br/>
+A presente versão dos termos e condições gerais de uso foi atualizada pela última vez em: 23/09/2018.
+O editor se reserva o direito de modificar, a qualquer momento e sem qualquer aviso prévio, o site e os serviços, bem como as presentes normas, especialmente para adaptá-las às evoluções do site Mudanças Já, seja pela disponibilização de novas funcionalidades, seja pela supressão ou modificação daquelas já existentes.
+Dessa forma, convida-se o usuário a consultar periodicamente esta página para verificar as atualizações.
+<br/>
+
+<b>XIII. DO DIREITO APLICÁVEL E DO FORO</b> <br/>
+Para a solução das controvérsias decorrentes do presente instrumento, será aplicado integralmente o Direito brasileiro.
+Os eventuais litígios deverão ser apresentados no foro da comarca em que se encontra a sede do editor do site.
+<br/>
+
+
+Seja bem-vindo(a)!
+A equipe do site Mudanças Já lhe deseja uma excelente navegação!
+</p>
+
             </div>
             <div class="box_termo">
-                <input class="input_box" name="checkboxTerm" type="checkbox" value="s"/>
+                <input class="input_box" name="checkboxTerm" type="checkbox" value="S"/>
                 <p class="texto_box">Eu li, entendi e concordo com estas regras e condições.</p>
             </div>
 

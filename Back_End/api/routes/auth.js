@@ -24,14 +24,6 @@ application.post(`/register`, function (req, res) {
     };
     /*
     //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
-    //Data informed from user
-    var userData = {
-        "first_name": req.body.first_name,
-        "last_name": req.body.last_name,
-        "email": req.body.email,
-        "password": req.body.password, //hashedPassword,
-        "created": today
-    }
     */
     var email = req.body.email;
 

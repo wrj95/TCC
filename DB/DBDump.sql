@@ -31,13 +31,13 @@ CREATE TABLE `tab_usuario` (
   `email` varchar(100) NOT NULL,
   `senha` varchar(50) NOT NULL,
   `email_alternativo` varchar(45) NOT NULL,
-  `telefone_fixo` char(10) DEFAULT NULL,
-  `telefone_celular` char(11) DEFAULT NULL,
+  `telefone_fixo` char(13) DEFAULT NULL,
+  `telefone_celular` char(14) DEFAULT NULL,
   `flg_concorda_termos` char(1) NOT NULL DEFAULT 'N',
   `data_cadastro` date NOT NULL,
   PRIMARY KEY (`cod_usuario`),
   UNIQUE KEY `CPF_UNIQUE` (`cpf`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cadastro de usuários.';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de usuários.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ CREATE TABLE `tab_usuario` (
 
 LOCK TABLES `tab_usuario` WRITE;
 /*!40000 ALTER TABLE `tab_usuario` DISABLE KEYS */;
+INSERT INTO `tab_usuario` VALUES (1,'Welinton','Ribeiro Junior','1995-05-24','44089264855','welintonribeirojunior@gmail.com','nozora123','juniortrimundial@hotmail.com','(11)5893-1497','(11)99378-1102','S','2018-09-25');
 /*!40000 ALTER TABLE `tab_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-20  1:19:59
+-- Dump completed on 2018-09-25  3:12:27

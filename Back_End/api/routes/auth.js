@@ -6,9 +6,6 @@ module.exports = function (application) {
 
 application.use(cors());
     
-//Secret Key used to verify the token
-process.env.SECRET_KEY = "mydatabase";
-    
 
 // Route utilized to register the users
 application.post(`/register`, function (req, res) {
@@ -29,17 +26,17 @@ application.post(`/register`, function (req, res) {
 
        //Data informed from user that after it'll be load in Database
     var userData = { //Make a mapping of the data that it'll be passed by Front-End
-        "nome": req.body.name,
-        "sobrenome": req.body.sobName,
-        "data_nascimento": dt_nasc, //Pass Date to object userData
-        "cpf": req.body.cpfCnpj,
-        "email": req.body.email,
-        "senha": req.body.passwd, //hashedPassword,
-        "email_alternativo": req.body.emailAlt,
-        "telefone_fixo": req.body.tel,
-        "telefone_celular": req.body.cel,
-        "flg_concorda_termos": req.body.checkboxTerm,
-        "data_cadastro": today
+            "nome": req.body.name,
+            "sobrenome": req.body.sobName,
+            "data_nascimento": dt_nasc, //Pass Date to object userData
+            "cpf": req.body.cpfCnpj,
+            "email": req.body.email,
+            "senha": req.body.passwd, //hashedPassword,
+            "email_alternativo": req.body.emailAlt,
+            "telefone_fixo": req.body.tel,
+            "telefone_celular": req.body.cel,
+            "flg_concorda_termos": req.body.checkboxTerm,
+            "data_cadastro": today
     }
 
     //Try to get a connection on database if has error return 500 status
@@ -63,8 +60,9 @@ application.post(`/register`, function (req, res) {
                             appData["data"] = "Email is already in use !";
                             res.status(403).json(appData);
                         } else {
-                            connection.query("INSERT INTO mydatabase.tab_usuario SET ?", userData, function (err, rows, fields){
-                            if(err){
+                            var authDAO = new application.api.models.authDAO(connection) 
+                            authDAO.register(userData,function (err, rows, fields) {
+                                if(err){
                                 console.log(err);
                                 appData.error = 1;
                                 appData["data"] = "Error Occured!";

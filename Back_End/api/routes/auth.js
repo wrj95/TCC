@@ -1,7 +1,7 @@
-var cors = require("cors")
+var cors = require("cors");
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-
+var moment = require('moment'); //I need this package to convert String to Date
 module.exports = function (application) {
 
 application.use(cors());
@@ -13,36 +13,34 @@ process.env.SECRET_KEY = "mydatabase";
 // Route utilized to register the users
 application.post(`/register`, function (req, res) {
     var today = new Date();
+
+    //The lib moment I can convert String to Date on date format Brazil
+    var dt_nasc = moment(req.body.dataNascimento, "DD/MM/YYYY").toDate();
+
     //Data object returned from api
     var appData = {
         "error": 1,
         "data": ""
     };
-
+    /*
     //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
-    //Data informed from user
-    var userData = {
-        "first_name": req.body.first_name,
-        "last_name": req.body.last_name,
-        "email": req.body.email,
-        "password": req.body.password, //hashedPassword,
-        "created": today
-    }
+    */
+    var email = req.body.email;
 
        //Data informed from user that after it'll be load in Database
-    //    var userData = { //Make a mapping of the data that it'll be passed by Front-End
-    //        "nome": req.body.name,
-    //        "sobrenome": req.body.sobName,
-    //        "cpf_cnpj": req.body.cpfCnpj,
-    //        "email": req.body.email,
-    //        "senha": req.body.passwd, //hashedPassword,
-    //        "email_alternativo": req.body.emailAlt,
-    //        "telefone_fixo": req.body.tel,
-    //        "telefone_celular": req.body.cel,
-    //        "flg_concorda_termos": req.body.termos,
-    //        "dt_nasc": req.body.dataNascimento,
-    //        "data_cadastro": today
-    //    }
+    var userData = { //Make a mapping of the data that it'll be passed by Front-End
+        "nome": req.body.name,
+        "sobrenome": req.body.sobName,
+        "data_nascimento": dt_nasc, //Pass Date to object userData
+        "cpf": req.body.cpfCnpj,
+        "email": req.body.email,
+        "senha": req.body.passwd, //hashedPassword,
+        "email_alternativo": req.body.emailAlt,
+        "telefone_fixo": req.body.tel,
+        "telefone_celular": req.body.cel,
+        "flg_concorda_termos": req.body.checkboxTerm,
+        "data_cadastro": today
+    }
 
     //Try to get a connection on database if has error return 500 status
     var database = application.config.database()
@@ -54,17 +52,32 @@ application.post(`/register`, function (req, res) {
             res.status(500).json(appData);
             // If no errors do a insert on database to register the user
         } else {
-            connection.query("INSERT INTO mydatabase.users SET ?", userData, function (err, rows, fields) {
-                if (!err) {
-                    appData.error = 0;
-                    appData["data"] = "User registered successfully!";
-                    res.status(201).json(appData);
-                } else {
-                    console.log(err)
-                    appData["data"] = "Error Ocurred!";
+            connection.query('SELECT * FROM mydatabase.tab_usuario WHERE email = ?', email, function (err, rows, fields) {
+                if (err) {
+                    appData.error = 1;
+                    appData["data"] = "Error Occured!";
                     res.status(400).json(appData);
-                }
-            });
+                } else {
+                        if (rows.length > 0){
+                            appData.error = 1;
+                            appData["data"] = "Email is already in use !";
+                            res.status(403).json(appData);
+                        } else {
+                            connection.query("INSERT INTO mydatabase.tab_usuario SET ?", userData, function (err, rows, fields){
+                            if(err){
+                                console.log(err);
+                                appData.error = 1;
+                                appData["data"] = "Error Occured!";
+                                res.status(400).json(appData);
+                            }else{
+                                appData.error = 0;
+                                appData["data"] = "User registered successfully!";
+                                res.status(201).json(appData);
+                            }
+                            })
+                        }
+                    }
+                });
             connection.release();
         }
     });
@@ -120,6 +133,3 @@ application.post('/login', function (req, res) {
 });
 
 }
-
-// module.exports = login;
-

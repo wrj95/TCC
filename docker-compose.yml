@@ -20,7 +20,7 @@ services:
     stdin_open: true
     container_name: node_app
     ports:
-      - 3050:3000
+      - 3050:3050
     networks: 
       - default 
   mysql:

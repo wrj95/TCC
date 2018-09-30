@@ -16,8 +16,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tab_empresa`
+--
+-- Creating tab_empresa
+
+DROP TABLE IF EXISTS `tab_empresa`;
+
+CREATE TABLE `sys`.`tab_empresa` (
+  `cod_empresa` INT NOT NULL AUTO_INCREMENT,
+  `nome_fantasia` VARCHAR(100) NULL,
+  `razao_social` VARCHAR(150) NULL,
+  `cnpj` CHAR(14) NOT NULL,
+  `cod_uf` CHAR(2) NOT NULL,
+  `cod_municipio` INT NOT NULL,
+  `endereco` VARCHAR(100) NOT NULL,
+  `data_cadastro` DATETIME NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (`cod_empresa`),
+  UNIQUE INDEX `cnpj_UNIQUE` (`cnpj` ASC) VISIBLE,
+  INDEX `fk_empresa_uf_idx` (`cod_uf` ASC) VISIBLE,
+  CONSTRAINT `fk_empresa_uf`
+    FOREIGN KEY (`cod_uf`)
+    REFERENCES `sys`.`tab_uf` (`cod_uf`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_empresa_municipio`
+    FOREIGN KEY (`cod_municipio`)
+    REFERENCES `sys`.`tab_municipio` (`cod_municipio`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Cadastro de Empresas.';
+
+--
 -- Table structure for table `tab_usuario`
 --
+-- Creating tab_usuario
 
 DROP TABLE IF EXISTS `tab_usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

@@ -171,7 +171,10 @@ module.exports = function (application) {
             "email": req.body.email,
             "email_alternativo": req.body.emailAlt,
             "senha": req.body.passwd,
-            "flg_concorda_termos": req.body.checkboxTerm
+            "flg_concorda_termos": req.body.checkboxTerm,
+            "cod_uf": 'x',
+            "cod_municipio":'x',
+            "endereco": 'x'
         }
 
         //Try to get a connection on database if has error return 500 status

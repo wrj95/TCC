@@ -19,8 +19,15 @@ services:
     tty: true
     stdin_open: true
     container_name: node_app
+    environment:
+      - DB_HOST=mysql_app
+      - DB_USER=root
+      - DB_PASS=yourpassword
+      - DB_DATABASE=mydatabase
+      - PORT=3050
+      - SECRET_KEY=mydatabase
     ports:
-      - 3050:3000
+      - 3050:3050
     networks: 
       - default 
   mysql:

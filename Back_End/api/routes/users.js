@@ -30,7 +30,7 @@ application.use(function (req, res, next) {
 });
 
 
-application.get("/getUsers", function (req, res) {
+application.get("/user/getUsers", function (req, res) {
     let appData = {};
     //Try to get a connection on database if has error return 500 status
     var database = application.config.database()
@@ -41,7 +41,7 @@ application.get("/getUsers", function (req, res) {
             res.status(500).json(appData);
         } else {
             //Search the users list on DB
-            connection.query("SELECT * FROM users", function (err, rows, fields) {
+            connection.query("SELECT * FROM tab_usuario", function (err, rows, fields) {
                 if (!err) {
                     appData["error"] = 0;
                     appData["data"] = rows;

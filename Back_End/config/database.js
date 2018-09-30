@@ -4,10 +4,10 @@ var mysql = require('mysql');
 
 function dbConnection(){
     return mysql.createPool({
-        host: /* 'localhost' || */ 'mysql_app',
-        user: 'root',
-        password: 'yourpassword',
-        database: 'mydatabase'
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_DATABASE
     });
 }
 

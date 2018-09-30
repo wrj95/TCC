@@ -1,8 +1,13 @@
-var express = require('express');
-var cors = require('cors');
-var app = express();
-var consign = require('consign');
-var port = process.env.PORT || 3000;
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const consign = require('consign');
+const dotenv = require('dotenv');
+
+
+//Loads the environment variables
+dotenv.config()
+const port = process.env.PORT || 3050;
 
 //Loads the middlewares to parse these data format
 app.use(express.urlencoded({
@@ -13,8 +18,9 @@ app.use(cors());
 
 
 consign()
-    .include("./api/routes/auth.js")
+    .include("./api/routes/authentication.js")
     .then("./api/routes")
+    .then("./api/models")
     .then("./config")
     .into(app)
 

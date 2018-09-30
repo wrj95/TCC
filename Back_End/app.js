@@ -18,7 +18,7 @@ app.use(cors());
 
 
 consign()
-    .include("./api/routes/auth.js")
+    .include("./api/routes/authentication.js")
     .then("./api/routes")
     .then("./api/models")
     .then("./config")

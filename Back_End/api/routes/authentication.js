@@ -116,6 +116,7 @@ module.exports = function (application) {
                 userDAO.login(email, function (err, rows, fields) {
                     if (err) {
                         appData.error = 1;
+                        console.log(err)
                         appData["data"] = "Error Occured!";
                         res.status(400).json(appData);
                     } else {

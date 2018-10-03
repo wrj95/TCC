@@ -58,10 +58,10 @@ $(document).ready(function(){
 
         $('#myform').validate({ //Validação dos campos do formulário
             rules: { //Regras de Validacao
-                name_fant:{required: true}, //Nao aceita nome fantasia vazio
-                raz_soc:{required: true}, //Nao aceita razao social vazio
+                name_fant:{required: true, maxlenght: 100}, //Nao aceita nome fantasia vazio
+                raz_soc:{required: true, maxlenght: 150}, //Nao aceita razao social vazio
                 cnpj:{required: true, cnpj: true}, //Nao aceita o campo CPF vazio
-                tel:{required: true}, //Nao aceita o campo Telefone vazio
+                tel:{required: true, minlength: 10}, //Nao aceita o campo Telefone vazio
                 email:{required: true, email: true}, //Nao aceita o campo Email vazio e um email válido
                 emailAlt:{required: true, email: true}, //Nao aceita o campo Email Alternativo vazio e um email válido
                 passwd:{required: true, minlength: 3}, //Nao aceita o campo Senha do Endereco vazio, senha de no minimo 3 caracteres
@@ -69,10 +69,10 @@ $(document).ready(function(){
                 checkboxTerm:{required:true}
             },
             messages: {
-                name_fant:{required: 'Campo Obrigatório'},
-                raz_soc:{required: 'Campo Obrigatório'},    
+                name_fant:{required: 'Campo Obrigatório', maxlenght: 'Excedeu o limite máximo de Caracteres'},
+                raz_soc:{required: 'Campo Obrigatório', maxlenght: 'Excedeu o limite máximo de Caracteres'},    
                 cnpj:{required: 'Campo Obrigatório'},
-                tel:{required: 'Campo Obrigatório'},                        
+                tel:{required: 'Campo Obrigatório', minlength: 'Telefone inválido'},                        
                 email:{required: 'Campo Obrigatório', email: 'Insira um Endereço de E-mail válido'},
                 emailAlt:{required: 'Campo Obrigatório', email: 'Insira um Endereço de E-mail válido'},
                 passwd:{required: 'Campo Obrigatório', minlength: 'Senha de no minimo 3 caracteres'},
@@ -93,8 +93,18 @@ $(document).ready(function(){
                          alert('Cadastro realizado com Sucesso');
                          location.href("./home.html")
                     },
-                    error: function(){
-                        alert('Erro')
+                    error: function(request, status, erro){
+                        //Captando o erro retornado da API
+                        var erroJ = JSON.parse(request.responseText);
+
+                        //Se o erro for igual a "Email is already in use !", significa que Email ja possui cadastro
+                        if(erroJ.data == "Email is already in use !"){
+                            alert("Email informado já possui cadastro");
+                        };
+                        ////Se o erro for igual a "CPF is already in use !", significa que CPF ja possui cadastro
+                        if(erroJ.data == "CNPJ is already in use !"){
+                            alert("CNPJ informado já possui Cadastro");
+                        }
                     }
                 }).done(function(result){
                         //Aqui será tratada à resposta do Servidor

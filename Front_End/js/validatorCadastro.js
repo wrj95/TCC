@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('#dataNascimento').mask("99/99/9999"); //Tratando o Data
     $('#tel').mask("(99)9999-9999"); //Tratando Numero de Telefone
     $('#cel').mask("(99)99999-9999"); //Tratando Numero de Celular
-    $('#cpfCnpj').mask("99999999999")
+    $('#cpf').mask("99999999999")
 
     $('#cadastrar').click(function (e) { //Quando o botao do formulario e acionado
         $.validator.addMethod("dateBR", function(value, element) {
@@ -45,10 +45,10 @@ $(document).ready(function(){
 
         $('#myform').validate({ //Validação dos campos do formulário
             rules: { //Regras de Validacao
-                name:{required: true}, //Nao aceita o campo Nome vazio
-                sobName:{required: true}, //Nao aceita o campo SobreNome vazio
-                cpfCnpj:{required: true, cpf: true}, //Nao aceita o campo CPF vazio
-                tel:{required: true}, //Nao aceita o campo Telefone vazio   
+                name:{required: true, maxlenght: 50}, //Nao aceita o campo Nome vazio e nao pode passar de 50 caracteres
+                sobName:{required: true, maxlenght: 50}, //Nao aceita o campo SobreNome vazio e nao pode passar de 50 caracteres
+                cpf:{required: true, cpf: true}, //Nao aceita o campo CPF vazio
+                tel:{required: true, minlength: 10}, //Nao aceita o campo Telefone vazio   
                 email:{required: true, email: true}, //Nao aceita o campo Email vazio
                 emailAlt:{required: true, email: true}, //Nao aceita o campo Email Alternativo vazio
                 passwd:{required: true, minlength: 3}, //Nao aceita o campo Senha do Endereco vazio
@@ -57,10 +57,10 @@ $(document).ready(function(){
                 checkboxTerm:{required: true} //Checkbox obrigatoriamente assinalado
             },
             messages: {
-                name:{required: 'Campo Obrigatório'},
-                sobName:{required: 'Campo Obrigatório'},
-                cpfCnpj:{required: 'Campo Obrigatório'},
-                tel:{required: 'Campo Obrigatório'},
+                name:{required: 'Campo Obrigatório', maxlenght: 'Excedeu o limite máximo de Caracteres'},
+                sobName:{required: 'Campo Obrigatório', maxlenght: 'Excedeu o limite máximo de Caracteres'},
+                cpf:{required: 'Campo Obrigatório'},
+                tel:{required: 'Campo Obrigatório', minlength: 'Telefone inválido'},
                 email:{required: 'Campo Obrigatório', email: 'Insira um email válido'},
                 emailAlt:{required: 'Campo Obrigatório', email: 'Insira um email válido'},
                 passwd:{required: 'Campo Obrigatório', minlength: 'Senha de no minimo 3 caracteres'},
@@ -80,12 +80,21 @@ $(document).ready(function(){
                     data: json, //Enviando o formulario em formato JSON
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(data) {
-                        alert('Cadastrado com Sucesso');
+                        alert('Cadastrado concluído com Sucesso');
                         location.href='./index.html';
                     },
-                    error: function(result){
-                        console.log(result)
-                        alert('Erro')
+                    error: function(request, status, erro){
+                        //Captando o erro retornado da API
+                        var erroJ = JSON.parse(request.responseText);
+
+                        //Se o erro for igual a "Email is already in use !", significa que Email ja possui cadastro
+                        if(erroJ.data == "Email is already in use !"){
+                            alert("Email informado já possui cadastro");
+                        };
+                        ////Se o erro for igual a "CPF is already in use !", significa que CPF ja possui cadastro
+                        if(erroJ.data == "CPF is already in use !"){
+                            alert("CPF informado já possui Cadastro");
+                        }
                     }
                 }).done(function(result){
                         //Aqui será tratada à resposta do Servidor

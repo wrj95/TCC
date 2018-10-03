@@ -22,13 +22,13 @@ module.exports = function (application) {
         //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
         */
         var email = req.body.email;
-        var cpf = req.body.cpfCnpj;
+        var cpf = req.body.cpf;
 
         //Data informed from user that after it'll be load in Database
         var userData = { //Make a mapping of the data that it'll be passed by Front-End
             "nome": req.body.name,
             "sobrenome": req.body.sobName,
-            "cpf": req.body.cpfCnpj,
+            "cpf": req.body.cpf,
             "telefone_celular": req.body.cel,
             "telefone_fixo": req.body.tel,
             "email": req.body.email,
@@ -122,6 +122,7 @@ module.exports = function (application) {
                     } else {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
+                            //rows[0].senha -> Problem with .password, on tab_empresa table, the column is named as "senha", not "password".
                             if (rows[0].password == password) {
                                 let token = jwt.sign(rows[0], process.env.SECRET_KEY, {
                                     expiresIn: 1440
@@ -260,6 +261,7 @@ module.exports = function (application) {
                     } else {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
+                            //rows[0].senha -> Problem with .password, on tab_empresa table, the column is named as "senha" not "password".
                             if (rows[0].password == password) {
                                 let token = jwt.sign(rows[0], process.env.SECRET_KEY, {
                                     expiresIn: 1440

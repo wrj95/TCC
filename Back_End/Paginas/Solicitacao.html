@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<style>
+			#divCabecalho{
+				justify-content: flex-end;
+			}
+			
+			#LinhaDivisoria{
+				background-color: brown;
+				height: 3px;	
+			}
+		</style>
+		
+		<title>Solicita&ccedil;&atilde;o de Or&ccedil;amento</title>
+	</head>
+	<body>
+		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
+			<a href="" target="_blank">
+				<button type="button" class="btn btn-sm">Meu Cadastro</button>
+            </a>
+			<a href="" target="_blank">
+				<button type="button" class="btn btn-sm">Minhas Solicita&ccedil;&otilde;es</button>
+			</a>
+			<a href="" target="_blank">
+				<button type="button" class="btn btn-sm">Sair</button> 
+			</a>
+		</div>
+			
+		<div class="row col-sm-12" id="LinhaDivisoria"></div>
+		<h1 class="col-sm-12">Solicita&ccedil;&atilde;o de Or&ccedil;amento</h1>
+		<div class="container-fluid">
+			<div class="row col-sm-12">
+				<div class="col-sm-12">
+					<label for="titSolicitacao">Título da Solicita&ccedil;&atilde;o:</label>
+					<input type="text" class="form-control col-sm-10" id="titSolicitacao" maxlength="100">
+				</div>
+				<div class="col-sm-6">
+					<label for="endOrigem">Endere&ccedil;o de Origem:</label>
+					<select class="form-control col-sm-6" id="endOrigem"></select>
+				</div>
+				<div class="col-sm-6">
+					<label for="endDestino">Endere&ccedil;o de Destino:</label>
+					<select class="form-control col-sm-6" id="endDestino"></select>
+				</div>				
+				<div class="col-sm-3">
+					<label for="data">Data:</label>
+					<input type="date" class="form-control" placeholder="dd/mm/aaaa" id="data">
+				</div>
+				<div class="col-sm-3">
+					<label for="hora">Hora:</label>
+					<input type="time" class="form-control" placeholder="hh:mm" id="hora">
+				</div>
+				<div class="col-sm-6">
+					<label for="valorestimado">Valor dos itens a transportar:</label>
+					<input type="text" class="form-control col-sm-5" placeholder="0,00" id="valorestimado">
+				</div>
+				<div class="col-sm-12">
+					<label for="desSolicitacao">Descri&ccedil;&atilde;o da Solicita&ccedil;&atilde;o:</label>
+					<textarea class="form-control" id="desSolicitacao" rows="8" maxlength="2000"></textarea>
+					<input type="submit" class="col-sm-2" id="btnConfirmar" value="Confirmar">
+					<input type="button" class="col-sm-2" id="btnCancelar" value="Cancelar">
+					<input type="reset" class="col-sm-2" id="btnRedefinir" value="Redefinir">
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

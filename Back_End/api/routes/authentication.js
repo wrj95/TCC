@@ -112,10 +112,11 @@ module.exports = function (application) {
                 //If connection works , do a query looking for the email requested
             } else {
                 //If request has any problems with the information, return a Bad request 
-                let userDAO = new app.api.models.userDAO(connection)
+                let userDAO = new application.api.models.userDAO(connection)
                 userDAO.login(email, function (err, rows, fields) {
                     if (err) {
                         appData.error = 1;
+                        console.log(err)
                         appData["data"] = "Error Occured!";
                         res.status(400).json(appData);
                     } else {
@@ -250,7 +251,7 @@ module.exports = function (application) {
                 //If connection works , do a query looking for the email requested
             } else {
                 //If request has any problems with the information, return a Bad request 
-                let companyDAO = new app.api.models.companyDAO(connection)
+                let companyDAO = new application.api.models.companyDAO(connection)
                 companyDAO.login(email, function (err, rows, fields) {
                     if (err) {
                         appData.error = 1;

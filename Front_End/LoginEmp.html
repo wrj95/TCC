@@ -26,24 +26,25 @@
     <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
 
      <!-- Iniciando as tarefas com o JQuery -->
-    <script type="text/JavaScript" src="./js/LoginUser.js"></script>
+    <script type="text/JavaScript" src="./js/LoginCompany.js"></script>
 
 </head>
 <body>
     <ul class="nav nav-pills"> <!--Menu Superior-->
-        <li role="presentation" class="active"><a href="./index.html" style="color:black">Mudanças<span style="color:red">Já</span></a></li>  <!--Home-->
-        <li role="presentation"><a href="./cadastro.html">Cadastro</a></li>  <!--Vai para cadastro-->
-        <li role="presentation"><a href="./LoginEmp.html">Empresa</a></li>  <!--Cadastro Empresa-->        
+        <li role="presentation"><a href="./index.html" style="color:black">Mudanças<span style="color:red">Já</span></a></li>  <!--Home-->
+        <li role="presentation" class="active"><a href="./LoginEmp.html">Login Empresa</a></li>  <!--Cadastro Empresa-->        
+        <li role="presentation"><a href="./empresa.html">Cadastrar Empresa</a></li>  <!--Vai para cadastro-->
     </ul>
     
-    <div class="container">    
+    <div class="container">
+
         <!--Div para o Nome ou logo-->
         <div class="jumbotron" style="background-color: rgba(255,255,255,0.0)">
             <!--H1 para destacar o nome, na parte superior esqueda da tela-->
-            <h1 style="color: white">Mudanças <span style="color:red">Já</span></h1>
+            <h1 style="color: white">Empresas</h1>
 
             <!--Um pequeno parágrafo para descrever o site em poucas palavras-->
-            <p style="color: white">Solução para as suas Mudanças</p>
+            <p style="color: white">Para Prestadores</p>
         </div>
 
         <!--div para o Login-->  
@@ -55,7 +56,7 @@
                     <label for="email" class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-10">
                         <!--Caixa de texto para digitar o email-->
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" name="idUser">
+                        <input type="email" class="form-control" name="emailComp" id="emailComp" placeholder="Email" name="idUser">
                     </div>
                 </div>
             
@@ -64,7 +65,7 @@
                     <label for="password" class="col-sm-2 control-label">Password</label>
                     <div class="col-sm-10">
                         <!--Caixa de texto para digitar a senha com o type password onde mascara o que foi digitado-->
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Password" name="passwd">
+                        <input type="password" class="form-control" name="passwordComp" id="passwordComp" placeholder="Password" name="passwd">
                     </div>
                 </div>
 
@@ -76,7 +77,7 @@
                 </div>
             </form>
         </div>
-
+        
     </div>
 </body>
 </html>

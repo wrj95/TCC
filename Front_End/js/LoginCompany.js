@@ -23,8 +23,18 @@ $(document).ready(function(){
                     success: function(data) {
                          //??
                     },
-                    error: function(){
-                        alert('Erro')
+                    error: function(request, status, erro){
+                        //Captando o erro retornado da API
+                        var erroJ = JSON.parse(request.responseText);
+
+                        //Se o erro for igual a "Email and Password does not match", significa que Email e Senha Incorretos
+                        if(erroJ.data === "Email and Password does not match"){
+                            alert("Senha Incorreta");
+                        };
+                        //Erro de que email nao existe
+                        if(erroJ.data === "Email does not exists!"){
+                            alert("Email não Cadastrado");
+                        }
                     }
                 }).done(function(result){
                         //Aqui será tratada à resposta do Servidor

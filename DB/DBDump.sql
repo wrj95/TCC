@@ -22,7 +22,7 @@
 
 DROP TABLE IF EXISTS `tab_empresa`;
 
-CREATE TABLE `sys`.`tab_empresa` (
+CREATE TABLE `tab_empresa` (
   `cod_empresa` INT NOT NULL AUTO_INCREMENT,
   `nome_fantasia` VARCHAR(100) NULL,
   `razao_social` VARCHAR(150) NULL,
@@ -32,8 +32,8 @@ CREATE TABLE `sys`.`tab_empresa` (
   `endereco` VARCHAR(100) NOT NULL,
   `data_cadastro` DATETIME NOT NULL DEFAULT NOW(),
   PRIMARY KEY (`cod_empresa`),
-  UNIQUE INDEX `cnpj_UNIQUE` (`cnpj` ASC) VISIBLE,
-  INDEX `fk_empresa_uf_idx` (`cod_uf` ASC) VISIBLE,
+  UNIQUE INDEX `cnpj_UNIQUE` (`cnpj` ASC),
+  INDEX `fk_empresa_uf_idx` (`cod_uf` ASC),
   CONSTRAINT `fk_empresa_uf`
     FOREIGN KEY (`cod_uf`)
     REFERENCES `sys`.`tab_uf` (`cod_uf`)
@@ -43,8 +43,7 @@ CREATE TABLE `sys`.`tab_empresa` (
     FOREIGN KEY (`cod_municipio`)
     REFERENCES `sys`.`tab_municipio` (`cod_municipio`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-COMMENT = 'Cadastro de Empresas.';
+    ON UPDATE NO ACTION);
 
 --
 -- Table structure for table `tab_usuario`

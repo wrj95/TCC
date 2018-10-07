@@ -162,21 +162,22 @@ module.exports = function (application) {
         //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
         */
         var email = req.body.email;
+        //var city = req.body.cidades; //I need you make a select to catch the City ID before to insert 
 
         //Data informed from user that after it'll be load in Database
         var userData = { //Make a mapping of the data that it'll be passed by Front-End
-            "data_cadastro": today,
-            "nome_fantasia": req.body.name_fant,
-            "razao_social": req.body.raz_soc,
-            "cnpj": req.body.cpf,
-            "telefone": req.body.tel,
-            "email": req.body.email,
-            "email_alternativo": req.body.emailAlt,
-            "senha": req.body.passwd,
-            "flg_concorda_termos": req.body.checkboxTerm,
-            "cod_uf": 'x',
-            "cod_municipio":'x',
-            "endereco": 'x'
+            "data_cadastro": today, //Tab_empresa
+            "nome_fantasia": req.body.name_fant, //tab_empresa
+            "razao_social": req.body.raz_soc, //tab_empresa
+            "cnpj": req.body.cpf, //tab_empresa
+            //"telefone": req.body.tel, //Tab_contatos
+            //"email": req.body.email, //tab_contatos
+            //"email_alternativo": req.body.emailAlt, //tab_contatos
+            //"senha": req.body.passwd, //???
+            "flg_concorda_termos": req.body.checkboxTerm, //tab_empresa
+            "cod_uf": req.body.estados, //tab_empresa
+            "cod_municipio":'x', //tab_empresa
+            "endereco": req.body.endEmp //tab_empresa
         }
 
         //Try to get a connection on database if has error return 500 status
@@ -193,6 +194,7 @@ module.exports = function (application) {
                 let companyDAO = new application.api.models.companyDAO(connection)
                 companyDAO.checkEmail(email, function (err, rows, fields) {
                     if (err) {
+                        console.log(err);
                         appData.error = 1;
                         appData["data"] = "Error Occured!";
                         res.status(400).json(appData);

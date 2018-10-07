@@ -6,7 +6,7 @@ $(document).ready(function(){
                 passwordComp:{required: true}, //Nao aceita o campo SobreNome vazio
             },
             messages: {
-                emailComp:{required: 'Insira E-mail de Login', email: 'Insira um email válido'},
+                emailComp:{required: 'Insira E-mail de Login', email: 'Email Inválido'},
                 passwordComp:{required: 'Informe a Senha para Login'},
             },
             submitHandler: function(form){

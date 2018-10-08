@@ -10,14 +10,15 @@ module.exports = function (application) {
     application.post('/user/register', function (req, res) {
         var today = new Date();
 
-        //The lib moment convert String to Date on date format Brazil
-        var dt_nasc = moment(req.body.dataNascimento, "DD/MM/YYYY").toDate();
-
         //Data object returned from api
         var appData = {
             "error": 1,
             "data": ""
         };
+        
+        //The lib moment convert String to Date on date format Brazil
+        var dt_nasc = moment(req.body.dataNascimento, "DD/MM/YYYY").toDate();
+        
         /*
         //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
         */
@@ -78,7 +79,7 @@ module.exports = function (application) {
                                                 console.log(err);
                                                 appData.error = 1;
                                                 appData["data"] = "Error Occured!";
-                                                res.status(400).json(appData);
+                                                res.status(401).json(appData);
                                             } else {
                                                 appData.error = 0;
                                                 appData["data"] = "User registered successfully!";
@@ -122,8 +123,7 @@ module.exports = function (application) {
                     } else {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
-                            //rows[0].senha -> Problem with .password, on tab_empresa table, the column is named as "senha", not "password".
-                            if (rows[0].password == password) {
+                            if (rows[0].senha == password) {
                                 let token = jwt.sign(rows[0], process.env.SECRET_KEY, {
                                     expiresIn: 1440
                                 });
@@ -134,7 +134,7 @@ module.exports = function (application) {
                             } else {
                                 appData.error = 1;
                                 appData["data"] = "Email and Password does not match";
-                                res.status(404).json(appData);
+                                res.status(401).json(appData);
                             }
                         } else {
                             appData.error = 1;
@@ -168,7 +168,7 @@ module.exports = function (application) {
             "data_cadastro": today,
             "nome_fantasia": req.body.name_fant,
             "razao_social": req.body.raz_soc,
-            "cnpj": req.body.cpf,
+            "cnpj": req.body.cnpj,
             "telefone": req.body.tel,
             "email": req.body.email,
             "email_alternativo": req.body.emailAlt,
@@ -261,8 +261,7 @@ module.exports = function (application) {
                     } else {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
-                            //rows[0].senha -> Problem with .password, on tab_empresa table, the column is named as "senha" not "password".
-                            if (rows[0].password == password) {
+                            if (rows[0].senha == password) {
                                 let token = jwt.sign(rows[0], process.env.SECRET_KEY, {
                                     expiresIn: 1440
                                 });

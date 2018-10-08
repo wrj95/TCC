@@ -9,16 +9,18 @@ const dotenv = require('dotenv');
 dotenv.config()
 const port = process.env.PORT || 3050;
 
+app.use(cors());
+
 //Loads the middlewares to parse these data format
 app.use(express.urlencoded({
     extended: true
 }));
 app.use(express.json())
-app.use(cors());
 
 
 consign()
     .include("./api/routes/authentication.js")
+    .then("./config/middleware.js")
     .then("./api/routes")
     .then("./api/models")
     .then("./config")

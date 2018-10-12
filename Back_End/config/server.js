@@ -23,6 +23,7 @@ consign()
     .then("./api/routes")
     .then("./api/models")
     .then("./config/database.js")
+    .then("./config/errorhandler.js")
     .into(app)
 
 module.exports = app ;

@@ -1,12 +1,4 @@
-var cors = require("cors")
-var bcrypt = require('bcryptjs');
-var jwt = require("jsonwebtoken");
-
-
-
 module.exports = function (application) {
-    application.use(cors());
-
 
     application.get("/company/getCompany", function (req, res) {
         let appData = {};

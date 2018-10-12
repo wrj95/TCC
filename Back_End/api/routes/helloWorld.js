@@ -1,12 +1,5 @@
-var cors = require("cors")
-var bcrypt = require('bcryptjs');
-var jwt = require("jsonwebtoken");
-
 module.exports = function (application) {
     
-application.use(cors());
-
-
 application.get("/hello/world", function (req, res) {
     let appData = {};
     //Try to get a connection on database if has error return 500 status

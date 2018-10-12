@@ -15,7 +15,7 @@ userDAO.prototype.register = function (userData, callback) {
 }
 
 userDAO.prototype.login = function (userData, callback) {
-    this._connection.query("SELECT * FROM mydatabase.users WHERE email = ?", userData, callback)
+    this._connection.query("SELECT * FROM mydatabase.tab_usuario WHERE email = ?", userData, callback)
 }
 
 module.exports = function () {

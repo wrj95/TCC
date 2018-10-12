@@ -1,16 +1,19 @@
 version: '3'
 
 services:
-  web:
+  front-end:
     build: 
       context: ./Front_End
       dockerfile: Dockerfile
     container_name: WebPages
+    networks:
+      tcc:
+        ipv4_address: '10.1.0.101'
     ports:
       - "8000:80"
-    networks:
-      - default
-  node:
+    depends_on:
+      - node_app
+  node_app:
     build:
       context: ./Back_End
       dockerfile: Dockerfile
@@ -26,22 +29,32 @@ services:
       - DB_DATABASE=mydatabase
       - PORT=3050
       - SECRET_KEY=mydatabase
+    expose:
+      - 3050
+    networks: 
+      tcc:
+        ipv4_address: '10.1.0.102'
     ports:
       - 3050:3050
-    networks: 
-      - default 
-  mysql:
+    depends_on:
+      - mysql_app
+  mysql_app:
     image: mysql:5.7
     container_name: mysql_app
     tty: true
     stdin_open: true
+    networks: 
+      tcc:
+        ipv4_address: '10.1.0.103'
     ports: 
       - 3306:3306
     environment:
       - MYSQL_DATABASE=mydatabase
       - MYSQL_ROOT_PASSWORD=yourpassword
       - MYSQL_USER=user
-    networks: 
-      - default
 networks:
-  default:
+  tcc:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.1.0.0/24

@@ -18,6 +18,10 @@ userDAO.prototype.login = function (userData, callback) {
     this._connection.query("SELECT * FROM mydatabase.tab_usuario WHERE email = ?", userData, callback)
 }
 
+userDAO.prototype.listUsers = function (callback) {
+    this._connection.query("SELECT * FROM mydatabase.tab_usuario", callback)
+}
+
 module.exports = function () {
     return userDAO;
 }

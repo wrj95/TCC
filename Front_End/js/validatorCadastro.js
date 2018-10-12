@@ -5,6 +5,18 @@ $(document).ready(function(){
     $('#cel').mask("(99)99999-9999"); //Tratando Numero de Celular
     $('#cpf').mask("99999999999")
 
+    $("#name").keyup(function() { //Validacao do campo nome
+        //Substitui por nada, tudo aquilo que nao for de encontro com o Regx declarado, ou seja, letra e caracteres especiais
+		var valor = $("#name").val().replace(/[^ a-zA-ZéúíóáÉÚÍÓÁèùìòàçÇÈÙÌÒÀõãñÕÃÑêûîôâÊÛÎÔÂëÿüïöäËYÜÏÖÄ]/,'');
+		$("#name").val(valor);
+    });
+    
+    $("#sobName").keyup(function() { //Validacao do campo nome
+        //Substitui por nada, tudo aquilo que nao for de encontro com o Regx declarado, ou seja, letra e caracteres especiais
+		var valor = $("#sobName").val().replace(/[^ a-zA-ZéúíóáÉÚÍÓÁèùìòàçÇÈÙÌÒÀõãñÕÃÑêûîôâÊÛÎÔÂëÿüïöäËYÜÏÖÄ]/,'');
+		$("#sobName").val(valor);
+    });
+        
     $('#cadastrar').click(function (e) { //Quando o botao do formulario e acionado
         $.validator.addMethod("dateBR", function(value, element) {
             if(value.length!=10) return false;
@@ -41,12 +53,12 @@ $(document).ready(function(){
                 if ((x = b % 11) < 2) { a[10] = 0; } else { a[10] = 11 - x; }
                 if ((cpf.charAt(9) != a[9]) || (cpf.charAt(10) != a[10]) || cpf.match(expReg)) return false;
                 return true;
-        }, "Informe um CPF válido."); 
+        }, "CPF Inválido."); 
 
         $('#myform').validate({ //Validação dos campos do formulário
             rules: { //Regras de Validacao
-                name:{required: true, maxlenght: 50}, //Nao aceita o campo Nome vazio e nao pode passar de 50 caracteres
-                sobName:{required: true, maxlenght: 50}, //Nao aceita o campo SobreNome vazio e nao pode passar de 50 caracteres
+                name:{required: true}, //Nao aceita o campo Nome vazio e nao pode passar de 50 caracteres
+                sobName:{required: true}, //Nao aceita o campo SobreNome vazio e nao pode passar de 50 caracteres
                 cpf:{required: true, cpf: true}, //Nao aceita o campo CPF vazio
                 tel:{required: true, minlength: 10}, //Nao aceita o campo Telefone vazio   
                 email:{required: true, email: true}, //Nao aceita o campo Email vazio
@@ -61,8 +73,8 @@ $(document).ready(function(){
                 sobName:{required: 'Campo Obrigatório', maxlenght: 'Excedeu o limite máximo de Caracteres'},
                 cpf:{required: 'Campo Obrigatório'},
                 tel:{required: 'Campo Obrigatório', minlength: 'Telefone inválido'},
-                email:{required: 'Campo Obrigatório', email: 'Insira um email válido'},
-                emailAlt:{required: 'Campo Obrigatório', email: 'Insira um email válido'},
+                email:{required: 'Campo Obrigatório', email: 'Email Inválido'},
+                emailAlt:{required: 'Campo Obrigatório', email: 'Email Inválido'},
                 passwd:{required: 'Campo Obrigatório', minlength: 'Senha de no minimo 3 caracteres'},
                 passwdConfirm:{required: 'Campo Obrigatório', equalTo: 'Senhas diferentes'},
                 dataNascimento:{required: 'Campo Obrigatório'},

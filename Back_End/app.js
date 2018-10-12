@@ -5,6 +5,10 @@ const consign = require('consign');
 const dotenv = require('dotenv');
 
 
+// Definition of view engine and views directory
+app.set('view engine', 'ejs');
+app.set('views', './api/views');
+
 //Loads the environment variables
 dotenv.config()
 const port = process.env.PORT || 3050;

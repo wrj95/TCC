@@ -1,7 +1,51 @@
 $(document).ready(function(){
+
+    $.getJSON('Dados/estados_cidades.json', function (data) {
+        var items = [];
+        var options = '<option value="">escolha um estado</option>'; //Iniciando com um Option default	
+        $.each(data, function (key, val) {
+            //Para cada Item Nome encontrado no JSON adicionar ao Select
+            options += '<option value="' + val.sigla + '">' + val.nome + '</option>';
+        });					
+        $("#estados").html(options); //Adiciona no Select estado do HTML
+        
+        $("#estados").change(function () {	//Quando uma cidade for escolhida	
+        
+            var options_cidades = '';
+            var str = "";					
+            
+            $("#estados option:selected").each(function () {
+                str += $(this).text(); //Pegando o Estado foi selecionado no Estado
+            });
+            
+            $.each(data, function (key, val) {
+                if(val.nome == str) { //Se de todos os Estados, o for de encontro com o que fora selecionado, entao entre no IF			
+                    $.each(val.cidades, function (key_city, val_city) { //Dentro do Estado, Pegue e adicione as Cidades no Select
+                        options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+                    });							
+                }
+            });
+            $("#cidades").html(options_cidades); //Adicione as Cidades no Select
+            
+        }).change();		
+    
+    });
+
     $('#tel').mask("(99)9999-9999"); //Tratando Numero de Telefone
     $('#cel').mask("(99)99999-9999"); //Tratando Numero de Celular
     $('#cnpj').mask("99999999999999") //Tratando CNPJ
+    
+    $("#name_fant").keyup(function() { //Validacao do campo nome
+        //Substitui por nada, tudo aquilo que nao for de encontro com o Regx declarado, ou seja, letra e caracteres especiais
+		var valor = $("#name_fant").val().replace(/[^ a-zA-ZéúíóáÉÚÍÓÁèùìòàçÇÈÙÌÒÀõãñÕÃÑêûîôâÊÛÎÔÂëÿüïöäËYÜÏÖÄ]/,'');
+		$("#name_fant").val(valor)
+    });
+    
+    $("#raz_soc").keyup(function() { //Validacao do campo nome
+        //Substitui por nada, tudo aquilo que nao for de encontro com o Regx declarado, ou seja, letra e caracteres especiais
+		var valor = $("#raz_soc").val().replace(/[^ a-zA-ZéúíóáÉÚÍÓÁèùìòàçÇÈÙÌÒÀõãñÕÃÑêûîôâÊÛÎÔÂëÿüïöäËYÜÏÖÄ]/,'');
+		$("#raz_soc").val(valor)
+    }); 
 
     $('#cadastrar').click(function (e) { //Quando o botao do formulario e acionado
         $.validator.addMethod("cnpj", function(cnpj, element) {
@@ -54,29 +98,34 @@ $(document).ready(function(){
             }else{
                 return this.optional(element) || false;
             }
-        }, "Informe um CNPJ válido.");
+        }, "CNPJ Inválido");
 
         $('#myform').validate({ //Validação dos campos do formulário
             rules: { //Regras de Validacao
-                name_fant:{required: true, maxlenght: 100}, //Nao aceita nome fantasia vazio
-                raz_soc:{required: true, maxlenght: 150}, //Nao aceita razao social vazio
+                name_fant:{required: true}, //Nao aceita nome fantasia vazio
                 cnpj:{required: true, cnpj: true}, //Nao aceita o campo CPF vazio
                 tel:{required: true, minlength: 10}, //Nao aceita o campo Telefone vazio
                 email:{required: true, email: true}, //Nao aceita o campo Email vazio e um email válido
                 emailAlt:{required: true, email: true}, //Nao aceita o campo Email Alternativo vazio e um email válido
                 passwd:{required: true, minlength: 3}, //Nao aceita o campo Senha do Endereco vazio, senha de no minimo 3 caracteres
                 passwdConfirm:{required: true, equalTo: '#passwd'}, //Nao aceita o campo Confirmacao de Senha do Endereco vazio e igual ao campo Senha
-                checkboxTerm:{required:true}
+                checkboxTerm:{required: true}, //Obriga a marcacao do Termos de Uso
+                estados: {required: true}, //obriga a selecao do Estado
+                cidades:{required: true}, //obrigado a selecao da Cidade
+                endEmp:{required: true}
             },
             messages: {
-                name_fant:{required: 'Campo Obrigatório', maxlenght: 'Excedeu o limite máximo de Caracteres'},
-                raz_soc:{required: 'Campo Obrigatório', maxlenght: 'Excedeu o limite máximo de Caracteres'},    
+                name_fant:{required: 'Campo Obrigatório'},   
                 cnpj:{required: 'Campo Obrigatório'},
                 tel:{required: 'Campo Obrigatório', minlength: 'Telefone inválido'},                        
-                email:{required: 'Campo Obrigatório', email: 'Insira um Endereço de E-mail válido'},
-                emailAlt:{required: 'Campo Obrigatório', email: 'Insira um Endereço de E-mail válido'},
+                email:{required: 'Campo Obrigatório', email: 'E-mail Inválido'},
+                emailAlt:{required: 'Campo Obrigatório', email: 'E-mail Inválido'},
                 passwd:{required: 'Campo Obrigatório', minlength: 'Senha de no minimo 3 caracteres'},
-                passwdConfirm:{required: 'Campo Obrigatório', equalTo: 'senhas diferentes'}
+                passwdConfirm:{required: 'Campo Obrigatório', equalTo: 'senhas diferentes'},
+                checkboxTerm:{required: 'Aprove os termos de uso antes de continuar'},
+                estados:{required: 'Campo Obrigatório'},
+                cidades: {required: 'Campo Obrigatório'},
+                endEmp: {required: 'Campo Obrigatório'}
             },
             submitHandler: function(form){
                 //Aqui pega o formulário e o converte em JSON
@@ -91,7 +140,7 @@ $(document).ready(function(){
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(data) {
                          alert('Cadastro realizado com Sucesso');
-                         location.href("./home.html")
+                         location.href("./LoginEmp.html")
                     },
                     error: function(request, status, erro){
                         //Captando o erro retornado da API

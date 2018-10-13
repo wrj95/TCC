@@ -22,6 +22,19 @@ userDAO.prototype.listUsers = function (callback) {
     this._connection.query("SELECT * FROM mydatabase.tab_usuario", callback)
 }
 
+/*//Select catch the address registered by user  
+userDAO.prototype.getAddress = function (userData, callback){
+    this._connection.query("SELECT cod_endereco, des_endereco FROM mydatabase.tab_endereco_usuario WHERE cod_usuario = (SELECT cod_usuario FROM mydatabase.tab_usuario WHERE email = ?)", userData, callback);
+}
+*/
+
+//Insert Request of Change to User
+userDAO.prototype.registerRequest = function (userData, callback){
+    this._connection.query("INSERT INTO mydatabase.tab_solicitacao SET ?", userData, callback);
+}
+
+
+
 module.exports = function () {
     return userDAO;
 }

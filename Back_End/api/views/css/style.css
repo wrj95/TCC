@@ -1,0 +1,8 @@
+#divCabecalho{
+    justify-content: flex-end;
+}
+
+#LinhaDivisoria{
+    background-color: brown;
+    height: 3px;	
+}

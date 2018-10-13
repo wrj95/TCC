@@ -2,22 +2,31 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		
+		<title>Emissão de Orçamento</title>
+				
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-		
-		<style>
-			#divCabecalho{
-				justify-content: flex-end;
-			}
-			
-			#LinhaDivisoria{
-				background-color: brown;
-				height: 3px;	
-			}
-		</style>
-		
-		<title>Emiss&atilde;o de Or&ccedil;amento</title>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+		<!-- Jquery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+		<!-- Plugin JQuery Validate -->
+		<script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+	
+		<!-- Form Validation -->
+		<script type="text/javascript" src="./js/validateRespond.js"></script>
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
@@ -25,7 +34,7 @@
 				<button type="button" class="btn btn-sm">Meu Cadastro</button>
             </a>
 			<a href="" target="_blank">
-				<button type="button" class="btn btn-sm">Meus Or&ccedil;amentos</button>
+				<button type="button" class="btn btn-sm">Meus Orçamentos</button>
 			</a>
 			<a href="" target="_blank">
 				<button type="button" class="btn btn-sm">Sair</button> 
@@ -33,43 +42,42 @@
 		</div>
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
-		<h1 class="col-sm-12">Emiss&atilde;o de Or&ccedil;amento</h1>
+		<h1 class="col-sm-12">Emissão de Orçamento</h1>
 		<div class="container-fluid">
-			<div class="row col-sm-12">
-				<div class="col-sm-12">
-					<label for="titOrcamento">Título do Or&ccedil;amento:</label>
-					<input type="text" class="form-control col-sm-10" id="titOrcamento" maxlength="100">
+			<form class="form-horizontal" id="formRespond" action="user/respond" method="POST">
+				<div class="row col-sm-12">
+					<div class="col-sm-12">
+						<label for="titOrcamento">Título do Orçamento:</label>
+						<input type="text" class="form-control col-sm-10" name="titOrcamento" id="titOrcamento" maxlength="100">
+					</div>
+					<div class="col-sm-3">
+						<label for="TempoTransp">Horas Necessárias:</label>
+						<input type="time" class="form-control" placeholder="hh:mm" name="TempoTransp" id="TempoTransp">
+					</div>
+					<div class="col-sm-3">
+						<label for="chkEmpacota">Empacotador:</label>
+						<input class="form-control" type="checkbox" name="chkEmpacota" id="chkEmpacota">
+					</div>
+					<div class="col-sm-3">
+						<label for="chkSeguro">Seguro para Carga:</label>
+						<input class="form-control" type="checkbox" name="chkSeguro" id="chkSeguro">
+					</div>				
+					<div class="col-sm-3">
+						<label for="valor">Valor:</label>
+						<input type="text" class="form-control" placeholder="0,00" name="valor" id="valor">
+					</div>
+					<div class="col-sm-12">
+						<label for="desSolicitacao">Descrição do Orçamento:</label>
+						<textarea class="form-control" name="desSolicitacao" id="desSolicitacao" rows="8" maxlength="2000"></textarea>
+						
+						<div class="row">
+							<input type="submit" class="col-sm-2" id="btnConfirmar" value="Confirmar">
+							<input type="button" class="col-sm-2" id="btnCancelar" value="Cancelar">
+							<input type="reset" class="col-sm-2" id="btnRedefinir" value="Redefinir">
+						</div>
+					</div>
 				</div>
-				<div class="col-sm-3">
-					<label for="TempoTransp">Horas Necessárias:</label>
-					<input type="time" class="form-control" placeholder="hh:mm" id="TempoTransp">
-				</div>
-				<div class="col-sm-3">
-					<label for="chkEmpacota">Empacotador:</label>
-					<input class="form-control" type="checkbox" id="chkEmpacota">
-				</div>
-				<div class="col-sm-3">
-					<label for="chkSeguro">Seguro para Carga:</label>
-					<input class="form-control" type="checkbox" id="chkSeguro">
-				</div>				
-				<div class="col-sm-3">
-					<label for="valor">Valor:</label>
-					<input type="text" class="form-control" placeholder="0,00" id="valor">
-				</div>
-				<div class="col-sm-12">
-					<label for="desSolicitacao">Descri&ccedil;&atilde;o do Or&ccedil;amento:</label>
-					<textarea class="form-control" id="desSolicitacao" rows="8" maxlength="2000"></textarea>
-					<input type="submit" class="col-sm-2" id="btnConfirmar" value="Confirmar">
-					<input type="button" class="col-sm-2" id="btnCancelar" value="Cancelar">
-					<input type="reset" class="col-sm-2" id="btnRedefinir" value="Redefinir">
-				</div>
-			</div>
-		</div>
-		
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-		
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+			</form>
+		</div>	
 	</body>
 </html>

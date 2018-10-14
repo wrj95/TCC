@@ -17,8 +17,9 @@ application.use(function (req, res, next) {
         });
     } else {
         appData["error"] = 1;
-        appData["data"] = "Please send a token";
-        res.status(403).json(appData);
+        appData["data"] = "Please send a token or login";
+        res.redirect(301, "http://10.1.0.101:80/")
+        // res.status(403).json(appData);
     }
 });
 }

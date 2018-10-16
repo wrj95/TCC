@@ -28,12 +28,10 @@ application.get("/user/getUsers", function (req, res) {
 });
 
 
-
 application.get("/user/orcamento/solicitacao/:email", function (req,res) {
 
     let appData = {};
-    var email = req.param.email;
-    console.log('chegou aqui')
+    let email = req.params.email;
     let database = application.config.database()
     database.getConnection(function (err,connection) {
         if (err) {
@@ -41,9 +39,19 @@ application.get("/user/orcamento/solicitacao/:email", function (req,res) {
             appData["data"] = "Internal Server Error";
             res.status(500).json(appData);
         } else {
+            console.log(email)
             let userDAO = new application.api.models.userDAO(connection)
             userDAO.getAddress(email, function (err, rows, fields) {
-                    res.render("user/solicitacao", {address: rows});
+                if (!err) {
+                    appData["error"] = 0;
+                    appData["data"] = rows;
+                    console.log(rows)
+                    res.status(200).json(appData);
+                } else {
+                    appData["data"] = "No data found";
+                    console.log(err)
+                    res.status(404).json(appData);
+                }
             });
             connection.release();
         }

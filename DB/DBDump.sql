@@ -131,7 +131,7 @@ CREATE TABLE `tab_usuario` (
 
 LOCK TABLES `tab_usuario` WRITE;
 /*!40000 ALTER TABLE `tab_usuario` DISABLE KEYS */;
-INSERT INTO `tab_usuario` VALUES (1,'Welinton','Ribeiro Junior','1995-05-24','44089264855','welintonribeirojunior@gmail.com','nozora123','juniortrimundial@hotmail.com','(11)5893-1497','(11)99378-1102','S','2018-09-25');
+INSERT INTO `tab_usuario` VALUES (1,'Welinton','Ribeiro Junior','1995-05-24','44089264855','teste@gmail.com','123','juniortrimundial@hotmail.com','(11)5893-1497','(11)99378-1102','S','2018-09-25');
 /*!40000 ALTER TABLE `tab_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

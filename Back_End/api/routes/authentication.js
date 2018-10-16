@@ -131,6 +131,7 @@ module.exports = function (application) {
                                 appData["data"] = "Successful login"
                                 appData["token"] = token;
                                 res.status(200).json(appData);
+                                r//es.redirect(200, "/user/orcamento/solicitacao/"+ email);
                             } else {
                                 appData.error = 1;
                                 appData["data"] = "Email and Password does not match";

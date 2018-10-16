@@ -39,10 +39,10 @@
 			<a href="" target="_blank">
 				<button type="button" class="btn btn-sm">Meu Cadastro</button>
             </a>
-			<a href="" target="_blank">
+			<a href="./minhasSolicitacoes.ejs" target="_blank">
 				<button type="button" class="btn btn-sm">Minhas Solicitações</button>
 			</a>
-			<a href="" target="_blank">
+			<a href="localhost:8000" target="_blank">
 				<button type="button" class="btn btn-sm">Sair</button> 
 			</a>
 		</div>
@@ -61,8 +61,8 @@
 						<select class="form-control col-sm-6" name="endOrigem" id="endOrigem">
 							<option disabled selected value>Origem</option>
 							<!-- Select Option to Origin -->
-							<% for (var i=0;i<origin.length; i++){%>
-								<option value='<%= origin[i].cod_endereco %>'><%= origin[i].cod_endereco %></option>
+							<% for (var i=0;i<address.length; i++){%>
+								<option value='<%= address[i].cod_endereco %>'><%= address[i].endereco %></option>
 							<% } %>
 						</select>
 					</div>
@@ -71,8 +71,8 @@
 						<select class="form-control col-sm-6" name="endDestino" id="endDestino">
 							<option disabled selected value>Destino</option>
 							<!-- Select Option to Destiny -->
-							<% for (var i=0;i<destiny.length; i++){%>
-								<option value='<%= destiny[i].cod_endereco %>'><%= destiny[i].cod_endereco %></option>
+							<% for (var i=0;i<address.length; i++){%>
+								<option value='<%= address[i].cod_endereco %>'><%= address[i].endereco %></option>
 							<% } %>
 						</select>
 					</div>				

@@ -22,11 +22,11 @@
 		<!-- Plugin JQuery Validate -->
 		<script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
-    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>		
-		
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
+	
 		<!-- Iniciando as tarefas com o JQuery -->
 		<script type="text/JavaScript" src="../js/Mascaras.js"></script>
-		<script type="text/JavaScript" src="./js/AddressUser.js"></script>
+		<script type="text/JavaScript" src="./js/validateContactCompany.js"></script>
 		
 		<title>Cadastro de Contatos</title>
 	</head>
@@ -35,8 +35,8 @@
 			<a href="" target="_blank">
 				<button type="button" class="btn btn-sm">Meu Cadastro</button>
             </a>
-			<a href="./solicitacao.ejs" target="_blank">
-				<button type="button" class="btn btn-sm">Solicitar Mudança</button>
+			<a href="" target="_blank">
+				<button type="button" class="btn btn-sm">Meus Orçamentos</button>
 			</a>
 			<a href="localhost:8000" target="_blank">
 				<button type="button" class="btn btn-sm">Sair</button>
@@ -44,37 +44,25 @@
 		</div>
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
-		<h1 class="col-sm-12">Cadastro de Endereços</h1>
+		<h1 class="col-sm-12">Cadastro de Contatos</h1>
 		<div class="container-fluid">
-			<form class="form-horizontal" id="formAddress" action="user/request" method="POST">	
+			<form class="form-horizontal" id="formContact" action="company/contact" method="POST">
 				<div class="row col-sm-12">
-					<div class="col-sm-2">
-						<label for="cep">CEP:</label>					
-						<input type="text" class="cep form-control" name="cep" id="cep" placeholder="99999-999">
-					</div>
-					<div class="col-sm-5">
-						<label for="UF">UF:</label>
-						<select class="form-control" name="UF" id="UF"></select>
-					</div>
-					<div class="col-sm-5">
-						<label for="municipio">Município:</label>
-						<select class="form-control" name="municipio" id="municipio"></select>
-					</div>				
 					<div class="col-sm-6">
-						<label for="endereco">Endereço:</label>
-						<input type="text" class="form-control" name="endereco" id="endereco" maxlength="200">
+						<label for="nome">Nome:</label>
+						<input type="text" class="form-control" name="nome" id="nome" maxlength="50">
 					</div>
-					<div class="col-sm-1">
-						<label for="numero">Nº:</label>
-						<input type="text" class="form-control" numero="numero" id="numero">
-					</div>
-					<div class="col-sm-2">
-						<label for="bairro">Bairro:</label>
-						<input type="text" class="form-control" name="bairro" id="bairro" maxlength="50">
-					</div>
+					<div class="col-sm-6">
+						<label for="sobrenome">Sobrenome:</label>
+						<input type="text" class="form-control" name="sobrenome" id="sobrenome" maxlength="50">
+					</div>				
 					<div class="col-sm-3">
-						<label for="bairro">Complemento:</label>
-						<input type="text" class="form-control" name="complemento" id="complemento" maxlength="50">
+						<label for="telefone">Telefone:</label>					
+						<input type="text" class="telefone form-control" name="telefone" id="telefone" placeholder="(99) 9999-9999" maxlength="20">
+					</div>
+					<div class="col-sm-9">
+						<label for="email">E-Mail:</label>
+						<input type="text" class="form-control" name="email" id="email" placeholder="example@example.com" maxlength="45">
 					</div>
 					<div class="col-sm-12">
 						<input type="submit" class="col-sm-2" id="btnConfirmar" value="Confirmar">

@@ -122,7 +122,7 @@ CREATE TABLE `tab_usuario` (
   `data_cadastro` date NOT NULL,
   PRIMARY KEY (`cod_usuario`),
   UNIQUE KEY `CPF_UNIQUE` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Cadastro de usuários.';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de usuários.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,8 +131,7 @@ CREATE TABLE `tab_usuario` (
 
 LOCK TABLES `tab_usuario` WRITE;
 /*!40000 ALTER TABLE `tab_usuario` DISABLE KEYS */;
-INSERT INTO `tab_usuario` VALUES (1,'Welinton','Ribeiro Junior','1995-05-24','44089264855','teste@gmail.com','123','juniortrimundial@hotmail.com','(11)5893-1497','(11)99378-1102','S','2018-09-25');
-INSERT INTO `tab_usuario` VALUES (2,'Gabriel','Pellegrini','1995-05-24','41769334882','gabriel@gmail.com','123','juniortrimundial@hotmail.com','(11)5893-1497','(11)99378-1102','S','2018-09-25');
+INSERT INTO `tab_usuario` VALUES (1,'Welinton','Ribeiro Junior','1995-05-24','44089264855','welintonribeirojunior@gmail.com','nozora123','juniortrimundial@hotmail.com','(11)5893-1497','(11)99378-1102','S','2018-09-25');
 /*!40000 ALTER TABLE `tab_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

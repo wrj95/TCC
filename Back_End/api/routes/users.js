@@ -29,10 +29,11 @@ application.get("/user/getUsers", function (req, res) {
 
 
 
-application.get("/user/orcamento/solicitacao", function (req,res) {
+application.get("/user/orcamento/solicitacao/:email", function (req,res) {
 
-    let appData = {}
-
+    let appData = {};
+    var email = req.param.email;
+    console.log('chegou aqui')
     let database = application.config.database()
     database.getConnection(function (err,connection) {
         if (err) {
@@ -41,13 +42,12 @@ application.get("/user/orcamento/solicitacao", function (req,res) {
             res.status(500).json(appData);
         } else {
             let userDAO = new application.api.models.userDAO(connection)
-            userDAO.listUsers(function (err, rows, fields) {
-                    res.render("solicitacao")
+            userDAO.getAddress(email, function (err, rows, fields) {
+                    res.render("user/solicitacao", {address: rows});
             });
             connection.release();
         }
     })
-
 });
 
 

@@ -45,8 +45,10 @@ application.get("/user/orcamento/solicitacao/:email", function (req,res) {
                 if (!err) {
                     appData["error"] = 0;
                     appData["data"] = rows;
-                    console.log(rows)
-                    res.status(200).json(appData);
+                    res.render("user/solicitacao",{
+                        address: rows
+                    });
+
                 } else {
                     appData["data"] = "No data found";
                     console.log(err)

@@ -50,6 +50,38 @@ LOCK TABLES `tab_empresa` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tab_endereco`
+--
+
+DROP TABLE IF EXISTS `tab_endereco`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tab_endereco` (
+  `cod_uf` int(11) NOT NULL,
+  `cod_municipio` int(11) NOT NULL,
+  `cod_endereco` int(11) NOT NULL AUTO_INCREMENT,
+  `CEP` char(8) DEFAULT NULL,
+  `endereco` varchar(200) DEFAULT NULL,
+  `numero` varchar(6) DEFAULT NULL,
+  `complemento` varchar(50) DEFAULT NULL,
+  `bairro` varchar(50) DEFAULT NULL,
+  `flg_usu_emp` char(1) NOT NULL,
+  `cod_usu_emp` int(11) NOT NULL,
+  PRIMARY KEY (`cod_endereco`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de endereços do usuário.';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tab_endereco`
+--
+
+LOCK TABLES `tab_endereco` WRITE;
+/*!40000 ALTER TABLE `tab_endereco` DISABLE KEYS */;
+INSERT INTO `tab_endereco` VALUES (1,1,1,'04931100','rua Capão Redondo','2','A','jd. Santa Margarida','u',1);
+/*!40000 ALTER TABLE `tab_endereco` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tab_municipio`
 --
 
@@ -144,4 +176,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-07  4:25:18
+-- Dump completed on 2018-10-17  2:47:26

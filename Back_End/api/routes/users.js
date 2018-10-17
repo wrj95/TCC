@@ -47,6 +47,8 @@ application.get("/user/orcamento/solicitacao/:email", function (req,res) {
                     appData["data"] = rows;
                     res.render("user/solicitacao",{
                         address: rows
+                    }, function(err, html){
+                        res.send('done');
                     });
 
                 } else {

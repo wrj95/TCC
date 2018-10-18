@@ -21,9 +21,11 @@ $(document).ready(function(){
                     data: json, //Enviando o formulario em formato JSON
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(data) {
-                        $('html').html(data);
+                        var email = json.email
+                        alert(email);
+                        window.location.href = 'http://10.1.0.102:3050/user/orcamento/solicitacao/' + email;
                     },
-                    error: function(request, status, erro){/*
+                    error: function(request, status, erro){
                         //Captando o erro retornado da API
                         var erroJ = JSON.parse(request.responseText);
 
@@ -34,11 +36,7 @@ $(document).ready(function(){
                         //Erro de que email nao existe
                         if(erroJ.data === "Email does not exists!"){
                             alert("Email não Cadastrado");
-                        }*/
-
-                        $('html').html(request.responseText);
-
-
+                        }
                     }
                 }).done(function(result){
 

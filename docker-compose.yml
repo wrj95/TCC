@@ -6,9 +6,13 @@ services:
       context: ./Front_End
       dockerfile: Dockerfile
     container_name: WebPages
+    tty: true
+    stdin_open: true    
     networks:
       tcc:
         ipv4_address: '10.1.0.101'
+    expose:
+      - 80        
     ports:
       - "8000:80"
     depends_on:

@@ -16,21 +16,29 @@ $(document).ready(function(){
                 //Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
                 $.post({
                     type: 'POST', //Tipo de Conexao
-                    url: 'http://localhost:3050/user/login', //URL da API
+                    url: 'http://10.1.0.102:3050/user/login', //URL da API
                     dataType: 'json', //Tipo de dado que sera transferido
                     data: json, //Enviando o formulario em formato JSON
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(data) {
                          //??
                     },
-                    error: function(){
-                        alert('Erro')
+                    error: function(request, status, erro){
+                        //Captando o erro retornado da API
+                        var erroJ = JSON.parse(request.responseText);
+
+                        //Se o erro for igual a "Email and Password does not match", significa que Email e Senha Incorretos
+                        if(erroJ.data === "Email and Password does not match"){
+                            alert("Email e Senha inválidos");
+                        };
+                        //Erro de que email nao existe
+                        if(erroJ.data === "Email does not exists!"){
+                            alert("Email não Cadastrado");
+                        }
                     }
                 }).done(function(result){
-                        //Aqui será tratada à resposta do Servidor
+
                 }).fail(function(jqXHR,textStatus,errorThrown){
-                        //alert(errorThrown);
-                        //Aqui será mostrado o erro que retornará do Servidor
                 });
             }                
         });

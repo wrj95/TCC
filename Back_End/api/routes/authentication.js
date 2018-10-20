@@ -10,25 +10,26 @@ module.exports = function (application) {
     application.post('/user/register', function (req, res) {
         var today = new Date();
 
-        //The lib moment convert String to Date on date format Brazil
-        var dt_nasc = moment(req.body.dataNascimento, "DD/MM/YYYY").toDate();
-
         //Data object returned from api
         var appData = {
             "error": 1,
             "data": ""
         };
+        
+        //The lib moment convert String to Date on date format Brazil
+        var dt_nasc = moment(req.body.dataNascimento, "DD/MM/YYYY").toDate();
+        
         /*
         //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
         */
         var email = req.body.email;
-        var cpf = req.body.cpfCnpj;
+        var cpf = req.body.cpf;
 
         //Data informed from user that after it'll be load in Database
         var userData = { //Make a mapping of the data that it'll be passed by Front-End
             "nome": req.body.name,
             "sobrenome": req.body.sobName,
-            "cpf": req.body.cpfCnpj,
+            "cpf": req.body.cpf,
             "telefone_celular": req.body.cel,
             "telefone_fixo": req.body.tel,
             "email": req.body.email,
@@ -78,7 +79,7 @@ module.exports = function (application) {
                                                 console.log(err);
                                                 appData.error = 1;
                                                 appData["data"] = "Error Occured!";
-                                                res.status(400).json(appData);
+                                                res.status(401).json(appData);
                                             } else {
                                                 appData.error = 0;
                                                 appData["data"] = "User registered successfully!";
@@ -122,7 +123,7 @@ module.exports = function (application) {
                     } else {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
-                            if (rows[0].password == password) {
+                            if (rows[0].senha == password) {
                                 let token = jwt.sign(rows[0], process.env.SECRET_KEY, {
                                     expiresIn: 1440
                                 });
@@ -133,7 +134,7 @@ module.exports = function (application) {
                             } else {
                                 appData.error = 1;
                                 appData["data"] = "Email and Password does not match";
-                                res.status(404).json(appData);
+                                res.status(401).json(appData);
                             }
                         } else {
                             appData.error = 1;
@@ -161,21 +162,22 @@ module.exports = function (application) {
         //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
         */
         var email = req.body.email;
+        //var city = req.body.cidades; //I need you make a select to catch the City ID before to insert 
 
         //Data informed from user that after it'll be load in Database
         var userData = { //Make a mapping of the data that it'll be passed by Front-End
-            "data_cadastro": today,
-            "nome_fantasia": req.body.name_fant,
-            "razao_social": req.body.raz_soc,
-            "cnpj": req.body.cpf,
-            "telefone": req.body.tel,
-            "email": req.body.email,
-            "email_alternativo": req.body.emailAlt,
-            "senha": req.body.passwd,
-            "flg_concorda_termos": req.body.checkboxTerm,
-            "cod_uf": 'x',
-            "cod_municipio":'x',
-            "endereco": 'x'
+            "data_cadastro": today, //Tab_empresa
+            "nome_fantasia": req.body.name_fant, //tab_empresa
+            "razao_social": req.body.raz_soc, //tab_empresa
+            "cnpj": req.body.cnpj,//tab_empresa
+            "telefone": req.body.tel, //Tab_contatos
+            "email": req.body.email, //tab_contatos
+            "email_alternativo": req.body.emailAlt, //tab_contatos
+            "senha": req.body.passwd, //???
+            "flg_concorda_termos": req.body.checkboxTerm, //tab_empresa
+            "cod_uf": req.body.estados, //tab_empresa
+            "cod_municipio":'x', //tab_empresa
+            "endereco": req.body.endEmp //tab_empresa
         }
 
         //Try to get a connection on database if has error return 500 status
@@ -192,6 +194,7 @@ module.exports = function (application) {
                 let companyDAO = new application.api.models.companyDAO(connection)
                 companyDAO.checkEmail(email, function (err, rows, fields) {
                     if (err) {
+                        console.log(err);
                         appData.error = 1;
                         appData["data"] = "Error Occured!";
                         res.status(400).json(appData);
@@ -260,7 +263,7 @@ module.exports = function (application) {
                     } else {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
-                            if (rows[0].password == password) {
+                            if (rows[0].senha == password) {
                                 let token = jwt.sign(rows[0], process.env.SECRET_KEY, {
                                     expiresIn: 1440
                                 });

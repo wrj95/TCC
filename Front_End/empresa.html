@@ -6,7 +6,6 @@
     <title>TCC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
     <!-- Optional theme -->
@@ -33,13 +32,11 @@
 </head>
 <body>
     <!--Menu Superior-->
-    <nav class="navbar navbar-inverse">
-            <ul class="nav nav-pills"> <!--Menu Superior-->
-                <li role="presentation"><a href="./index.html" style="color:black">Mudanças<span style="color:red">Já</span></a></li>  <!--Home-->
-                <li role="presentation" ><a href="./LoginEmp.html">Login Empresa</a></li>  <!--Vai para cadastro-->
-                <li role="presentation" class="active"><a href="./empresa.html">Cadastro Empresa</a></li> <!--Cadastro Empresa-->
-            </ul>
-    </nav>
+    <ul class="nav nav-pills"> <!--Menu Superior-->
+        <li role="presentation"><a href="./index.html" style="color:black">Mudanças<span style="color:red">Já</span></a></li>  <!--Home-->
+        <li role="presentation" ><a href="./LoginEmp.html">Login Empresa</a></li>  <!--Vai para cadastro-->
+        <li role="presentation" class="active"><a href="./empresa.html">Cadastro Empresa</a></li> <!--Cadastro Empresa-->
+    </ul>
 
     <div class="container" style="background-color: rgba(255,255,255,0.0); color:white">
         
@@ -48,7 +45,7 @@
         <div class="row">
             <!--Nome fantasia-->
             <!--Irá ocupar 5 colunas-->
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-md-8">
                     <!--Div para ficar em cima da caixa de texto-->
@@ -56,13 +53,13 @@
                     </div>
                     <div class="col-md-12">
                         <!--Caixa de Texto para Nome-->
-                        <input  type="text" class="form-control" name="name_fant" id="name_fant" placeholder="Nome fantasia">
+                        <input  type="text" class="form-control" name="name_fant" id="name_fant" maxlength="100" placeholder="Nome fantasia">
                     </div>
                 </div> 
             </div>
             <!--Razão social-->
             <!--Irá ocupar 4 colunas-->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-md-8">
                     <!--Div para o Sobrenome ficar em cima da caixa de texto-->
@@ -70,7 +67,7 @@
                     </div>
                     <div class="col-md-12">
                         <!--Caixa de Texto para Sobrenome-->
-                        <input type="text" class="form-control" name="raz_soc" id="raz_soc" placeholder="Razão Social">
+                        <input type="text" class="form-control" name="raz_soc" id="raz_soc" maxlength="150" placeholder="Razão Social">
                     </div>                               
                 </div>
             </div>
@@ -79,7 +76,7 @@
         <div class="row">
             <!--CNPJ-->
             <!--Irá ocupar 4 colunas-->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-md-8">
                     <!--Div para o CPF ou CNPJ ficar em cima da caixa de texto-->
@@ -87,7 +84,7 @@
                     </div>
                     <div class="col-md-12">
                         <!--Caixa de Texto para CPF/CNPJ-->
-                        <input  type="text" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ">
+                        <input type="text" class="form-control" name="cnpj" id="cnpj" placeholder="CNPJ">
                     </div>
                 </div> 
             </div>
@@ -95,7 +92,7 @@
 
             <!--Telefone-->
             <!--Irá ocupar 4 colunas-->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-md-8">
                         <!--Div para o Telefone ficar em cima da caixa de texto-->
@@ -107,20 +104,57 @@
                 </div> 
             </div>
 
-            <!--Celular-->
-            <!--Irá ocupar 4 colunas-->
+        </div>
+
+        <div class="row">
+
+            <!--Estado-->
+            <!--Irá ocupar 5 colunas-->
             <div class="col-md-4">
                 <div class="form-group">
                     <div class="col-md-8">
-                    <!--Div para o Celular ficar em cima da caixa de texto-->
-                    Celular:
+                        <!--Div para ficar em cima da caixa de texto-->
+                        Estado:
                     </div>
                     <div class="col-md-12">
-                        <!--Caixa de Texto para Celular-->
-                        <input  type="text" class="form-control" name="cel" id="cel" placeholder="Celular">
+                        <!--Caixa de Selecao para os Estados-->
+                        <select id="estados" name="estados">                                  
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!--Cidades-->
+            <!--Irá ocupar 5 colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <!--Div para ficar em cima da caixa de texto-->
+                        Cidade
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Selecao para os Cidades-->
+                        <select id="cidades" name="cidades">                                               
+                        </select>
+                    </div>
+                </div>
+            </div>        
+            
+            <!--Endereco da Empresa-->
+            <!--Irá ocupar  colunas-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-8">
+                    <!--Div para a ficar em cima da caixa de texto-->
+                    Endereço:
+                    </div>
+                    <div class="col-md-12">
+                        <!--Caixa de Texto para o Email-->
+                        <input  type="text" class="form-control" name="endEmp" id="endEmp" placeholder="Endereço">
                     </div>
                 </div> 
             </div>
+                        
         </div>
 
         <div class="row">
@@ -138,27 +172,13 @@
                     </div>
                 </div> 
             </div>
-
-            <!--Email Alterativo do Empresa-->
-            <!--Irá ocupar 6 colunas-->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="col-md-8">
-                    <!--Div para a ficar em cima da caixa de texto-->
-                    Email Alternativo:
-                    </div>
-                    <div class="col-md-12">
-                        <!--Caixa de Texto para o Email Alternativo-->
-                        <input  type="text" class="form-control" name="emailAlt" id="emailAlt" placeholder="E-mail Alternativo">
-                    </div>
-                </div> 
-            </div>
+            
         </div>
 
         <div class="row">
             <!--Senha do Empresa-->
             <!--Irá ocupar 4 colunas-->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-md-8">
                     <!--Div para a ficar em cima da caixa de texto-->
@@ -173,7 +193,7 @@
 
             <!--Confirmar senha-->
             <!--Irá ocupar 4 colunas-->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <div class="col-md-8">
                     <!--Div para a ficar em cima da caixa de texto-->

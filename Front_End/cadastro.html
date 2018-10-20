@@ -33,13 +33,11 @@
 </head>
 <body>
     <!--Menu Superior-->
-    <nav class="navbar navbar-inverse">
-        <ul class="nav nav-pills"> <!--Menu Superior-->
-            <li role="presentation"><a href="./index.html" style="color:black">Mudanças<span style="color:red">Já</span></a></li>  <!--Home-->
-            <li role="presentation" class="active"><a href="./cadastro.html">Cadastro</a></li>  <!--Vai para cadastro de cliente-->
-            <li role="presentation"><a href="./empresa.html">Cadastrar como Prestador</a></li>  <!--Cadastro Empresa-->
-        </ul>
-    </nav>
+    <ul class="nav nav-pills"> <!--Menu Superior-->
+        <li role="presentation"><a href="./index.html" style="color:black">Mudanças<span style="color:red">Já</span></a></li>  <!--Home-->
+        <li role="presentation" class="active"><a href="./cadastro.html">Cadastro</a></li>  <!--Vai para cadastro de cliente-->
+        <li role="presentation"><a href="./empresa.html">Cadastrar como Prestador</a></li>  <!--Cadastro Empresa-->
+    </ul>
 
     <div class="container" style="background-color:rgba(255,255,255,0.0); color:white">
         
@@ -57,7 +55,7 @@
                         </div>
                         <div class="col-md-12">
                             <!--Caixa de Texto para Nome-->
-                            <input  type="text" class="form-control" name="name" id="name" placeholder="Nome">
+                            <input  type="text" class="form-control" name="name" id="name" maxlength="50" placeholder="Nome">
                         </div>
                     </div> 
                 </div>
@@ -72,7 +70,7 @@
                         </div>
                         <div class="col-md-12">
                             <!--Caixa de Texto para Sobrenome-->
-                            <input type="text" class="form-control" name="sobName" id="sobName" placeholder="Sobrenome">
+                            <input type="text" class="form-control" name="sobName" id="sobName" maxlength="50" placeholder="Sobrenome">
                         </div>                               
                     </div>
                 </div>
@@ -98,17 +96,17 @@
             <!--Segunda Linha-->
             <div class="row">
 
-                <!--CPF/CNPJ-->
+                <!--CPF-->
                 <!--Irá ocupar 4 colunas-->
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-md-8">
                         <!--Div para o CPF ou CNPJ ficar em cima da caixa de texto-->
-                        CPF/CNPJ:
+                        CPF:
                         </div>
                         <div class="col-md-12">
-                            <!--Caixa de Texto para CPF/CNPJ-->
-                            <input  type="text" class="form-control" name="cpfCnpj" id="cpfCnpj" placeholder="CPF/CNPJ">
+                            <!--Caixa de Texto para CPF-->
+                            <input  type="text" class="form-control" name="cpf" id="cpf" placeholder="CPF">
                         </div>
                     </div> 
                 </div>

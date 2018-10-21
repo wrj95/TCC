@@ -109,6 +109,43 @@ INSERT INTO `tab_municipio` VALUES ('AC',1,'Rio Branco'),('AC',2,'Cruzeiro do Su
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tab_solicitacao`
+--
+
+DROP TABLE IF EXISTS `tab_solicitacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tab_solicitacao` (
+  `cod_solicitacao` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_usuario` int(11) NOT NULL,
+  `des_solicitacao` varchar(100) DEFAULT NULL,
+  `cod_endereco_origem` int(11) NOT NULL,
+  `cod_endereco_destino` int(11) NOT NULL,
+  `valor_estimado` decimal(5,2) NOT NULL,
+  `data_servico` date NOT NULL,
+  `hora_servico` time DEFAULT NULL,
+  `status` char(1) NOT NULL DEFAULT 'A',
+  `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`cod_solicitacao`),
+  KEY `fk_usuario_idx` (`cod_usuario`),
+  KEY `fk_endereco_origem_idx` (`cod_endereco_origem`),
+  KEY `fk_endereco_destino_idx` (`cod_endereco_destino`),
+  CONSTRAINT `fk_endereco_destino` FOREIGN KEY (`cod_endereco_destino`) REFERENCES `tab_endereco` (`cod_endereco`),
+  CONSTRAINT `fk_endereco_origem` FOREIGN KEY (`cod_endereco_origem`) REFERENCES `tab_endereco` (`cod_endereco`),
+  CONSTRAINT `fk_usuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tab_usuario` (`cod_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cadastro de Solicitação de Serviço';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tab_solicitacao`
+--
+
+LOCK TABLES `tab_solicitacao` WRITE;
+/*!40000 ALTER TABLE `tab_solicitacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tab_solicitacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tab_uf`
 --
 
@@ -176,4 +213,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-17  2:47:26
+-- Dump completed on 2018-10-21  0:43:11

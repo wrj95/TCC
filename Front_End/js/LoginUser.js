@@ -20,10 +20,9 @@ $(document).ready(function(){
                     dataType: 'json', //Tipo de dado que sera transferido
                     data: json, //Enviando o formulario em formato JSON
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
-                    success: function(data) {
-                        var email = json.email
-                        alert(email);
-                        window.location.href = 'http://10.1.0.102:3050/user/orcamento/solicitacao/' + email;
+                    success: function(res, status, erro) {
+                        //Redirecionando para a página no Back-End
+                        window.location.href = 'http://10.1.0.102:3050/user/orcamento/solicitacao/' + res.id;
                     },
                     error: function(request, status, erro){
                         //Captando o erro retornado da API

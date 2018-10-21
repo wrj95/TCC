@@ -130,6 +130,8 @@ module.exports = function (application) {
                                 appData.error = 0;
                                 appData["data"] = "Successful login"
                                 appData["token"] = token;
+                                appData["id"] = rows[0].id;
+
                                 res.status(200).json(appData);
                             } else {
                                 appData.error = 1;

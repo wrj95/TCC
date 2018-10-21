@@ -7,7 +7,16 @@
 		<title>Solicitação de Orçamento</title>		
 
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<style>
+			#divCabecalho{
+				justify-content: flex-end;
+			}
+
+			#LinhaDivisoria{
+				background-color: brown;
+				height: 3px;	
+			}
+		</style>
 
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -31,7 +40,63 @@
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
 	
 		<!-- Form Validation -->
-		<script type="text/javascript" src="../js/validateRequest.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				//Catch the ID user
+				var url = window.location.href;
+				idUSer = url.split('/')[6]
+				
+				//Event on Date
+				$('#data').datepicker({
+					dateFormat: 'dd/mm/yy', //Format Brazilian Date
+					minDate: 0 //Block choice of previous days
+				});
+
+				//Event on button
+				$('#btnConfirmar').click(function(e){
+					$('#formRequest').validate({ //Validação dos campos do formulário
+						rules: { //Validation Rules
+							titSolicitacao:{required: true}, //Nome da Solicitacao nao pode ser vazio
+							endOrigem:{required: true}, //Endereco de origem obrigatori
+							endDestino:{required: true}, //Nao aceita o campo CPF vazio
+							data:{required: true}, //Nao aceita o campo Telefone vazio   
+							hora:{required: true}, //Nao aceita o campo Email vazio
+							valorestimado:{required: true}, //Nao aceita o campo Email Alternativo vazio
+							desSolicitacao:{required: true}, //Nao aceita o campo Senha do Endereco vazio
+						},
+						messages: {
+							titSolicitacao:{required: 'Campo Obrigatório'},
+							endOrigem:{required: 'Campo Obrigatório'},
+							endDestino:{required: 'Campo Obrigatório'},
+							data:{required: 'Campo Obrigatório'},
+							hora:{required: 'Campo Obrigatório'},
+							valorestimado:{required: 'Campo Obrigatório'},
+							desSolicitacao:{required: 'Campo Obrigatório: Informar um descritivo do tipo de material que deverá ser transportado'},
+						},
+						submitHandler: function(form){
+							//Aqui pega o formulário e o converte em JSON
+							var json = JSON.parse(JSON.stringify(jQuery('#formRequest').serializeArray()));
+							//Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
+							$.post({
+								type: 'POST', //Tipo de Conexao
+								url: 'http://10.1.0.102:3050/user/orcamento/register/' + idUSer, //URL da API
+								dataType: 'json', //Tipo de dado que sera transferido
+								data: json, //Enviando o formulario em formato JSON
+								contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
+								success: function(data) {
+									alert('Success')
+								},
+								error: function(request, status, erro){
+								}
+							}).done(function(result){
+
+							}).fail(function(jqXHR,textStatus,errorThrown){
+							});
+						}  
+					});
+				});
+			});
+		</script>
 
 	</head>
 	<body>
@@ -50,7 +115,7 @@
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
 		<h1 class="col-sm-12">Solicitação de Orçamento</h1>
 		<div class="container-fluid">
-			<form class="form-horizontal" id="formRequest" action="user/request" method="POST">
+			<form class="form-horizontal" id="formRequest">
 				<div class="row col-sm-12">
 					<div class="col-sm-12">
 						<label for="titSolicitacao">Título da Solicitação:</label>

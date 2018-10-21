@@ -1,3 +1,4 @@
+var moment = require('moment');
 module.exports = function (application){
 
 application.get("/user/getUsers", function (req, res) {
@@ -28,10 +29,10 @@ application.get("/user/getUsers", function (req, res) {
 });
 
 
-application.get("/user/orcamento/solicitacao/:email", function (req,res) {
+application.get("/user/orcamento/solicitacao/:id", function (req,res) {
 
     let appData = {};
-    let email = req.params.email;
+    let id = req.params.id;
     let database = application.config.database()
     database.getConnection(function (err,connection) {
         if (err) {
@@ -39,9 +40,8 @@ application.get("/user/orcamento/solicitacao/:email", function (req,res) {
             appData["data"] = "Internal Server Error";
             res.status(500).json(appData);
         } else {
-            console.log(email)
             let userDAO = new application.api.models.userDAO(connection)
-            userDAO.getAddress(email, function (err, rows, fields) {
+            userDAO.getAddress(id, function (err, rows, fields) {
                 if (!err) {
                     appData["error"] = 0;
                     appData["data"] = rows;
@@ -59,6 +59,43 @@ application.get("/user/orcamento/solicitacao/:email", function (req,res) {
     })
 });
 
+application.post("/user/orcamento/register/:id", function (req, res){
+    let appData = {};
+    let id = req.params.id;
 
+    let valor = parseFloat(req.body.valorestimado);
+    var data = moment(req.body.data, "DD/MM/YYYY").toDate();
+    var hora = moment(req.body.hora, "HH:mm");
 
+    let userData = {
+        "cod_usuario": id,
+        "des_solicitacao": req.body.titSolicitacao,
+        "cod_endereco_origem": req.body.endOrigem,
+        "cod_endereco_destino": req.body.endDestino,
+        "valor_estimado": valor,
+        "data_servico": data,
+        "hora_servico": hora 
+    }
+    let database = application.config.database()
+    database.getConnection(function (err,connection) {
+        if (err) {
+            appData["error"] = 1;
+            appData["data"] = "Internal Server Error";
+            res.status(500).json(appData);
+        } else {
+            let userDAO = new application.api.models.userDAO(connection)
+            userDAO.registerRequest(userData, function (err, rows, fields) {
+                if (err) {
+                    appData["data"] = "No data found";
+                    console.log(err)
+                    res.status(404).json(appData);
+                } else {
+                    appData["data"] = "Save";
+                    res.status(200).json(appData);
+                }
+            });
+            connection.release();
+        }
+    })
+});
 }

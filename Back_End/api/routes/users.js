@@ -64,6 +64,7 @@ application.post("/user/orcamento/solicitacao/:id", function (req, res){
     let appData = {};
     let id = req.params.id;
     
+    var hora = moment(req.body.hora, 'HH:mm')
     var data_hora = moment(req.body.data, "DD/MM/YYYY").format();
     var data_hora_format = data_hora.replace(':00+00:00', '')
 

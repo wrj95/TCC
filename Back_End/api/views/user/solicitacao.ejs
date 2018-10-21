@@ -44,7 +44,9 @@
 			$(document).ready(function(){
 				//Catch the ID user
 				var url = window.location.href;
-				idUSer = url.split('/')[6]
+				idToken = url.split('/')[6]
+				idUser = idToken.split('?token=')[0]
+				token = idToken.split('?token=')[1]
 				
 				//Event on Date
 				$('#data').datepicker({
@@ -78,11 +80,12 @@
 							var json = JSON.parse(JSON.stringify(jQuery('#formRequest').serializeArray()));
 							//Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
 							$.ajax({
-								type: 'POST', //Tipo de Conexao
-								url: 'http://10.1.0.102:3050/user/orcamento/register/' + idUSer, //URL da API
+								type: 'post', //Tipo de Conexao
+								url: '/user/orcamento/solicitacao/' + idToken, //URL da API
 								dataType: 'json', //Tipo de dado que sera transferido
 								data: json, //Enviando o formulario em formato JSON
-								contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
+								contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+								//headers:{'token': token}, //Envio em URLEncoded
 								success: function(data) {
 									alert('Success')
 								},

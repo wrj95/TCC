@@ -289,5 +289,4 @@ module.exports = function (application) {
             }
         });
     });
-
 }

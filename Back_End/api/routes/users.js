@@ -94,7 +94,7 @@ application.post("/user/orcamento/solicitacao/:id", function (req, res){
                     res.status(404).json(appData);
                 } else {
                     appData["data"] = "Save";
-                    res.status(200).json(appData) + "  " +(userData.data_servico);
+                    res.status(200).json(appData);
                 }
             });
             connection.release();

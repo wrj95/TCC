@@ -19,7 +19,7 @@ app.use(express.json())
 
 consign()
     .include("./api/routes/authentication.js")
-    // .then("./config/middleware.js")
+    .then("./config/middleware.js")
     .then("./api/routes")
     .then("./api/models")
     .then("./config/database.js")

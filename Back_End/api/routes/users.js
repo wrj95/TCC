@@ -65,7 +65,7 @@ application.post("/user/orcamento/solicitacao/:id", function (req, res){
     let id = req.params.id;
     
     var hora = req.body.hora
-    var data_hora = moment(req.body.data).format("YYYY/MM/DD");
+    var data = moment(req.body.data, "DD/MM/YYYY").toDate();
 
     let valor = parseFloat(req.body.valorestimado);
 
@@ -75,7 +75,7 @@ application.post("/user/orcamento/solicitacao/:id", function (req, res){
         "cod_endereco_origem": req.body.endOrigem,
         "cod_endereco_destino": req.body.endDestino,
         "valor_estimado": valor,
-        "data_servico": data_hora,
+        "data_servico": data,
         "hora_servico": hora
     }
     // res.send(userData).json
@@ -94,7 +94,7 @@ application.post("/user/orcamento/solicitacao/:id", function (req, res){
                     res.status(404).json(appData);
                 } else {
                     appData["data"] = "Save";
-                    res.status(200).json(appData);
+                    res.status(200).json(appData) + "  " +(userData.data_servico);
                 }
             });
             connection.release();

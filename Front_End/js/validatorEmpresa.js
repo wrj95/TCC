@@ -134,7 +134,7 @@ $(document).ready(function(){
                 //Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
                 $.post({
                     type: 'POST', //Tipo de Conexao
-                    url: 'http://localhost:3050/company/register', //URL da API
+                    url: 'http://10.1.0.102:3050/company/register', //URL da API
                     dataType: 'json', //Tipo de dado que sera transferido
                     data: json, //Enviando o formulario em formato JSON
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded

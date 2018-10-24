@@ -124,12 +124,17 @@ module.exports = function (application) {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
                             if (rows[0].senha == password) {
-                                let token = jwt.sign(rows[0], process.env.SECRET_KEY, {
-                                    expiresIn: 1440
+                                let jwtPayload = {}
+                                    jwtPayload["id"] = rows[0].id;
+                                    jwtPayload["email"] = rows[0].email;
+                                let token = jwt.sign(jwtPayload, process.env.SECRET_KEY, {
+                                    expiresIn: 3600
                                 });
                                 appData.error = 0;
                                 appData["data"] = "Successful login"
                                 appData["token"] = token;
+                                appData["id"] = rows[0].id;
+
                                 res.status(200).json(appData);
                             } else {
                                 appData.error = 1;
@@ -287,5 +292,4 @@ module.exports = function (application) {
             }
         });
     });
-
 }

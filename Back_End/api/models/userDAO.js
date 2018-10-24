@@ -15,18 +15,18 @@ userDAO.prototype.register = function (userData, callback) {
 }
 
 userDAO.prototype.login = function (userData, callback) {
-    this._connection.query("SELECT * FROM mydatabase.tab_usuario WHERE email = ?", userData, callback)
+    this._connection.query("SELECT cod_usuario AS id, senha, email FROM tab_usuario WHERE email = ?", userData, callback)
 }
 
 userDAO.prototype.listUsers = function (callback) {
     this._connection.query("SELECT * FROM mydatabase.tab_usuario", callback)
 }
 
-/*//Select catch the address registered by user  
+//Select catch the address registered by user  
 userDAO.prototype.getAddress = function (userData, callback){
-    this._connection.query("SELECT cod_endereco, des_endereco FROM mydatabase.tab_endereco_usuario WHERE cod_usuario = (SELECT cod_usuario FROM mydatabase.tab_usuario WHERE email = ?)", userData, callback);
+    this._connection.query("SELECT cod_endereco, endereco FROM mydatabase.tab_endereco WHERE cod_usu_emp = ?", userData, callback);
 }
-*/
+
 
 //Insert Request of Change to User
 userDAO.prototype.registerRequest = function (userData, callback){

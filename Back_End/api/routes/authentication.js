@@ -125,11 +125,13 @@ module.exports = function (application) {
                         if (rows.length > 0) {
                             if (rows[0].senha == password) {
                                 let token = jwt.sign(rows[0], process.env.SECRET_KEY, {
-                                    expiresIn: 1440
+                                    expiresIn: 3600
                                 });
                                 appData.error = 0;
                                 appData["data"] = "Successful login"
                                 appData["token"] = token;
+                                appData["id"] = rows[0].id;
+
                                 res.status(200).json(appData);
                             } else {
                                 appData.error = 1;
@@ -287,5 +289,4 @@ module.exports = function (application) {
             }
         });
     });
-
 }

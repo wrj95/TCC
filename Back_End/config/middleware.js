@@ -3,7 +3,7 @@ var jwt = require("jsonwebtoken");
 module.exports = function (application) {
 // Adding Middleware wich will request the token on following function
 application.use(function (req, res, next) {
-    let token = req.body.token || req.headers["token"];
+    let token = req.body.token || req.headers["token"]|| req.query.token;
     let appData = {};
     if (token) {
         jwt.verify(token, process.env.SECRET_KEY, function (err) {

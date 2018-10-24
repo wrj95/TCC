@@ -124,7 +124,10 @@ module.exports = function (application) {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
                             if (rows[0].senha == password) {
-                                let token = jwt.sign(rows[0], process.env.SECRET_KEY, {
+                                let jwtPayload = {}
+                                    jwtPayload["id"] = rows[0].id;
+                                    jwtPayload["email"] = rows[0].email;
+                                let token = jwt.sign(jwtPayload, process.env.SECRET_KEY, {
                                     expiresIn: 3600
                                 });
                                 appData.error = 0;

@@ -3,17 +3,20 @@ function companyDAO(connection) {
 }
 
 companyDAO.prototype.checkEmail = function (userData, callback) {
-    this._connection.query("SELECT * FROM mydatabase.tab_usuario WHERE email = ?", userData, callback)
+    this._connection.query("SELECT * FROM mydatabase.tab_empresa WHERE email = ?", userData, callback)
 }
 
 companyDAO.prototype.checkCNPJ = function (userData, callback) {
-    this._connection.query("SELECT * FROM mydatabase.tab_usuario WHERE cpf = ?", userData, callback)
+    this._connection.query("SELECT * FROM mydatabase.tab_empresa WHERE cpf = ?", userData, callback)
 }
 
 companyDAO.prototype.register = function (userData, callback) {
-    this._connection.query("INSERT INTO mydatabase.tab_usuario SET ?", userData, callback)
+    this._connection.query("INSERT INTO mydatabase.tab_empresa SET ?", userData, callback)
 }
 
+companyDAO.prototype.login = function (userData, callback) {
+    this._connection.query("SELECT cod_empresa AS id, senha, email FROM tab_empresa WHERE email = ?", userData, callback)
+}
 
 companyDAO.prototype.getStates = function (userData, callback) {
     this._connection.query("SELECT cod_uf, des_uf FROM mydatabase.tab_uf", callback);
@@ -24,8 +27,8 @@ companyDAO.prototype.getCities = function (userData, callback) {
 }
 
 //All Request to Feed of Request
-companyDAO.prototype.getRequest = function (userData, callback){
-    this._connection.query("SELECT * FROM mydatabase.tab_solicitacao", callback);
+companyDAO.prototype.getRequest = function (callback){
+    this._connection.query("SELECT * FROM mydatabase.tab_solicitacao", callback); //I need to do an Inner Join
 }
 
 //Insert Respond to Request made by Company User

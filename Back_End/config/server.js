@@ -16,7 +16,6 @@ app.use(express.urlencoded({
 }));
 app.use(express.json())
 
-
 consign()
     .include("./api/routes/authentication.js")
     .then("./config/middleware.js")

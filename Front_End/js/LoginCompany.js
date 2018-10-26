@@ -12,7 +12,6 @@ $(document).ready(function(){
             submitHandler: function(form){
                 //Aqui pega o formulário e o converte em JSON
                 var json = JSON.parse(JSON.stringify(jQuery('#myform').serializeArray()));
-                
                 //Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
                 $.post({
                     type: 'POST', //Tipo de Conexao
@@ -21,7 +20,7 @@ $(document).ready(function(){
                     data: json, //Enviando o formulario em formato JSON
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(data) {
-                         //??
+                        window.location.href = 'http://10.1.0.102:3050/company/orcamento/' + data.id + '?token=' + data.token;
                     },
                     error: function(request, status, erro){
                         //Captando o erro retornado da API

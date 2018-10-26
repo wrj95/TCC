@@ -30,14 +30,16 @@ CREATE TABLE `tab_empresa` (
   `cod_uf` char(2) NOT NULL,
   `cod_municipio` int(11) NOT NULL,
   `endereco` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(50) NOT NULL,
   `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`cod_empresa`),
   UNIQUE KEY `cnpj_UNIQUE` (`cnpj`),
   KEY `fk_empresa_uf_idx` (`cod_uf`),
   KEY `fk_empresa_municipio` (`cod_municipio`),
-  CONSTRAINT `fk_empresa_municipio` FOREIGN KEY (`cod_municipio`) REFERENCES `sys`.`tab_municipio` (`cod_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_empresa_uf` FOREIGN KEY (`cod_uf`) REFERENCES `sys`.`tab_uf` (`cod_uf`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_empresa_municipio` FOREIGN KEY (`cod_municipio`) REFERENCES `tab_municipio` (`cod_municipio`),
+  CONSTRAINT `fk_empresa_uf` FOREIGN KEY (`cod_uf`) REFERENCES `tab_uf` (`cod_uf`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Empresas.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +48,7 @@ CREATE TABLE `tab_empresa` (
 
 LOCK TABLES `tab_empresa` WRITE;
 /*!40000 ALTER TABLE `tab_empresa` DISABLE KEYS */;
+INSERT INTO `tab_empresa` VALUES (1,'teste','teste','123456791023','AC',1,'R. Capao Redondo','teste@gmail.com','123','2018-10-26 02:42:26');
 /*!40000 ALTER TABLE `tab_empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +136,7 @@ CREATE TABLE `tab_solicitacao` (
   CONSTRAINT `fk_endereco_destino` FOREIGN KEY (`cod_endereco_destino`) REFERENCES `tab_endereco` (`cod_endereco`),
   CONSTRAINT `fk_endereco_origem` FOREIGN KEY (`cod_endereco_origem`) REFERENCES `tab_endereco` (`cod_endereco`),
   CONSTRAINT `fk_usuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tab_usuario` (`cod_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cadastro de Solicitação de Serviço';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Solicitação de Serviço';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,6 +145,7 @@ CREATE TABLE `tab_solicitacao` (
 
 LOCK TABLES `tab_solicitacao` WRITE;
 /*!40000 ALTER TABLE `tab_solicitacao` DISABLE KEYS */;
+INSERT INTO `tab_solicitacao` VALUES (1,1,'Mudança',1,1,300.00,'2018-10-31','20:00:00','A','2018-10-26 04:24:07');
 /*!40000 ALTER TABLE `tab_solicitacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,4 +217,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-21  0:43:11
+-- Dump completed on 2018-10-26  4:33:46

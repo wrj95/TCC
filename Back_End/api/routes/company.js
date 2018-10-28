@@ -54,10 +54,11 @@ module.exports = function (application) {
         })
     });
 
-    application.get("/company/orcamento/:id/:idrequest", function (req, res) {
+    application.get("/company/orcamento/:idrequest/:id", function (req, res) {
         let appData = {}
-        let id = req.params.id;
         let idrequest = req.params.idrequest;
+        let id = req.params.id;
+        
 
         let database = application.config.database()
         database.getConnection(function (err, connection) {

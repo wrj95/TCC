@@ -69,7 +69,7 @@
 							//Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
 							$.ajax({
 								type: 'post', //Tipo de Conexao
-								url: '/company/orcamento/emissao/' + idUser + '/' + idSolicitacao, //URL da API
+								url: '/company/orcamento/emissao/' + idSolicitacao + '/' + idUser, //URL da API
 								dataType: 'json', //Tipo de dado que sera transferido
 								data: json, //Enviando o formulario em formato JSON
 								contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -87,6 +87,10 @@
 						}  						 
 					});
 				});
+			
+				$('#btnCancelar').click(function(e){
+					window.location.href = window.location.href = '/company/orcamento/'+ idSolicitacao + '/' + idUser + '?token=' + token;
+				})
 			});		
 		</script>
 	</head>
@@ -95,10 +99,10 @@
 			<a href="" target="_blank">
 				<button type="button" class="btn btn-sm">Meu Cadastro</button>
             </a>
-			<a href="" target="_blank">
+			<a href="">
 				<button type="button" class="btn btn-sm">Meus Orçamentos</button>
 			</a>
-			<a href="" target="_blank">
+			<a href="10.1.0.101:80" target="_blank">
 				<button type="button" class="btn btn-sm">Sair</button> 
 			</a>
 		</div>

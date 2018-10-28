@@ -54,9 +54,11 @@ module.exports = function (application) {
         })
     });
 
-    application.get("/company/orcamento/emissao/:idSolicitacao/:id", function (req, res) {
+    application.get("/company/orcamento/:id/:idrequest", function (req, res) {
         let appData = {}
         let id = req.params.id;
+        let idrequest = req.params.idrequest;
+
         let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
@@ -65,13 +67,15 @@ module.exports = function (application) {
                 res.status(500).json(appData);
             } else {
                 let companyDAO = new application.api.models.companyDAO(connection)
-                companyDAO.getRequest(function (err, rows, fields) {
+                companyDAO.getRequestSelected (idrequest, function (err, rows, fields) {
                     if(err){
                         appData["error"] = 1;
-                        appData["data"] = "No data found";
+                        appData["data"] = "No Data Found";
                         res.status(500).json(appData);
                     }else{
-                        res.render("company/emissao")
+                        res.render("company/detailsOrcamento",{
+                            detail: rows[0]
+                        })
                     }
                 });
                 connection.release();
@@ -79,10 +83,15 @@ module.exports = function (application) {
         })
     });
 
+    application.get("/company/orcamento/emissao/:idrequest/:id", function (req, res) {
+        res.render("company/emissao")
+    });
 
-    application.post("/company/orcamento/emissao/:id", function (req, res) {
+
+    application.post("/company/orcamento/emissao/:idrequest/:id", function (req, res) {
         let appData = {}
         let id = req.params.id;
+        let idrequest = req.params.idrequest;
         let database = application.config.database()
 
         var userData = {

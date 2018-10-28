@@ -30,13 +30,13 @@
             $(document).ready(function(){
 				//Catch the ID user
 				var url = window.location.href;
-				var idToken = url.split('/')[5]
+				var idSolicitacao = url.split('/')[5]
+				var idToken = url.split('/')[6]
 				var idUser = idToken.split('?token=')[0]
 				var token = idToken.split('?token=')[1]
-				
-				$('#btnEditar').click(function(e){
-					var selValue = $('input[name=radio]:checked').val();
-					window.location.href = '/company/orcamento/'+ selValue + '/' + idUser + '?token=' + token;		
+								
+				$('#btnProposta').click(function(e){
+					window.location.href = '/company/orcamento/emissao/' + idSolicitacao + '/'+ idUser + '?token=' + token;
 				})
             })
         </script>
@@ -57,35 +57,32 @@
 		</div>
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
-		<h1 class="col-sm-12">Meus Orçamentos</h1>
+		<h1 class="col-sm-12">Detalhes</h1>
 		<div class="container-fluid">
 			<div class="row col-sm-12">
 				<div class="col-sm-12">
-					<table border="1" id="solicit">
-						<thead>
-							<th>Caixa de seleção</th>
-							<th>Código</th>
-							<th>Descrição</th>
-							<th>Endereço de Origem</th>
-							<th>Endereço de Destino</th>
-							<th>Data</th>
-							<th>Hora</th>
-							<th>Status</th>
-						</thead>
-						<% for (var i=0;i<itens.length; i++){%>
-						<tbody>
-								<td><input type="radio" name="radio" id="radio" value="<%= itens[i].cod_solicitacao %>"/></td>
-								<td><%= itens[i].cod_solicitacao %></td>
-								<td><%= itens[i].des_solicitacao %></td>
-								<td><%= itens[i].cod_endereco_origem %></td>
-								<td><%= itens[i].cod_endereco_destino %></td>
-								<td><%= itens[i].data_servico %></td>
-								<td><%= itens[i].hora_servico %></td>
-								<td><%= itens[i].data_cadastro %></td>
-						</tbody>
-						<% } %>
-					</table>
-					<input type="button" class="col-sm-2" id="btnEditar" value="Fazer Proposta">
+					<label>Título do Orçamento:</label>
+					<p><%= detail.cod_usuario %></p>
+
+					<label>Endereço de Origem:</label>
+					<p><%= detail.cod_endereco_origem %></p>
+
+					<label>Endereço de Destino:</label>
+					<p><%= detail.cod_endereco_destino %></p>
+
+					<label>Data agendada:</label>
+					<p><%= detail.data_servico %></p>
+
+					<label>Data agendada:</label>
+					<p><%= detail.hora_servico %></p>
+
+					<label>Valor total dos Itens:</label>
+					<p><%= detail.valor_estimado %></p>
+					
+					<label>Descrição:</label>
+					<p><%= detail.des_solicitacao %></p>
+
+					<input type="button" class="col-sm-2" id="btnProposta" value="Fazer Proposta">
 					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
                 </div>
 			</div>

@@ -31,6 +31,10 @@ companyDAO.prototype.getRequest = function (callback){
     this._connection.query("SELECT * FROM mydatabase.tab_solicitacao", callback); //I need to do an Inner Join
 }
 
+companyDAO.prototype.getRequestSelected = function (userData, callback){
+    this._connection.query("SELECT * FROM mydatabase.tab_solicitacao WHERE cod_solicitacao = ?", userData, callback); //I need to do an Inner Join
+}
+
 //Insert Respond to Request made by Company User
 companyDAO.prototype.registerRespond = function (userData, callback){
     this._connection.query("INSERT INTO mydatabase.tab_orcamento SET ?", userData, callback);

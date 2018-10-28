@@ -243,7 +243,6 @@ module.exports = function (application) {
         });
     });
 
-
     // Route utilized to login the company into the app
     application.post('/company/login', function (req, res) {
 

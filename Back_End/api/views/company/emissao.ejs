@@ -7,7 +7,16 @@
 		<title>Emissão de Orçamento</title>
 				
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<style>
+			#divCabecalho{
+				justify-content: flex-end;
+			}
+
+			#LinhaDivisoria{
+				background-color: brown;
+				height: 3px;	
+			}
+		</style>
 
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -26,7 +35,60 @@
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>
 	
 		<!-- Form Validation -->
-		<script type="text/javascript" src="./js/validateRespond.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				//Catch the ID user
+				var url = window.location.href;
+				var idSolicitacao = url.split('/')[6]
+				var idToken = url.split('/')[7]
+				var idUser = idToken.split('?token=')[0]
+				var token = idToken.split('?token=')[1]
+
+				//Event on button
+				$('#btnConfirmar').click(function(e){
+					$('#formRespond').validate({ //Validação dos campos do formulário
+						rules: { //Regras de Validacao
+							titOrcamento:{required: true}, //Nome da Solicitacao nao pode ser vazio
+							TempoTransp:{required: true}, //Endereco de origem obrigatori
+							chkEmpacota:{required: true}, //Nao aceita o campo CPF vazio
+							chkSeguro:{required: true}, //Nao aceita o campo Telefone vazio   
+							valor:{required: true}, //Nao aceita o campo Email vazio
+							desSolicitacao:{required: true} //Nao aceita o campo Email Alternativo vazio
+						},
+						messages: {
+							titOrcamento:{required: 'Campo Obrigatório'},
+							TempoTransp:{required: 'Campo Obrigatório'},
+							chkEmpacota:{required: 'Campo Obrigatório'},
+							chkSeguro:{required: 'Campo Obrigatório'},
+							valor:{required: 'Campo Obrigatório'},
+							desSolicitacao:{required: 'Campo Obrigatório: Informar um descritivo do Serviço'}
+						},
+						submitHandler: function(form){
+							//Aqui pega o formulário e o converte em JSON
+							var json = JSON.parse(JSON.stringify(jQuery('#formRespond').serializeArray()));
+							//Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
+							$.ajax({
+								type: 'post', //Tipo de Conexao
+								url: '/company/orcamento/emissao/' + idUser + '/' + idSolicitacao, //URL da API
+								dataType: 'json', //Tipo de dado que sera transferido
+								data: json, //Enviando o formulario em formato JSON
+								contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+								headers:{'token': token}, //Envio em URLEncoded
+								success: function(data) {
+									alert('Success')
+								},
+								error: function(request, status, erro){
+								}
+							}).done(function(result){
+
+							}).fail(function(jqXHR,textStatus,errorThrown){
+							});
+							
+						}  						 
+					});
+				});
+			});		
+		</script>
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
@@ -44,7 +106,7 @@
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
 		<h1 class="col-sm-12">Emissão de Orçamento</h1>
 		<div class="container-fluid">
-			<form class="form-horizontal" id="formRespond" action="user/respond" method="POST">
+			<form class="form-horizontal" id="formRespond">
 				<div class="row col-sm-12">
 					<div class="col-sm-12">
 						<label for="titOrcamento">Título do Orçamento:</label>
@@ -56,11 +118,11 @@
 					</div>
 					<div class="col-sm-3">
 						<label for="chkEmpacota">Empacotador:</label>
-						<input class="form-control" type="checkbox" name="chkEmpacota" id="chkEmpacota">
+						<input class="form-control" type="checkbox" name="chkEmpacota" id="chkEmpacota" value='S'>
 					</div>
 					<div class="col-sm-3">
 						<label for="chkSeguro">Seguro para Carga:</label>
-						<input class="form-control" type="checkbox" name="chkSeguro" id="chkSeguro">
+						<input class="form-control" type="checkbox" name="chkSeguro" id="chkSeguro" value='S'>
 					</div>				
 					<div class="col-sm-3">
 						<label for="valor">Valor:</label>

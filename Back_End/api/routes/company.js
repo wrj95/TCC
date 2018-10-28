@@ -87,15 +87,23 @@ module.exports = function (application) {
         res.render("company/emissao")
     });
 
-
     application.post("/company/orcamento/emissao/:idrequest/:id", function (req, res) {
         let appData = {}
         let id = req.params.id;
         let idrequest = req.params.idrequest;
         let database = application.config.database()
 
-        var userData = {
-            //Data from Company User
+        let valor = parseFloat(req.body.valor);
+
+        var userData = { //Data that be register in Database
+            "cod_solicitacao": idrequest,
+            "cod_empresa": id,
+            "titorcamento": req.body.titOrcamento,
+            "des_orcamento": req.body.desSolicitacao,
+            "tempo_execucao": req.body.TempoTransp,
+            "valor": valor,
+            "empacotador":req.body.chkEmpacota,
+            "seguro":req.body.chkSeguro
         }
         database.getConnection(function (err, connection) {
             if (err) {
@@ -106,6 +114,7 @@ module.exports = function (application) {
                 let companyDAO = new application.api.models.companyDAO(connection)
                 companyDAO.registerRespond(userData, function (err, rows, fields) {
                     if(err){
+                        console.log(err)
                         appData["error"] = 1;
                         appData["data"] = "Data not found"
                         res.status(401).send(appData);

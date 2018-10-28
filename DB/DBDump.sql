@@ -112,6 +112,43 @@ INSERT INTO `tab_municipio` VALUES ('AC',1,'Rio Branco'),('AC',2,'Cruzeiro do Su
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tab_orcamento`
+--
+
+DROP TABLE IF EXISTS `tab_orcamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tab_orcamento` (
+  `cod_solicitacao` int(11) NOT NULL,
+  `cod_empresa` int(11) NOT NULL,
+  `cod_orcamento` int(11) NOT NULL AUTO_INCREMENT,
+  `titorcamento` varchar(50) NOT NULL,
+  `des_orcamento` varchar(100) DEFAULT NULL,
+  `tempo_execucao` varchar(50) DEFAULT NULL,
+  `valor` double DEFAULT NULL,
+  `empacotador` char(1) NOT NULL DEFAULT 'N',
+  `seguro` char(1) NOT NULL DEFAULT 'N',
+  `status` char(1) NOT NULL DEFAULT 'A',
+  `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`cod_orcamento`),
+  KEY `fk_solicitacao_idx` (`cod_solicitacao`),
+  KEY `fk_empresa_idx` (`cod_empresa`),
+  CONSTRAINT `fk_empresa` FOREIGN KEY (`cod_empresa`) REFERENCES `tab_empresa` (`cod_empresa`),
+  CONSTRAINT `fk_solicitacao` FOREIGN KEY (`cod_solicitacao`) REFERENCES `tab_solicitacao` (`cod_solicitacao`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Orçamentos.';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tab_orcamento`
+--
+
+LOCK TABLES `tab_orcamento` WRITE;
+/*!40000 ALTER TABLE `tab_orcamento` DISABLE KEYS */;
+INSERT INTO `tab_orcamento` VALUES (1,1,1,'Respostas WRJ','Teste','01:30',24.5,'S','S','A','2018-10-28 03:50:30');
+/*!40000 ALTER TABLE `tab_orcamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tab_solicitacao`
 --
 
@@ -217,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-26  4:33:46
+-- Dump completed on 2018-10-28  3:53:07

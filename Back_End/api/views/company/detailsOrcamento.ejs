@@ -65,26 +65,44 @@
 		<div class="container-fluid">
 			<div class="row col-sm-12">
 				<div class="col-sm-12">
-					<label>Título do Orçamento:</label>
-					<p><%= detail.cod_usuario %></p>
+					<label><b>Id:</b></label>
+					<p><%= detail.idsolicitacao %></p>
 
-					<label>Endereço de Origem:</label>
-					<p><%= detail.cod_endereco_origem %></p>
+					<label><b>Título do Orçamento:</b></label>
+					<p><%= detail.tit_solicitacao %></p>
 
-					<label>Endereço de Destino:</label>
-					<p><%= detail.cod_endereco_destino %></p>
+					<label><b>Solicitante:</b></label>
+					<p><%= detail.nome_completo %></p>
 
-					<label>Data agendada:</label>
-					<p><%= detail.data_servico %></p>
+					<label><b>Estado de Origem:</b></label>
+					<p><%= detail.uf_origem %></p>
 
-					<label>Data agendada:</label>
-					<p><%= detail.hora_servico %></p>
+					<label><b>Municipio de Origem:</b></label>
+					<p><%= detail.mun_origem %></p>
 
-					<label>Valor total dos Itens:</label>
-					<p><%= detail.valor_estimado %></p>
+					<label><b>Endereço de Origem:</b></label>
+					<p><%= detail.end_origem_completo %></p>
+
+					<label><b>Estado de Destino:</b></label>
+					<p><%= detail.uf_destino %></p>
+
+					<label><b>Municipio de Destino:</b></label>
+					<p><%= detail.mun_destino %></p>
+
+					<label><b>Endereço de Destino:</b></label>
+					<p><%= detail.end_destino_completo %></p>
+
+					<label><b>Data agendada:</b></label>
+					<p><%= detail.data %></p>
+
+					<label><b>Data agendada:</b></label>
+					<p><%= detail.hora %></p>
+
+					<label><b>Valor total dos Itens:</b></label>
+					<p><%= detail.valor%></p>
 					
-					<label>Descrição:</label>
-					<p><%= detail.des_solicitacao %></p>
+					<label><b>Descrição:</b></label>
+					<p><%= detail.descricao %></p>
 
 					<input type="button" class="col-sm-2" id="btnProposta" value="Fazer Proposta">
 					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">

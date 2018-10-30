@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `tab_endereco`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tab_endereco` (
-  `cod_uf` int(11) NOT NULL,
+  `cod_uf` char(2) NOT NULL,
   `cod_municipio` int(11) NOT NULL,
   `cod_endereco` int(11) NOT NULL AUTO_INCREMENT,
   `CEP` char(8) DEFAULT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `tab_endereco` (
 
 LOCK TABLES `tab_endereco` WRITE;
 /*!40000 ALTER TABLE `tab_endereco` DISABLE KEYS */;
-INSERT INTO `tab_endereco` VALUES (1,1,1,'04931100','rua Capão Redondo','2','A','jd. Santa Margarida','u',1);
+INSERT INTO `tab_endereco` VALUES ('SP',1,1,'04931100','rua Capão Redondo','2','A','jd. Santa Margarida','u',1);
 /*!40000 ALTER TABLE `tab_endereco` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,13 +158,14 @@ DROP TABLE IF EXISTS `tab_solicitacao`;
 CREATE TABLE `tab_solicitacao` (
   `cod_solicitacao` int(11) NOT NULL AUTO_INCREMENT,
   `cod_usuario` int(11) NOT NULL,
-  `des_solicitacao` varchar(100) DEFAULT NULL,
+  `tit_solicitacao` varchar(100) DEFAULT NULL,
   `cod_endereco_origem` int(11) NOT NULL,
   `cod_endereco_destino` int(11) NOT NULL,
-  `valor_estimado` decimal(5,2) NOT NULL,
+  `vlr_estimado_carga` FLOAT DEFAULT NULL,
   `data_servico` date NOT NULL,
   `hora_servico` time DEFAULT NULL,
   `status` char(1) NOT NULL DEFAULT 'A',
+  `des_solicitacao` varchar(2000) DEFAULT NULL,
   `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`cod_solicitacao`),
   KEY `fk_usuario_idx` (`cod_usuario`),
@@ -182,7 +183,7 @@ CREATE TABLE `tab_solicitacao` (
 
 LOCK TABLES `tab_solicitacao` WRITE;
 /*!40000 ALTER TABLE `tab_solicitacao` DISABLE KEYS */;
-INSERT INTO `tab_solicitacao` VALUES (1,1,'Mudança',1,1,300.00,'2018-10-31','20:00:00','A','2018-10-26 04:24:07');
+INSERT INTO `tab_solicitacao` VALUES (1,1,'Mudança',1,1,300.00,'2018-10-31','20:00:00','A','Tetste','2018-10-26 04:24:07');
 /*!40000 ALTER TABLE `tab_solicitacao` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -40,6 +40,7 @@ module.exports = function (application) {
                 let companyDAO = new application.api.models.companyDAO(connection)
                 companyDAO.getRequest(function (err, rows, fields) {
                     if(err){
+                        console.log(err)
                         appData["error"] = 1;
                         appData["data"] = "No Data Found";
                         res.status(500).json(appData);

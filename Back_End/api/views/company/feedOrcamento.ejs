@@ -64,24 +64,32 @@
 					<table border="1" id="solicit">
 						<thead>
 							<th>Caixa de seleção</th>
-							<th>Código</th>
-							<th>Descrição</th>
+							<th>Título da Solicitação</th>
+							<th>Solicitante</th>
+							<th>Estado de Origem</th>
+							<th>Município de Origem</th>
 							<th>Endereço de Origem</th>
+							<th>Estado de Destino</th>
+							<th>Município de Destino</th>
 							<th>Endereço de Destino</th>
 							<th>Data</th>
 							<th>Hora</th>
-							<th>Status</th>
+							<th>Valor</th>
 						</thead>
 						<% for (var i=0;i<itens.length; i++){%>
 						<tbody>
-								<td><input type="radio" name="radio" id="radio" value="<%= itens[i].cod_solicitacao %>"/></td>
-								<td><%= itens[i].cod_solicitacao %></td>
-								<td><%= itens[i].des_solicitacao %></td>
-								<td><%= itens[i].cod_endereco_origem %></td>
-								<td><%= itens[i].cod_endereco_destino %></td>
-								<td><%= itens[i].data_servico %></td>
-								<td><%= itens[i].hora_servico %></td>
-								<td><%= itens[i].data_cadastro %></td>
+								<td><input type="radio" name="radio" id="radio" value="<%= itens[i].idsolicitacao %>"/></td>
+								<td><%= itens[i].tit_solicitacao %></td>
+								<td><%= itens[i].nome %></td>
+								<td><%= itens[i].uf_origem %></td>
+								<td><%= itens[i].mun_origem %></td>
+								<td><%= itens[i].end_origem %></td>
+								<td><%= itens[i].uf_destino %></td>
+								<td><%= itens[i].mun_destino %></td>
+								<td><%= itens[i].end_destino %></td>
+								<td><%= itens[i].data %></td>
+								<td><%= itens[i].hora %></td>
+								<td><%= itens[i].valor %></td>
 						</tbody>
 						<% } %>
 					</table>

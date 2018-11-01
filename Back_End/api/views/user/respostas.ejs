@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="../css/style.css">		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		
+		<!-- Refenciando o JQuery -->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		
+    	<!--JQuery Mask Plugin-->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('#btnVer').click(function(e){
+                window.location.href = ""
+            })
+
+            $('#btnVoltar').click(function(e){
+                window.location.href = ""
+            })
+
+            $('#btnsolicitacao').click(function(e){
+                window.location.href = ""
+            })
+
+            $('#btnVer').click(function(e){
+                window.location.href = ""
+            })
+        })
+        </script>
+		<title>Orçamentos</title>
+	</head>
+	<body>
+		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
+			<a href="" target="_blank">
+				<button type="button" class="btn btn-sm">Meu Cadastro</button>
+            </a>
+				<button type="button" class="btn btn-sm" id="btnsolicitacao">Solicitação de Mudança</button>
+			<a href="10.1.0.101:8000" target="_blank">
+				<button type="button" class="btn btn-sm">Sair</button>
+			</a>
+		</div>
+			
+		<div class="row col-sm-12" id="LinhaDivisoria"></div>
+		<h1 class="col-sm-12">Meus Orçamentos</h1>
+		<div class="container-fluid">
+			<div class="row col-sm-12">
+				<div class="col-sm-12">
+					<table border="1">
+						<thead>
+                            <th>Selecionar</th>
+							<th>Código Solicitação</th>
+							<th>Código Empresa</th>
+							<th>Descrição</th>
+							<th>Tempo</th>
+							<th>Valor</th>
+							<th>Empacotador</th>
+							<th>Seguro</th>
+						</thead>
+						<% for (var i=0;i<itens.length; i++){%>
+						<tbody>
+                                <td><td><input type="radio" name="radio" id="radio" value="<%= itens[i].idsolicitacao %>"/></td></td>
+								<td><%= itens[i].cod_solicitacao %></td>
+								<td><%= itens[i].cod_empresa %></td>
+								<td><%= itens[i].des_orcamento %></td>
+								<td><%= itens[i].tempo_execucao %></td>
+								<td><%= itens[i].valor %></td>
+								<td><%= itens[i].flg_empacotador %></td>
+								<td><%= itens[i].flg_seguro %></td>
+						</tbody>
+						<% } %>
+                    </table>
+                    <input type="button" class="col-sm-2" id="btnVer" value="Ver Detalhes">
+					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
+                </div>
+			</div>
+		</div>
+	</body>
+</html>

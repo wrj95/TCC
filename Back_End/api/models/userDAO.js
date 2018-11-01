@@ -33,6 +33,10 @@ userDAO.prototype.registerRequest = function (userData, callback){
     this._connection.query("INSERT INTO mydatabase.tab_solicitacao SET ?", userData, callback);
 }
 
+//Catch the answer
+userDAO.prototype.getAnswer = function (userData, callback){
+    this._connection.query("SELECT * FROM mydatabase.tab_orcamento WHERE cod_solicitacao IN (SELECT cod_solicitacao FROM mydatabase.tab_solicitacao WHERE cod_usuario = ?)", userData, callback);
+}
 
 
 module.exports = function () {

@@ -47,8 +47,8 @@
 							<th>Hora</th>
 							<th>Cadastrado dia</th>
 						</thead>
+						<% for (var i=0;i<itens.length; i++){%>
 						<tbody>
-							<% for (var i=0;i<itens.length; i++){%>
 								<td><%= itens[i].cod_solicitacao %></td>
 								<td><%= itens[i].des_solicitacao %></td>
 								<td><%= itens[i].cod_endereco_origem %></td>
@@ -56,10 +56,10 @@
 								<td><%= itens[i].data_servico %></td>
 								<td><%= itens[i].hora_servico %></td>
 								<td><%= itens[i].data_cadastro %></td>
-							<% } %>
+
 						</tbody>
+						<% } %>
 					</table>
-					<!--input type="button" class="col-sm-2" id="btnEditar" value="Editar"-->
 					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
                 </div>
 			</div>

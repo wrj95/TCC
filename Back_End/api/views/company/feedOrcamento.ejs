@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- CSS -->
+		<style>
+			#divCabecalho{
+				justify-content: flex-end;
+			}
+
+			#LinhaDivisoria{
+				background-color: brown;
+				height: 3px;	
+			}
+		</style>
+		
+		<!-- Refenciando o JQuery -->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+		<!--JQuery Mask Plugin-->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+				//Catch the ID user
+				var url = window.location.href;
+				var idToken = url.split('/')[5]
+				var idUser = idToken.split('?token=')[0]
+				var token = idToken.split('?token=')[1]
+				
+				$('#btnEditar').click(function(e){
+					var selValue = $('input[name=radio]:checked').val();
+					window.location.href = '/company/orcamento/'+ selValue + '/' + idUser + '?token=' + token;		
+				})
+            })
+        </script>
+
+		<title>Orçamentos</title>
+	</head>
+	<body>
+		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
+			<a href="" target="_blank">
+				<button type="button" class="btn btn-sm">Meu Cadastro</button>
+            </a>
+			<a href="" target="_blank">
+				<button type="button" class="btn btn-sm">Meus Orçamentos</button>
+			</a>
+			<a href="10.1.0.101:8000">
+				<button type="button" class="btn btn-sm">Sair</button>
+			</a>
+		</div>
+			
+		<div class="row col-sm-12" id="LinhaDivisoria"></div>
+		<h1 class="col-sm-12">Meus Orçamentos</h1>
+		<div class="container-fluid">
+			<div class="row col-sm-12">
+				<div class="col-sm-12">
+					<table border="1" id="solicit">
+						<thead>
+							<th>Caixa de seleção</th>
+							<th>Título da Solicitação</th>
+							<th>Solicitante</th>
+							<th>Estado de Origem</th>
+							<th>Município de Origem</th>
+							<th>Endereço de Origem</th>
+							<th>Estado de Destino</th>
+							<th>Município de Destino</th>
+							<th>Endereço de Destino</th>
+							<th>Data</th>
+							<th>Hora</th>
+							<th>Valor</th>
+						</thead>
+						<% for (var i=0;i<itens.length; i++){%>
+						<tbody>
+								<td><input type="radio" name="radio" id="radio" value="<%= itens[i].idsolicitacao %>"/></td>
+								<td><%= itens[i].tit_solicitacao %></td>
+								<td><%= itens[i].nome %></td>
+								<td><%= itens[i].uf_origem %></td>
+								<td><%= itens[i].mun_origem %></td>
+								<td><%= itens[i].end_origem %></td>
+								<td><%= itens[i].uf_destino %></td>
+								<td><%= itens[i].mun_destino %></td>
+								<td><%= itens[i].end_destino %></td>
+								<td><%= itens[i].data %></td>
+								<td><%= itens[i].hora %></td>
+								<td><%= itens[i].valor %></td>
+						</tbody>
+						<% } %>
+					</table>
+					<input type="button" class="col-sm-2" id="btnEditar" value="Ver Detalhes">
+                </div>
+			</div>
+		</div>
+	</body>
+</html>

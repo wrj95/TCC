@@ -17,9 +17,10 @@ application.use(function (req, res, next) {
                 appData["data"] = "Token is invalid !";
                 res.status(500).json(appData);
             } else if (payload.id != userData.id){
-                appData["error"] = 1;
-                appData["data"] = "Invalid User! Please sign in";
-                res.status(403).json(appData);
+                next();
+                //appData["error"] = 1;
+                //appData["data"] = "Invalid User! Please sign in";
+                //res.status(403).json(appData);
             } else {
                 next();
             }

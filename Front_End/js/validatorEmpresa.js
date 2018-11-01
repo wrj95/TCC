@@ -1,11 +1,10 @@
 $(document).ready(function(){
 
-    $.getJSON('Dados/estados_cidades.json', function (data) {
-        var items = [];
+    $.get('public/states', function (data) {
         var options = '<option value="">escolha um estado</option>'; //Iniciando com um Option default	
         $.each(data, function (key, val) {
             //Para cada Item Nome encontrado no JSON adicionar ao Select
-            options += '<option value="' + val.sigla + '">' + val.nome + '</option>';
+            options += '<option value="' + val.uf + '">' + val.cities + '</option>';
         });					
         $("#estados").html(options); //Adiciona no Select estado do HTML
         
@@ -17,18 +16,14 @@ $(document).ready(function(){
             $("#estados option:selected").each(function () {
                 str += $(this).text(); //Pegando o Estado foi selecionado no Estado
             });
-            
-            $.each(data, function (key, val) {
-                if(val.nome == str) { //Se de todos os Estados, o for de encontro com o que fora selecionado, entao entre no IF			
-                    $.each(val.cidades, function (key_city, val_city) { //Dentro do Estado, Pegue e adicione as Cidades no Select
-                        options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
-                    });							
-                }
+            $.get('user/cities',{"state": str}, function (data){
+                $.each(data, function (key, val) {		
+                    options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+                });
+                $("#municipio").html(options_cidades); //Adicione as Cidades no Select
             });
-            $("#cidades").html(options_cidades); //Adicione as Cidades no Select
             
         }).change();		
-    
     });
 
     $('#tel').mask("(99)9999-9999"); //Tratando Numero de Telefone

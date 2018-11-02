@@ -28,7 +28,6 @@ application.get("/user/getUsers", function (req, res) {
     });
 });
 
-
 application.get("/user/orcamento/solicitacao/:id", function (req,res) {
 
     let appData = {};
@@ -132,9 +131,10 @@ application.get("/user/orcamento/resposta/:id", function (req, res){
     })
 });
 
-application.get("/user/orcamento/resposta/:id", function (req, res){
+application.get("/user/orcamento/detalhe/:idorcamento/:id", function (req, res){
     let appData = {};
     let id = req.params.id;
+    let idorcamento = req.params.idorcamento;
     let database = application.config.database()
     database.getConnection(function (err,connection) {
         if (err) {
@@ -143,7 +143,7 @@ application.get("/user/orcamento/resposta/:id", function (req, res){
             res.status(500).json(appData);
         } else {
             let userDAO = new application.api.models.userDAO(connection)
-            userDAO.getAnswer(id, function (err, rows, fields) {
+            userDAO.getDetails(idorcamento, function (err, rows, fields) {
                 if (err) {
                     appData["data"] = "No data found";
                     console.log(err)
@@ -152,8 +152,8 @@ application.get("/user/orcamento/resposta/:id", function (req, res){
                 } else {                    
                     appData["error"] = 0;
                     appData["data"] = rows;
-                    res.render("user/respostas",{
-                        itens: rows,
+                    res.render("user/detalheResposta",{
+                        detail: rows[0],
                     });
                 }
             });
@@ -162,39 +162,10 @@ application.get("/user/orcamento/resposta/:id", function (req, res){
     })
 });
 
-application.get("/user/orcamento/resposta/:idsolicitacao/:id", function (req, res){
+application.post("/user/orcamento/resposta/:idorcamento/:id", function (req, res){
     let appData = {};
     let id = req.params.id;
-    let database = application.config.database()
-    database.getConnection(function (err,connection) {
-        if (err) {
-            appData["error"] = 1;
-            appData["data"] = "Internal Server Error";
-            res.status(500).json(appData);
-        } else {
-            let userDAO = new application.api.models.userDAO(connection)
-            userDAO.getAnswer(id, function (err, rows, fields) {
-                if (err) {
-                    appData["data"] = "No data found";
-                    console.log(err)
-                    res.status(404).json(appData);
-
-                } else {                    
-                    appData["error"] = 0;
-                    appData["data"] = rows;
-                    res.render("user/respostas",{
-                        itens: rows,
-                    });
-                }
-            });
-            connection.release();
-        }
-    })
-});
-
-application.post("/user/orcamento/resposta/aprovado/:id", function (req, res){
-    let appData = {};
-    let id = req.params.id;
+    let idorcamento = req.params.idorcamento;
     
     var hora = req.body.hora
     var data = moment(req.body.data, "DD/MM/YYYY").toDate();
@@ -203,12 +174,9 @@ application.post("/user/orcamento/resposta/aprovado/:id", function (req, res){
 
     let userData = {
         "cod_usuario": id,
-        "des_solicitacao": req.body.titSolicitacao,
-        "cod_endereco_origem": req.body.endOrigem,
-        "cod_endereco_destino": req.body.endDestino,
-        "valor_estimado": valor,
-        "data_servico": data,
-        "hora_servico": hora
+        "cod_solicitacao": req.body.idSolicitacao,
+        "cod_empresa": req.body.idEmpresa,
+        "cod_orcamento":  idorcamento,
     }
     // res.send(userData).json
     let database = application.config.database()
@@ -219,7 +187,7 @@ application.post("/user/orcamento/resposta/aprovado/:id", function (req, res){
             res.status(500).json(appData);
         } else {
             let userDAO = new application.api.models.userDAO(connection)
-            userDAO.registerRequest(userData, function (err, rows, fields) {
+            userDAO.Approve(userData, function (err, rows, fields) {
                 if (err) {
                     appData["data"] = "No data found";
                     console.log(err)

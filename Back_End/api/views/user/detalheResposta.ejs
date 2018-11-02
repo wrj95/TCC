@@ -30,13 +30,35 @@
             $(document).ready(function(){
 				//Catch the ID user
 				var url = window.location.href;
-				var idSolicitacao = url.split('/')[5]
-				var idToken = url.split('/')[6]
+				var idOrcamento = url.split('/')[6]
+				var idToken = url.split('/')[7]
 				var idUser = idToken.split('?token=')[0]
 				var token = idToken.split('?token=')[1]
 								
 				$('#btnProposta').click(function(e){
-					window.location.href = '/company/orcamento/emissao/' + idSolicitacao + '/'+ idUser + '?token=' + token;
+					var idempresa = document.getElementById("idEmpresa").innerHTML;
+					var idSolicitacao = document.getElementById("idSolicitacao").innerHTML;
+
+					var json = {
+						"idEmpresa": idempresa,
+						"idSolicitacao": idSolicitacao 
+					}
+					$.ajax({
+						type: 'post',
+						url: '/user/orcamento/resposta/' + idOrcamento + '/'+ idUser,
+						dataType: 'json',
+						data: json,
+						contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+						headers:{'token': token}, //Envio em URLEncoded
+						success: function(data){
+							alert(success);
+						},
+						error: function(request, status, erro){
+
+						}
+					}).done(function(result){
+					}).fail(function(jqXHR,textStatus,errorThrown){
+					});
 				})
 
 				$('#btnVoltar').click(function(e){
@@ -65,46 +87,43 @@
 		<div class="container-fluid">
 			<div class="row col-sm-12">
 				<div class="col-sm-12">
-					<label><b>Id:</b></label>
-					<p><%= detail.idsolicitacao %></p>
+					<label><b>Identificação do Orçamento:</b></label>
+					<p><%= detail.cod_orcamento %></p>
 
 					<label><b>Título do Orçamento:</b></label>
-					<p><%= detail.tit_solicitacao %></p>
+					<p><%= detail.tituloOrcamento %></p>
 
-					<label><b>Solicitante:</b></label>
-					<p><%= detail.nome_completo %></p>
+					<label><b>Identificação da Solicitação:</b></label>
+					<p id="idSolicitacao"><%= detail.cod_solicitacao %></p>
 
-					<label><b>Estado de Origem:</b></label>
-					<p><%= detail.uf_origem %></p>
+					<label><b>Identificação da Solicitação:</b></label>
+					<p><%= detail.tituloSolicitacao %></p>
 
-					<label><b>Municipio de Origem:</b></label>
-					<p><%= detail.mun_origem %></p>
+					<label><b>Código da Empresa:</b></label>
+					<p id="idEmpresa"><%= detail.cod_empresa %></p>
 
-					<label><b>Endereço de Origem:</b></label>
-					<p><%= detail.end_origem_completo %></p>
+					<label><b>Nome da Empresa:</b></label>
+					<p><%= detail.empresa %></p>
 
-					<label><b>Estado de Destino:</b></label>
-					<p><%= detail.uf_destino %></p>
+					<label><b>Descrição sobre à Mudança:</b></label>
+					<p><%= detail.descricao %></p>
 
-					<label><b>Municipio de Destino:</b></label>
-					<p><%= detail.mun_destino %></p>
+					<label><b>Tempo Estimado:</b></label>
+					<p><%= detail.tempoMudanca %></p>
 
-					<label><b>Endereço de Destino:</b></label>
-					<p><%= detail.end_destino_completo %></p>
+					<label><b>Empacotador:</b></label>
+					<p><%= detail.tempoMudanca %></p>
 
-					<label><b>Data agendada:</b></label>
-					<p><%= detail.data %></p>
+					<label><b>Seguro contra roubo:</b></label>
+					<p><%= detail.tempoMudanca %></p>
 
-					<label><b>Data agendada:</b></label>
-					<p><%= detail.hora %></p>
-
-					<label><b>Valor total dos Itens:</b></label>
-					<p><%= detail.valor%></p>
+					<label><b>Valor cobrado pelo Frete:</b></label>
+					<p><%= detail.valor %></p>
 					
 					<label><b>Descrição:</b></label>
 					<p><%= detail.descricao %></p>
 
-					<input type="button" class="col-sm-2" id="btnProposta" value="Fazer Proposta">
+					<input type="button" class="col-sm-2" id="btnProposta" value="Aceitar">
 					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
                 </div>
 			</div>

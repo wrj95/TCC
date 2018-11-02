@@ -4,9 +4,10 @@ module.exports = function (application) {
 // Adding Middleware wich will request the token on following function
 application.use(function (req, res, next) {
     let path = req.path
+    let id = path.length-1
     let userData = {}
         userData["token"] = req.body.token || req.headers["token"] || req.query.token;
-        userData["id"] = path.split('/')[4] ;
+        userData["id"] = path[id] ;
     
     let appData = {};
     
@@ -17,10 +18,9 @@ application.use(function (req, res, next) {
                 appData["data"] = "Token is invalid !";
                 res.status(500).json(appData);
             } else if (payload.id != userData.id){
-                next();
-                //appData["error"] = 1;
-                //appData["data"] = "Invalid User! Please sign in";
-                //res.status(403).json(appData);
+                appData["error"] = 1;
+                appData["data"] = "Invalid User! Please sign in";
+                res.status(403).json(appData);
             } else {
                 next();
             }

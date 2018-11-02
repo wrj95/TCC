@@ -149,6 +149,42 @@ INSERT INTO `tab_orcamento` VALUES (1,1,1,'Respostas WRJ','Teste','01:30',24.5,'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tab_orcamento_aprovado`
+--
+
+DROP TABLE IF EXISTS `tab_orcamento_aprovado`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tab_orcamento_aprovado` (
+  `cod_usuario` int(11) NOT NULL,
+  `cod_solicitacao` int(11) NOT NULL,
+  `cod_empresa` int(11) NOT NULL,
+  `cod_orcamento` int(11) NOT NULL,
+  `cod_orcamento_aprovado` int(11) NOT NULL AUTO_INCREMENT,
+  `avaliacao` int(11) DEFAULT NULL,
+  `comentario` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`cod_orcamento_aprovado`),
+  KEY `fk_usuario_idx` (`cod_usuario`),
+  KEY `fk_solicitacao_idx` (`cod_solicitacao`),
+  KEY `fk_empresa_idx` (`cod_empresa`),
+  KEY `fk_orcamento_idx` (`cod_orcamento`),
+  CONSTRAINT `fk_empresa_aprovado` FOREIGN KEY (`cod_empresa`) REFERENCES `tab_empresa` (`cod_empresa`),
+  CONSTRAINT `fk_orcamento_aprovado` FOREIGN KEY (`cod_orcamento`) REFERENCES `tab_orcamento` (`cod_orcamento`),
+  CONSTRAINT `fk_solicitacao_aprovado` FOREIGN KEY (`cod_solicitacao`) REFERENCES `tab_solicitacao` (`cod_solicitacao`),
+  CONSTRAINT `fk_usuario_aprovado` FOREIGN KEY (`cod_usuario`) REFERENCES `tab_usuario` (`cod_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tab_orcamento_aprovado`
+--
+
+LOCK TABLES `tab_orcamento_aprovado` WRITE;
+/*!40000 ALTER TABLE `tab_orcamento_aprovado` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tab_orcamento_aprovado` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tab_solicitacao`
 --
 
@@ -161,7 +197,7 @@ CREATE TABLE `tab_solicitacao` (
   `tit_solicitacao` varchar(100) DEFAULT NULL,
   `cod_endereco_origem` int(11) NOT NULL,
   `cod_endereco_destino` int(11) NOT NULL,
-  `vlr_estimado_carga` FLOAT DEFAULT NULL,
+  `vlr_estimado_carga` float DEFAULT NULL,
   `data_servico` date NOT NULL,
   `hora_servico` time DEFAULT NULL,
   `status` char(1) NOT NULL DEFAULT 'A',
@@ -183,7 +219,7 @@ CREATE TABLE `tab_solicitacao` (
 
 LOCK TABLES `tab_solicitacao` WRITE;
 /*!40000 ALTER TABLE `tab_solicitacao` DISABLE KEYS */;
-INSERT INTO `tab_solicitacao` VALUES (1,1,'Mudança',1,1,300.00,'2018-10-31','20:00:00','A','Tetste','2018-10-26 04:24:07');
+INSERT INTO `tab_solicitacao` VALUES (1,1,'Mudança',1,1,300,'2018-10-31','20:00:00','A','Tetste','2018-10-26 04:24:07');
 /*!40000 ALTER TABLE `tab_solicitacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,4 +291,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-28  3:53:07
+-- Dump completed on 2018-11-02 20:28:39

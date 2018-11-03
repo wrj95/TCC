@@ -101,35 +101,4 @@ application.post("/user/orcamento/solicitacao/:id", function (req, res){
     })
 });
 
-application.get("/user/lista/cidades"), function (req,res) {
-    let appData = {};
-
-    let database = application.config.database()
-    database.getConnection(function (err, connection) {
-        if (err) {
-            appData["error"] = 1;
-            appData["data"] = "Internal Server Error";
-            res.status(500).json(appData);
-        } else {
-            let generalDAO = new application.api.models.generalDAO(connection)
-            generalDAO.getAddress(id, function (err, rows, fields) {
-                if (!err) {
-                    appData["error"] = 0;
-                    appData["data"] = rows;
-                    res.send("Tela com as cidades", {
-                        cities: rows,
-                        id: id
-                    });
-                } else {
-                    appData["data"] = "No data found";
-                    console.log(err)
-                    res.status(404).json(appData);
-                }
-            });
-            connection.release();
-        }
-    })
-
-}
-
 }

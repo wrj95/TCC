@@ -177,11 +177,10 @@ module.exports = function (application) {
             "cnpj": req.body.cnpj,//tab_empresa
             "telefone": req.body.tel, //Tab_contatos
             "email": req.body.email, //tab_contatos
-            "email_alternativo": req.body.emailAlt, //tab_contatos
             "senha": req.body.passwd, //???
             "flg_concorda_termos": req.body.checkboxTerm, //tab_empresa
             "cod_uf": req.body.estados, //tab_empresa
-            "cod_municipio":'x', //tab_empresa
+            "cod_municipio":req.body.cidades, //tab_empresa
             "endereco": req.body.endEmp //tab_empresa
         }
 
@@ -211,6 +210,7 @@ module.exports = function (application) {
                         } else {
                             companyDAO.checkCNPJ(userData.cnpj, function (err, rows, fields) {
                                 if (err) {
+                                    console.log(err)
                                     appData.error = 1;
                                     appData["data"] = "Error Occured!";
                                     res.status(400).json(appData);

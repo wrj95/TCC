@@ -1,10 +1,10 @@
 $(document).ready(function(){
 
-    $.getJSON('public/states', function (data) {
+    $.getJSON('http://10.1.0.102:3050/lista/estados', function (data) {
         var options = '<option value="">escolha um estado</option>'; //Iniciando com um Option default	
         $.each(data, function (key, val) {
             //Para cada Item Nome encontrado no JSON adicionar ao Select
-            options += '<option value="' + val.uf + '">' + val.cities + '</option>';
+            options += '<option value="' + val.cod_uf + '">' + val.des_uf + '</option>';
         });					
         $("#estados").html(options); //Adiciona no Select estado do HTML
         
@@ -14,13 +14,15 @@ $(document).ready(function(){
             var str = "";					
             
             $("#estados option:selected").each(function () {
-                str += $(this).text(); //Pegando o Estado foi selecionado no Estado
+                str += $(this).val(); //Pegando o Estado foi selecionado no Estado
+                
             });
-            $.get('user/cities',{"state": str}, function (data){
+            $.getJSON('http://10.1.0.102:3050/lista/cidades/' + str, function (data){
+                var options_cidades = '<option value="">escolha uma Cidade</option>';    
                 $.each(data, function (key, val) {		
-                    options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+                    options_cidades += '<option value="' + val.cod_municipio + '">' + val.des_municipio + '</option>';
                 });
-                $("#municipio").html(options_cidades); //Adicione as Cidades no Select
+                $("#cidades").html(options_cidades); //Adicione as Cidades no Select
             });
             
         }).change();		

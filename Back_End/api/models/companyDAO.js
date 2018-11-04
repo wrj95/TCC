@@ -7,7 +7,7 @@ companyDAO.prototype.checkEmail = function (userData, callback) {
 }
 
 companyDAO.prototype.checkCNPJ = function (userData, callback) {
-    this._connection.query("SELECT * FROM mydatabase.tab_empresa WHERE cpf = ?", userData, callback)
+    this._connection.query("SELECT * FROM mydatabase.tab_empresa WHERE cnpj = ?", userData, callback)
 }
 
 companyDAO.prototype.register = function (userData, callback) {

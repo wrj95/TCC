@@ -103,15 +103,17 @@
 						}  
 					});
 				});
+			
+				$('#btnanswer').click(function(e){
+					window.location.href = "/user/orcamento/resposta/" + idUser + "?token=" + token; 
+				});
 			});
 		</script>
 
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<a href="" target="_blank">
-				<button type="button" class="btn btn-sm">Meu Cadastro</button>
-            </a>
+			<button type="button" class="btn btn-sm" id="btnanswer">Respostas</button>
 			<a href="./minhasSolicitacoes.ejs" target="_blank">
 				<button type="button" class="btn btn-sm">Minhas Solicitações</button>
 			</a>

@@ -33,16 +33,11 @@
 				var idToken = url.split('/')[5]
 				var idUser = idToken.split('?token=')[0]
 				var token = idToken.split('?token=')[1]
-				
-				$('#btnEditar').click(function(e){
+
+				$('#btnDetalhes').click(function(e){
 					var selValue = $('input[name=radio]:checked').val();
-					window.location.href = '/company/orcamento/'+ selValue + '/' + idUser + '?token=' + token;		
-				});
-				
-				//Orcamento approved by User Client
-				$('#btnAprovados').click(function(e){
-					window,location.href = '/company/aprovado/' + idUser + '?token=' + token;
-				});
+					window.location.href = '/company/aprovado/detalhe/' + selValue + '/' + idUser + '?token=' + token
+				})
             })
         </script>
 
@@ -50,10 +45,11 @@
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<button type="button" id="btnAprovados" class="btn btn-sm">Orçamentos Aprovados</button>
-            
-			<button type="button" class="btn btn-sm">Meus Orçamentos</button>
-
+			<button type="button" class="btn btn-sm">Central de Solicitações</button>
+			
+			<a href="">
+				<button type="button" class="btn btn-sm">Meus Orçamentos</button>
+			</a>
 			<a href="10.1.0.101:8000">
 				<button type="button" class="btn btn-sm">Sair</button>
 			</a>
@@ -67,36 +63,22 @@
 					<table border="1" id="solicit">
 						<thead>
 							<th>Caixa de seleção</th>
-							<th>Título da Solicitação</th>
 							<th>Solicitante</th>
-							<th>Estado de Origem</th>
-							<th>Município de Origem</th>
-							<th>Endereço de Origem</th>
-							<th>Estado de Destino</th>
-							<th>Município de Destino</th>
-							<th>Endereço de Destino</th>
-							<th>Data</th>
-							<th>Hora</th>
-							<th>Valor</th>
+							<th>Título da Solicitação</th>
+							<th>Título do Orcamento</th>
+							<th>Valor Acordado</th>
 						</thead>
 						<% for (var i=0;i<itens.length; i++){%>
 						<tbody>
-								<td><input type="radio" name="radio" id="radio" value="<%= itens[i].idsolicitacao %>"/></td>
-								<td><%= itens[i].tit_solicitacao %></td>
-								<td><%= itens[i].nome %></td>
-								<td><%= itens[i].uf_origem %></td>
-								<td><%= itens[i].mun_origem %></td>
-								<td><%= itens[i].end_origem %></td>
-								<td><%= itens[i].uf_destino %></td>
-								<td><%= itens[i].mun_destino %></td>
-								<td><%= itens[i].end_destino %></td>
-								<td><%= itens[i].data %></td>
-								<td><%= itens[i].hora %></td>
-								<td><%= itens[i].valor %></td>
+								<td><input type="radio" name="radio" id="radio" value="<%= itens[i].cod_orcamento_aprovado %>"/></td>
+								<td><%= itens[i].Solicitante %></td>
+								<td><%= itens[i].tituloSolicitacao %></td>
+								<td><%= itens[i].tituloOrcamento %></td>
+								<td><%= itens[i].valorAcordado %></td>
 						</tbody>
 						<% } %>
 					</table>
-					<input type="button" class="col-sm-2" id="btnEditar" value="Ver Detalhes">
+					<input type="button" class="col-sm-2" id="btnDetalhes" value="Ver Detalhes">
                 </div>
 			</div>
 		</div>

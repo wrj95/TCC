@@ -107,6 +107,10 @@
 				$('#btnanswer').click(function(e){
 					window.location.href = "/user/orcamento/resposta/" + idUser + "?token=" + token; 
 				});
+
+				$('#btnSolicitacoes').click(function(e){
+					window.location.href = "/user/solicitacao/" + idUser + "?token=" + token; 
+				});
 			});
 		</script>
 
@@ -114,9 +118,7 @@
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
 			<button type="button" class="btn btn-sm" id="btnanswer">Respostas</button>
-			<a href="./minhasSolicitacoes.ejs" target="_blank">
-				<button type="button" class="btn btn-sm">Minhas Solicitações</button>
-			</a>
+			<button type="button" class="btn btn-sm" id="btnSolicitacoes">Minhas Solicitações</button>
 			<a href="10.1.0.101:80">
 				<button type="button" class="btn btn-sm">Sair</button> 
 			</a>

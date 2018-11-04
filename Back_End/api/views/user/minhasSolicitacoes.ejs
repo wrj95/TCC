@@ -5,7 +5,17 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="../css/style.css">		
+		<style>
+			#divCabecalho{
+				justify-content: flex-end;
+			}
+
+			#LinhaDivisoria{
+				background-color: brown;
+				height: 3px;	
+			}
+		</style>
+		
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		
 		<!-- Refenciando o JQuery -->
@@ -17,12 +27,27 @@
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
-		<title>Orçamentos</title>
+		<script type='text/javascript'>
+			$(document).ready(function(){
+				var url = window.location.href;
+				var idToken = url.split('/')[5]
+				var idUser = idToken.split('?token=')[0]
+				var token = idToken.split('?token=')[1]
+
+				$('#btnDetalhes').click(function(e){
+					var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
+					//Redirect to a Details Page
+					window.location.href = '/user/solicitacao/'+ selValue + '/' + idUser + '?token=' + token;					
+				})
+			})
+		</script>
+
+		<title>Minhas Solicitações</title>
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<a href="" target="_blank">
-				<button type="button" class="btn btn-sm">Meu Cadastro</button>
+			<a href="">
+				<button type="button" class="btn btn-sm">Orçamentos Recebidos</button>
             </a>
 			<a href="./solicitacao.ejs" target="_blank">
 				<button type="button" class="btn btn-sm">Solicitação de Mudança</button>
@@ -39,28 +64,19 @@
 				<div class="col-sm-12">
 					<table border="1">
 						<thead>
-							<th>Código</th>
-							<th>Descrição</th>
-							<th>Endereço de Origem</th>
-							<th>Endereço de Destino</th>
-							<th>Data</th>
-							<th>Hora</th>
-							<th>Cadastrado dia</th>
+							<th>Selecionar</th>
+							<th>Titulo da Solicitação</th>
+							<th>Status</th>
 						</thead>
 						<% for (var i=0;i<itens.length; i++){%>
 						<tbody>
-								<td><%= itens[i].cod_solicitacao %></td>
-								<td><%= itens[i].des_solicitacao %></td>
-								<td><%= itens[i].cod_endereco_origem %></td>
-								<td><%= itens[i].cod_endereco_destino %></td>
-								<td><%= itens[i].data_servico %></td>
-								<td><%= itens[i].hora_servico %></td>
-								<td><%= itens[i].data_cadastro %></td>
-
+								<td><input type="radio" name="radio" id="radio" value="<%= itens[i].cod_solicitacao %>"/></td>
+								<td><%= itens[i].tit_solicitacao %></td>
+								<td><%= itens[i].status %></td>
 						</tbody>
 						<% } %>
 					</table>
-					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
+					<input type="button" class="col-sm-2" id="btnDetalhes" value="Ver Detalhes">
                 </div>
 			</div>
 		</div>

@@ -63,7 +63,6 @@ application.post("/user/orcamento/solicitacao/:id", function (req, res){
     let appData = {};
     let id = req.params.id;
     
-    var hora = req.body.hora
     var data = moment(req.body.data, "DD/MM/YYYY").toDate();
 
     let valor = parseFloat(req.body.valorestimado);
@@ -75,7 +74,7 @@ application.post("/user/orcamento/solicitacao/:id", function (req, res){
         "cod_endereco_destino": req.body.endDestino,
         "valor_estimado": valor,
         "data_servico": data,
-        "hora_servico": hora
+        "hora_servico": req.body.hora
     }
     // res.send(userData).json
     let database = application.config.database()

@@ -56,11 +56,15 @@
 
 				//Event on button
 				$('#btnConfirmar').click(function(e){
+					$.validator.addMethod("notEqualTo",function(value, element, params) {
+						return this.optional(element) || value != params;
+					});
+
 					$('#formRequest').validate({ //Validação dos campos do formulário
 						rules: { //Validation Rules
 							titSolicitacao:{required: true}, //Nome da Solicitacao nao pode ser vazio
 							endOrigem:{required: true}, //Endereco de origem obrigatori
-							endDestino:{required: true}, //Nao aceita o campo CPF vazio
+							endDestino:{required: true, notEqualTo: '#endOrigem'}, //Nao aceita o campo CPF vazio
 							data:{required: true}, //Nao aceita o campo Telefone vazio   
 							hora:{required: true}, //Nao aceita o campo Email vazio
 							valorestimado:{required: true}, //Nao aceita o campo Email Alternativo vazio
@@ -69,7 +73,7 @@
 						messages: {
 							titSolicitacao:{required: 'Campo Obrigatório'},
 							endOrigem:{required: 'Campo Obrigatório'},
-							endDestino:{required: 'Campo Obrigatório'},
+							endDestino:{required: 'Campo Obrigatório', notEqualTo: 'Destino não pode ser igual a Origem'},
 							data:{required: 'Campo Obrigatório'},
 							hora:{required: 'Campo Obrigatório'},
 							valorestimado:{required: 'Campo Obrigatório'},
@@ -99,19 +103,21 @@
 						}  
 					});
 				});
+			
+				$('#btnanswer').click(function(e){
+					window.location.href = "/user/orcamento/resposta/" + idUser + "?token=" + token; 
+				});
 			});
 		</script>
 
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<a href="" target="_blank">
-				<button type="button" class="btn btn-sm">Meu Cadastro</button>
-            </a>
+			<button type="button" class="btn btn-sm" id="btnanswer">Respostas</button>
 			<a href="./minhasSolicitacoes.ejs" target="_blank">
 				<button type="button" class="btn btn-sm">Minhas Solicitações</button>
 			</a>
-			<a href="10.1.0.101:8000" target="_blank">
+			<a href="10.1.0.101:80">
 				<button type="button" class="btn btn-sm">Sair</button> 
 			</a>
 		</div>

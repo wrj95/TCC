@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- CSS -->	
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		
+		<!-- Refenciando o JQuery -->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		
+    	<!--JQuery Mask Plugin-->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+			var url = window.location.href;
+			var idToken = url.split('/')[6]
+			var idUser = idToken.split('?token=')[0]
+			var token = idToken.split('?token=')[1]
+
+            $('#btnVer').click(function(e){
+				var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
+				//Redirect to a Details Page
+				window.location.href = '/user/orcamento/detalhe/'+ selValue + '/' + idUser + '?token=' + token;		
+            })
+
+            $('#btnVoltar').click(function(e){
+                window.location.href = ""
+            })
+
+            $('#btnsolicitacao').click(function(e){
+                window.location.href = ""
+            })
+
+        })
+        </script>
+		<title>Orçamentos</title>
+	</head>
+	<body>
+		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
+			<a href="" target="_blank">
+				<button type="button" class="btn btn-sm">Meu Cadastro</button>
+            </a>
+				<button type="button" class="btn btn-sm" id="btnsolicitacao">Solicitação de Mudança</button>
+			<a href="10.1.0.101:8000" target="_blank">
+				<button type="button" class="btn btn-sm">Sair</button>
+			</a>
+		</div>
+			
+		<div class="row col-sm-12" id="LinhaDivisoria"></div>
+		<h1 class="col-sm-12">Meus Orçamentos</h1>
+		<div class="container-fluid">
+			<div class="row col-sm-12">
+				<div class="col-sm-12">
+					<table border="1">
+						<thead>
+                            <th>Selecionar</th>
+							<th>Titulo da Solicitação</th>
+							<th>Empresa</th>
+							<th>Titulo do Orcamento</th>
+							<th>Empacotador</th>
+							<th>Seguro</th>
+							<th>Valor do Frete</th>
+							<th>Status</th>
+						</thead>
+						<% for (var i=0;i<itens.length; i++){%>
+						<tbody>
+								<td><input type="radio" name="radio" id="radio" value="<%= itens[i].idorcamento %>"/></td>
+								<td><%= itens[i].tituloSolicitacao %></td>
+								<td><%= itens[i].empresa %></td>
+								<td><%= itens[i].tituloOrcamento %></td>
+								<td><%= itens[i].empacotador %></td>
+								<td><%= itens[i].seguro %></td>
+								<td><%= itens[i].valor %></td>
+								<td><%= itens[i].status %></td>
+						</tbody>
+						<% } %>
+                    </table>
+                    <input type="button" class="col-sm-2" id="btnVer" value="Ver Detalhes">
+					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
+                </div>
+			</div>
+		</div>
+	</body>
+</html>

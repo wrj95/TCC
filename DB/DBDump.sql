@@ -30,14 +30,16 @@ CREATE TABLE `tab_empresa` (
   `cod_uf` char(2) NOT NULL,
   `cod_municipio` int(11) NOT NULL,
   `endereco` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(50) NOT NULL,
   `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`cod_empresa`),
   UNIQUE KEY `cnpj_UNIQUE` (`cnpj`),
   KEY `fk_empresa_uf_idx` (`cod_uf`),
   KEY `fk_empresa_municipio` (`cod_municipio`),
-  CONSTRAINT `fk_empresa_municipio` FOREIGN KEY (`cod_municipio`) REFERENCES `sys`.`tab_municipio` (`cod_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_empresa_uf` FOREIGN KEY (`cod_uf`) REFERENCES `sys`.`tab_uf` (`cod_uf`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_empresa_municipio` FOREIGN KEY (`cod_municipio`) REFERENCES `tab_municipio` (`cod_municipio`),
+  CONSTRAINT `fk_empresa_uf` FOREIGN KEY (`cod_uf`) REFERENCES `tab_uf` (`cod_uf`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Empresas.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +48,7 @@ CREATE TABLE `tab_empresa` (
 
 LOCK TABLES `tab_empresa` WRITE;
 /*!40000 ALTER TABLE `tab_empresa` DISABLE KEYS */;
+INSERT INTO `tab_empresa` VALUES (1,'teste','teste','123456791023','AC',1,'R. Capao Redondo','teste@gmail.com','123','2018-10-26 02:42:26');
 /*!40000 ALTER TABLE `tab_empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +60,7 @@ DROP TABLE IF EXISTS `tab_endereco`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tab_endereco` (
-  `cod_uf` int(11) NOT NULL,
+  `cod_uf` char(2) NOT NULL,
   `cod_municipio` int(11) NOT NULL,
   `cod_endereco` int(11) NOT NULL AUTO_INCREMENT,
   `CEP` char(8) DEFAULT NULL,
@@ -77,7 +80,7 @@ CREATE TABLE `tab_endereco` (
 
 LOCK TABLES `tab_endereco` WRITE;
 /*!40000 ALTER TABLE `tab_endereco` DISABLE KEYS */;
-INSERT INTO `tab_endereco` VALUES (1,1,1,'04931100','rua Capão Redondo','2','A','jd. Santa Margarida','u',1);
+INSERT INTO `tab_endereco` VALUES ('SP',1,1,'04931100','rua Capão Redondo','2','A','jd. Santa Margarida','u',1);
 /*!40000 ALTER TABLE `tab_endereco` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,6 +112,79 @@ INSERT INTO `tab_municipio` VALUES ('AC',1,'Rio Branco'),('AC',2,'Cruzeiro do Su
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tab_orcamento`
+--
+
+DROP TABLE IF EXISTS `tab_orcamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tab_orcamento` (
+  `cod_solicitacao` int(11) NOT NULL,
+  `cod_empresa` int(11) NOT NULL,
+  `cod_orcamento` int(11) NOT NULL AUTO_INCREMENT,
+  `titorcamento` varchar(50) NOT NULL,
+  `des_orcamento` varchar(100) DEFAULT NULL,
+  `tempo_execucao` varchar(50) DEFAULT NULL,
+  `valor` double DEFAULT NULL,
+  `empacotador` char(1) NOT NULL DEFAULT 'N',
+  `seguro` char(1) NOT NULL DEFAULT 'N',
+  `status` char(1) NOT NULL DEFAULT 'A',
+  `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`cod_orcamento`),
+  KEY `fk_solicitacao_idx` (`cod_solicitacao`),
+  KEY `fk_empresa_idx` (`cod_empresa`),
+  CONSTRAINT `fk_empresa` FOREIGN KEY (`cod_empresa`) REFERENCES `tab_empresa` (`cod_empresa`),
+  CONSTRAINT `fk_solicitacao` FOREIGN KEY (`cod_solicitacao`) REFERENCES `tab_solicitacao` (`cod_solicitacao`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Orçamentos.';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tab_orcamento`
+--
+
+LOCK TABLES `tab_orcamento` WRITE;
+/*!40000 ALTER TABLE `tab_orcamento` DISABLE KEYS */;
+INSERT INTO `tab_orcamento` VALUES (1,1,1,'Respostas WRJ','Teste','01:30',24.5,'S','S','A','2018-10-28 03:50:30');
+/*!40000 ALTER TABLE `tab_orcamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tab_orcamento_aprovado`
+--
+
+DROP TABLE IF EXISTS `tab_orcamento_aprovado`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tab_orcamento_aprovado` (
+  `cod_usuario` int(11) NOT NULL,
+  `cod_solicitacao` int(11) NOT NULL,
+  `cod_empresa` int(11) NOT NULL,
+  `cod_orcamento` int(11) NOT NULL,
+  `cod_orcamento_aprovado` int(11) NOT NULL AUTO_INCREMENT,
+  `avaliacao` int(11) DEFAULT NULL,
+  `comentario` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`cod_orcamento_aprovado`),
+  KEY `fk_usuario_idx` (`cod_usuario`),
+  KEY `fk_solicitacao_idx` (`cod_solicitacao`),
+  KEY `fk_empresa_idx` (`cod_empresa`),
+  KEY `fk_orcamento_idx` (`cod_orcamento`),
+  CONSTRAINT `fk_empresa_aprovado` FOREIGN KEY (`cod_empresa`) REFERENCES `tab_empresa` (`cod_empresa`),
+  CONSTRAINT `fk_orcamento_aprovado` FOREIGN KEY (`cod_orcamento`) REFERENCES `tab_orcamento` (`cod_orcamento`),
+  CONSTRAINT `fk_solicitacao_aprovado` FOREIGN KEY (`cod_solicitacao`) REFERENCES `tab_solicitacao` (`cod_solicitacao`),
+  CONSTRAINT `fk_usuario_aprovado` FOREIGN KEY (`cod_usuario`) REFERENCES `tab_usuario` (`cod_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tab_orcamento_aprovado`
+--
+
+LOCK TABLES `tab_orcamento_aprovado` WRITE;
+/*!40000 ALTER TABLE `tab_orcamento_aprovado` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tab_orcamento_aprovado` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tab_solicitacao`
 --
 
@@ -118,13 +194,14 @@ DROP TABLE IF EXISTS `tab_solicitacao`;
 CREATE TABLE `tab_solicitacao` (
   `cod_solicitacao` int(11) NOT NULL AUTO_INCREMENT,
   `cod_usuario` int(11) NOT NULL,
-  `des_solicitacao` varchar(100) DEFAULT NULL,
+  `tit_solicitacao` varchar(100) DEFAULT NULL,
   `cod_endereco_origem` int(11) NOT NULL,
   `cod_endereco_destino` int(11) NOT NULL,
-  `valor_estimado` decimal(5,2) NOT NULL,
+  `vlr_estimado_carga` float DEFAULT NULL,
   `data_servico` date NOT NULL,
   `hora_servico` time DEFAULT NULL,
   `status` char(1) NOT NULL DEFAULT 'A',
+  `des_solicitacao` varchar(2000) DEFAULT NULL,
   `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`cod_solicitacao`),
   KEY `fk_usuario_idx` (`cod_usuario`),
@@ -133,7 +210,7 @@ CREATE TABLE `tab_solicitacao` (
   CONSTRAINT `fk_endereco_destino` FOREIGN KEY (`cod_endereco_destino`) REFERENCES `tab_endereco` (`cod_endereco`),
   CONSTRAINT `fk_endereco_origem` FOREIGN KEY (`cod_endereco_origem`) REFERENCES `tab_endereco` (`cod_endereco`),
   CONSTRAINT `fk_usuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tab_usuario` (`cod_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cadastro de Solicitação de Serviço';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Solicitação de Serviço';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,6 +219,7 @@ CREATE TABLE `tab_solicitacao` (
 
 LOCK TABLES `tab_solicitacao` WRITE;
 /*!40000 ALTER TABLE `tab_solicitacao` DISABLE KEYS */;
+INSERT INTO `tab_solicitacao` VALUES (1,1,'Mudança',1,1,300,'2018-10-31','20:00:00','A','Tetste','2018-10-26 04:24:07');
 /*!40000 ALTER TABLE `tab_solicitacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,4 +291,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-21  0:43:11
+-- Dump completed on 2018-11-02 20:28:39

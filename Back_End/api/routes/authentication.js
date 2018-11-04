@@ -242,12 +242,13 @@ module.exports = function (application) {
             }
         });
     });
+
     // Route utilized to login the company into the app
     application.post('/company/login', function (req, res) {
 
         var appData = {};
-        var email = req.body.email;
-        var password = req.body.password;
+        var email = req.body.emailComp;
+        var password = req.body.passwordComp;
 
         //Try to get a connection on database if has error return 500 status
         var database = application.config.database()
@@ -264,17 +265,23 @@ module.exports = function (application) {
                     if (err) {
                         appData.error = 1;
                         appData["data"] = "Error Occured!";
+                        console.log(err);
                         res.status(400).json(appData);
                     } else {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
                             if (rows[0].senha == password) {
-                                let token = jwt.sign(rows[0], process.env.SECRET_KEY, {
-                                    expiresIn: 1440
+                                let jwtPayload = {}
+                                    jwtPayload["id"] = rows[0].id;
+                                    jwtPayload["email"] = rows[0].email;
+                                let token = jwt.sign(jwtPayload, process.env.SECRET_KEY, {
+                                    expiresIn: 3600
                                 });
                                 appData.error = 0;
                                 appData["data"] = "Successful login"
                                 appData["token"] = token;
+                                appData["id"] = rows[0].id;
+                                
                                 res.status(200).json(appData);
                             } else {
                                 appData.error = 1;

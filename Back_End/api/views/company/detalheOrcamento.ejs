@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- CSS -->
+		<style>
+			#divCabecalho{
+				justify-content: flex-end;
+			}
+
+			#LinhaDivisoria{
+				background-color: brown;
+				height: 3px;	
+			}
+		</style>
+		
+		<!-- Refenciando o JQuery -->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+		<!--JQuery Mask Plugin-->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+				//Catch the ID user
+				var url = window.location.href;
+				var idSolicitacao = url.split('/')[5]
+				var idToken = url.split('/')[6]
+				var idUser = idToken.split('?token=')[0]
+				var token = idToken.split('?token=')[1]
+								
+				$('#btnVoltar').click(function(e){
+					window.location.href = "/company/lista/" + idUser + "?token=" + token; 					
+				})
+            })
+        </script>
+
+		<title>Detalhe da Solicitação</title>
+	</head>
+	<body>
+		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
+			<button type="button" class="btn btn-sm">Orçamentos Recebidos</button>
+			<button type="button" class="btn btn-sm">Solicitação de Mudança</button>
+			<a href="10.1.0.101:8000">
+				<button type="button" class="btn btn-sm">Sair</button>
+			</a>
+		</div>
+			
+		<div class="row col-sm-12" id="LinhaDivisoria"></div>
+		<h1 class="col-sm-12">Detalhes do Orçamento</h1>
+		<div class="container-fluid">
+			<div class="row col-sm-12">
+				<div class="col-sm-12">
+                    <label><b>Titulo do Orçamento:</b></label>
+                    <p><%= detail.titorcamento %></p>
+                    
+                    <label><b>Respostas para esta Solicitação:</b></label>
+                    <p><%= detail.tit_solicitacao %></p>
+
+					<label><b>Solicitante:</b></label>
+					<p><%= detail.nome_completo %></p>
+                    
+					<label><b>Estado de Origem:</b></label>
+					<p><%= detail.uf_origem %></p>
+
+					<label><b>Municipio de Origem:</b></label>
+					<p><%= detail.mun_origem %></p>
+
+					<label><b>Endereço de Origem:</b></label>
+					<p><%= detail.end_origem_completo %></p>
+
+					<label><b>Estado de Destino:</b></label>
+					<p><%= detail.uf_destino %></p>
+
+					<label><b>Municipio de Destino:</b></label>
+					<p><%= detail.mun_destino %></p>
+
+					<label><b>Endereço de Destino:</b></label>
+                    <p><%= detail.end_destino_completo %></p>
+                    
+					<label><b>Valor do Frete:</b></label>
+                    <p><%= detail.valor %></p>
+
+                    <label><b>Tempo de Execução:</b></label>
+                    <p><%= detail.tempo_execucao %></p>
+
+                    <label><b>Valor do Frete:</b></label>
+                    <p><%= detail.des_orcamento %></p>
+                    
+                    <label><b>Status:</b></label>
+					<p><%= detail.status %></p>
+
+					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
+                </div>
+			</div>
+		</div>
+	</body>
+</html>

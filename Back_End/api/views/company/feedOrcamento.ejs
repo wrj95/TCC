@@ -43,6 +43,10 @@
 				$('#btnAprovados').click(function(e){
 					window,location.href = '/company/aprovado/' + idUser + '?token=' + token;
 				});
+
+				$('#btnOrcamentos').click(function(e){
+					window,location.href = '/company/lista/' + idUser + '?token=' + token;
+				});
             })
         </script>
 
@@ -52,7 +56,7 @@
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
 			<button type="button" id="btnAprovados" class="btn btn-sm">Orçamentos Aprovados</button>
             
-			<button type="button" class="btn btn-sm">Meus Orçamentos</button>
+			<button type="button" class="btn btn-sm" id="btnOrcamentos">Meus Orçamentos</button>
 
 			<a href="10.1.0.101:8000">
 				<button type="button" class="btn btn-sm">Sair</button>

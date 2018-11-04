@@ -153,7 +153,6 @@ module.exports = function (application) {
         });
     });
 
-
     // Route utilized to register the Companies
     application.post('/company/register', function (req, res) {
         var today = new Date();

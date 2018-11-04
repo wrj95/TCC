@@ -188,4 +188,60 @@ module.exports = function (application) {
         })
     });
 
+    application.get("/company/lista/:id", function (req, res) {
+        let appData = {}
+        let id = req.params.id;
+        let database = application.config.database()
+        database.getConnection(function (err, connection) {
+            if (err) {
+                appData["error"] = 1;
+                appData["data"] = "Internal Server Error";
+                res.status(500).json(appData);
+            } else {
+                let companyDAO = new application.api.models.companyDAO(connection)
+                companyDAO.listOrcamentos(id, function (err, rows, fields) {
+                    if(err){
+                        console.log(err)
+                        appData["error"] = 1;
+                        appData["data"] = "No Data Found";
+                        res.status(500).json(appData);
+                    }else{
+                        res.render("company/meusOrcamentos",{
+                            itens: rows
+                        })
+                    }
+                });
+                connection.release();
+            }
+        })
+    });
+
+    application.get("/company/lista/:idOrcamento/:id", function (req, res) {
+        let appData = {}
+        let id = req.params.id;
+        let idOrcamento = req.params.idOrcamento;
+        let database = application.config.database()
+        database.getConnection(function (err, connection) {
+            if (err) {
+                appData["error"] = 1;
+                appData["data"] = "Internal Server Error";
+                res.status(500).json(appData);
+            } else {
+                let companyDAO = new application.api.models.companyDAO(connection)
+                companyDAO.detailsOrcamento(idOrcamento, function (err, rows, fields) {
+                    if(err){
+                        console.log(err)
+                        appData["error"] = 1;
+                        appData["data"] = "No Data Found";
+                        res.status(500).json(appData);
+                    }else{
+                        res.render("company/detalheOrcamento",{
+                            detail: rows[0]
+                        })
+                    }
+                });
+                connection.release();
+            }
+        })
+    });
 }

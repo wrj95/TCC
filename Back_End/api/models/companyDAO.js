@@ -71,6 +71,39 @@ companyDAO.prototype.registerRespond = function (userData, callback){
     this._connection.query("INSERT INTO mydatabase.tab_orcamento SET ?", userData, callback);
 }
 
+//Details about Request
+companyDAO.prototype.getApprove = function (userData, callback){
+    this._connection.query("SELECT a.cod_orcamento_aprovado, u.nome AS Solicitante, s.tit_solicitacao AS tituloSolicitacao, "
+                            + "o.titorcamento AS tituloOrcamento, o.valor AS valorAcordado "
+                            + "FROM tab_orcamento_aprovado a "
+                            + "INNER JOIN tab_usuario u ON a.cod_usuario = u.cod_usuario "
+                            + "INNER JOIN tab_solicitacao s ON a.cod_solicitacao = s.cod_solicitacao "
+                            + "INNER JOIN tab_orcamento o ON a.cod_orcamento = o.cod_orcamento "
+                            + "WHERE a.cod_empresa = ?", userData, callback); //I need to do an Inner Join
+}
+
+//Details about Request
+companyDAO.prototype.ApproveDetails = function (userData, callback){
+    this._connection.query("SELECT CONCAT(u.nome, ' ', u.sobrenome) AS solicitante, u.email AS email, u.telefone_fixo, u.telefone_celular, "
+                            + "DATE_FORMAT(s.data_servico, '%d/%m/%Y') AS data, s.hora_servico AS hora, s.des_solicitacao AS descricao, "
+                            + "s.tit_solicitacao AS tituloSolicitacao, ufo.des_uf AS uf_origem, muno.des_municipio AS mun_origem, "
+                            + "CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', eo.complemento) AS end_origem_completo, "
+                            + "ufd.des_uf AS uf_destino, mund.des_municipio AS mun_destino, "
+                            + "CONCAT(ed.endereco,', ', ed.numero, ' - ', ed.complemento) AS end_destino_completo, o.valor AS valorAcordado "
+                            + "FROM tab_orcamento_aprovado a "
+                            + "INNER JOIN tab_usuario u ON a.cod_usuario = u.cod_usuario "
+                            + "INNER JOIN tab_solicitacao s ON a.cod_solicitacao = s.cod_solicitacao "
+                            + "INNER JOIN tab_orcamento o ON a.cod_orcamento = o.cod_orcamento "
+                            + "LEFT JOIN tab_endereco eo ON eo.cod_usu_emp = s.cod_usuario AND eo.flg_usu_emp = 'U' AND eo.cod_endereco = s.cod_endereco_origem "
+                            + "INNER JOIN tab_uf ufo ON ufo.cod_uf = eo.cod_uf "
+                            + "INNER JOIN tab_municipio muno ON muno.cod_municipio = eo.cod_municipio " 
+                            + "LEFT JOIN tab_endereco ed ON ed.cod_usu_emp = s.cod_usuario AND ed.flg_usu_emp = 'U' AND ed.cod_endereco = s.cod_endereco_destino " 
+                            + "INNER JOIN tab_uf ufd ON ufd.cod_uf = ed.cod_uf " 
+                            + "INNER JOIN tab_municipio mund ON mund.cod_municipio = ed.cod_municipio "	
+                            + "WHERE a.cod_orcamento_aprovado = ?", userData, callback); //I need to do an Inner Join
+}
+
+
 module.exports = function () {
     return companyDAO;
 }

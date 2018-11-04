@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $.get('public/states', function (data) {
+    $.getJSON('public/states', function (data) {
         var options = '<option value="">escolha um estado</option>'; //Iniciando com um Option default	
         $.each(data, function (key, val) {
             //Para cada Item Nome encontrado no JSON adicionar ao Select

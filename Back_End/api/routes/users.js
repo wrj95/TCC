@@ -1,7 +1,9 @@
 var moment = require('moment');
 module.exports = function (application){
 
-application.get("/user/getUsers", function (req, res) {
+application.route("/user/getUsers")
+    .all(application.config.strategy.authenticate())
+    .get(function (req,res) {
     let appData = {};
     //Try to get a connection on database if has error return 500 status
     var database = application.config.database()
@@ -28,10 +30,12 @@ application.get("/user/getUsers", function (req, res) {
     });
 });
 
-application.get("/user/solicitacao/:id", function (req,res) {
+application.route("/user/solicitacao/:id")
+    .all(application.config.strategy.authenticate())
+    .get(function (req,res) {
 
     let appData = {};
-    let id = req.params.id;
+    let id = req.user.id;
     let database = application.config.database()
     database.getConnection(function (err,connection) {
         if (err) {
@@ -58,10 +62,11 @@ application.get("/user/solicitacao/:id", function (req,res) {
     })
 });
 
-application.get("/user/solicitacao/:idSolicitacao/:id", function (req,res) {
+application.route("/user/solicitacao/:idSolicitacao/:id")
+    .all(application.config.strategy.authenticate())
+    .get(function (req,res) {
 
     let appData = {};
-    let id = req.params.id;
     let idSolicitacao = req.params.idSolicitacao
     
     let database = application.config.database()
@@ -90,10 +95,12 @@ application.get("/user/solicitacao/:idSolicitacao/:id", function (req,res) {
     })
 });
 
-application.get("/user/orcamento/solicitacao/:id", function (req,res) {
+application.route("/user/orcamento/solicitacao/:id")
+    .all(application.config.strategy.authenticate())
+    .get(function (req,res) {
 
     let appData = {};
-    let id = req.params.id;
+    let id = req.user.id;
     let database = application.config.database()
     database.getConnection(function (err,connection) {
         if (err) {
@@ -119,11 +126,11 @@ application.get("/user/orcamento/solicitacao/:id", function (req,res) {
             connection.release();
         }
     })
-});
+})
 
-application.post("/user/orcamento/solicitacao/:id", function (req, res){
+    .post(function (req, res){
     let appData = {};
-    let id = req.params.id;
+    let id = req.user.id;
     
     var data = moment(req.body.data, "DD/MM/YYYY").toDate();
 
@@ -147,7 +154,7 @@ application.post("/user/orcamento/solicitacao/:id", function (req, res){
             res.status(500).json(appData);
         } else {
             let userDAO = new application.api.models.userDAO(connection)
-            userDAO.registerRequest(userData, function (err, rows, fields) {
+            userDAO.registerRequest(userData, function (err, rows) {
                 if (err) {
                     appData["data"] = "No data found";
                     console.log(err)
@@ -162,9 +169,11 @@ application.post("/user/orcamento/solicitacao/:id", function (req, res){
     })
 });
 
-application.get("/user/orcamento/resposta/:id", function (req, res){
+application.route("/user/orcamento/resposta/:id")
+    .all(application.config.strategy.authenticate())
+    .get(function (req, res){
     let appData = {};
-    let id = req.params.id;
+    let id = req.user.id;
     let database = application.config.database()
     database.getConnection(function (err,connection) {
         if (err) {
@@ -173,7 +182,7 @@ application.get("/user/orcamento/resposta/:id", function (req, res){
             res.status(500).json(appData);
         } else {
             let userDAO = new application.api.models.userDAO(connection)
-            userDAO.getAnswer(id, function (err, rows, fields) {
+            userDAO.getAnswer(id, function (err, rows) {
                 if (err) {
                     appData["data"] = "No data found";
                     console.log(err)
@@ -192,9 +201,10 @@ application.get("/user/orcamento/resposta/:id", function (req, res){
     })
 });
 
-application.get("/user/orcamento/detalhe/:idorcamento/:id", function (req, res){
+application.route("/user/orcamento/detalhe/:idorcamento/:id")
+    .all(application.config.strategy.authenticate())
+    .get(function (req, res){
     let appData = {};
-    let id = req.params.id;
     let idorcamento = req.params.idorcamento;
     let database = application.config.database()
     database.getConnection(function (err,connection) {
@@ -204,7 +214,7 @@ application.get("/user/orcamento/detalhe/:idorcamento/:id", function (req, res){
             res.status(500).json(appData);
         } else {
             let userDAO = new application.api.models.userDAO(connection)
-            userDAO.getDetails(idorcamento, function (err, rows, fields) {
+            userDAO.getDetails(idorcamento, function (err, rows) {
                 if (err) {
                     appData["data"] = "No data found";
                     console.log(err)
@@ -223,16 +233,13 @@ application.get("/user/orcamento/detalhe/:idorcamento/:id", function (req, res){
     })
 });
 
-application.post("/user/orcamento/resposta/:idorcamento/:id", function (req, res){
+application.route("/user/orcamento/resposta/:idorcamento/:id")
+    .all(application.config.strategy.authenticate())
+    .post(function (req, res){
     let appData = {};
-    let id = req.params.id;
+    let id = req.user.id;
     let idorcamento = req.params.idorcamento;
     
-    var hora = req.body.hora
-    var data = moment(req.body.data, "DD/MM/YYYY").toDate();
-
-    let valor = parseFloat(req.body.valorestimado);
-
     let userData = {
         "cod_usuario": id,
         "cod_solicitacao": req.body.idSolicitacao,
@@ -248,7 +255,7 @@ application.post("/user/orcamento/resposta/:idorcamento/:id", function (req, res
             res.status(500).json(appData);
         } else {
             let userDAO = new application.api.models.userDAO(connection)
-            userDAO.Approve(userData, function (err, rows, fields) {
+            userDAO.Approve(userData, function (err, rows) {
                 if (err) {
                     appData["data"] = "No data found";
                     console.log(err)
@@ -263,13 +270,17 @@ application.post("/user/orcamento/resposta/:idorcamento/:id", function (req, res
     })
 });
 
-application.get("/user/address/:id", function (req, res){
+application.route("/user/address/:id")
+    .all(application.config.strategy.authenticate())
+    .get(function (req, res){
     res.render("user/enderecos");
 });
 
-application.post("/user/address/register/:id", function (req, res){
+application.route("/user/address/register/:id")
+    .all(application.config.strategy.authenticate())
+    .post(function (req, res){
     let appData = {};
-    let id = req.params.id;
+    let id = req.user.id;
 
     let userData = {
         "cod_uf": req.body.UF,

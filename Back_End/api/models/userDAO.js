@@ -87,6 +87,10 @@ userDAO.prototype.Approve = function(userData, callback){
     this._connection.query("INSERT INTO mydatabase.tab_orcamento_aprovado SET ?", userData, callback);
 }
 
+userDAO.prototype.registerAddress = function(userData, callback){
+    this._connection.query("INSERT INTO mydatabase.tab_endereco SET ?", userData, callback);
+}
+
 module.exports = function () {
     return userDAO;
 }

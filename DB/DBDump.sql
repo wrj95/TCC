@@ -73,7 +73,7 @@ CREATE TABLE `tab_endereco` (
   `flg_usu_emp` char(1) NOT NULL,
   `cod_usu_emp` int(11) NOT NULL,
   PRIMARY KEY (`cod_endereco`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de endereços do usuário.';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Cadastro de endereços do usuário.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,7 +82,7 @@ CREATE TABLE `tab_endereco` (
 
 LOCK TABLES `tab_endereco` WRITE;
 /*!40000 ALTER TABLE `tab_endereco` DISABLE KEYS */;
-INSERT INTO `tab_endereco` VALUES ('SP',1,1,'04931100','rua Capão Redondo','2','A','jd. Santa Margarida','u',1);
+INSERT INTO `tab_endereco` VALUES ('SP',1,1,'04931100','rua Capão Redondo','2','A','jd. Santa Margarida','u',1),('AC',1,2,'04931100','R Jussara',NULL,'A','Piracanjuba','U',1);
 /*!40000 ALTER TABLE `tab_endereco` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,4 +293,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-04 15:22:16
+-- Dump completed on 2018-11-05  0:54:10

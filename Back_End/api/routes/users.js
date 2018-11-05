@@ -263,4 +263,46 @@ application.post("/user/orcamento/resposta/:idorcamento/:id", function (req, res
     })
 });
 
+application.get("/user/address/:id", function (req, res){
+    res.render("user/enderecos");
+});
+
+application.post("/user/address/register/:id", function (req, res){
+    let appData = {};
+    let id = req.params.id;
+
+    let userData = {
+        "cod_uf": req.body.UF,
+        "cod_municipio": req.body.municipio,
+        "CEP": req.body.cep,
+        "endereco": req.body.endereco,
+        "numero": req.body.numero,
+        "complemento": req.body.complemento,
+        "bairro": req.body.bairro,
+        "flg_usu_emp": 'U',
+        "cod_usu_emp": id,
+    }
+    // res.send(userData).json
+    let database = application.config.database()
+    database.getConnection(function (err,connection) {
+        if (err) {
+            appData["error"] = 1;
+            appData["data"] = "Internal Server Error";
+            res.status(500).json(appData);
+        } else {
+            let userDAO = new application.api.models.userDAO(connection)
+            userDAO.registerAddress(userData, function (err, rows, fields) {
+                if (err) {
+                    appData["data"] = "No data found";
+                    console.log(err)
+                    res.status(404).json(appData);
+                } else {
+                    appData["data"] = "Save";
+                    res.status(200).json(appData);
+                }
+            });
+            connection.release();
+        }
+    })
+});
 }

@@ -5,7 +5,16 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		
 		<!-- CSS -->
-		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<style>
+			#divCabecalho{
+				justify-content: flex-end;
+			}
+
+			#LinhaDivisoria{
+				background-color: brown;
+				height: 3px;	
+			}
+		</style>		
 
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">	
@@ -25,8 +34,88 @@
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.js"></script>		
 		
 		<!-- Iniciando as tarefas com o JQuery -->
-		<script type="text/JavaScript" src="../js/mascaras.js"></script>
-		<script type="text/JavaScript" src="./js/addressUser.js"></script>
+		<script type="text/JavaScript">
+			$(document).ready(function(){
+				var url = window.location.href;
+				var idToken = url.split('/')[5]
+				var idUser = idToken.split('?token=')[0]
+				var token = idToken.split('?token=')[1]
+
+				$.getJSON('/lista/estados', function (data) {
+					var options = '<option value="">escolha um estado</option>'; //Iniciando com um Option default	
+					$.each(data, function (key, val) {
+						//Para cada Item Nome encontrado no JSON adicionar ao Select
+						options += '<option value="' + val.cod_uf + '">' + val.des_uf + '</option>';
+					});					
+					$("#UF").html(options); //Adiciona no Select estado do HTML
+					
+					$("#UF").change(function () {	//Quando uma cidade for escolhida	
+					
+						var options_cidades = '';
+						var str = "";					
+						
+						$("#UF option:selected").each(function () {
+							str += $(this).val(); //Pegando o Estado foi selecionado no Estado
+							
+						});
+						$.getJSON('/lista/cidades/' + str, function (data){
+							var options_cidades = '<option value="">escolha uma Cidade</option>';    
+							$.each(data, function (key, val) {		
+								options_cidades += '<option value="' + val.cod_municipio + '">' + val.des_municipio + '</option>';
+							});
+							$("#municipio").html(options_cidades); //Adicione as Cidades no Select
+						});
+						
+					}).change();		
+				});
+
+				$('#btnConfirmar').click(function (e) { //Quando o botao do formulario e acionado
+					$('#formAddress').validate({ //Validação dos campos do formulário
+						rules: { //Regras de Validacao
+							cep:{required: true}, //Nao aceita nome fantasia vazio
+							UF:{required: true}, //Nao aceita o campo CPF vazio
+							municipio:{required: true}, //Nao aceita o campo Telefone vazio
+							endereco:{required: true}, //Nao aceita o campo Email vazio e um email válido
+							numero:{required: true}, //Nao aceita o campo Email Alternativo vazio e um email válido
+						},
+						messages: {
+							cep:{required: 'Campo Obrigatório'},   
+							UF:{required: 'Campo Obrigatório'},
+							municipio:{required: 'Campo Obrigatório'},                        
+							endereco:{required: 'Campo Obrigatório'},
+							numero:{required: 'Campo Obrigatório'},
+						},
+						submitHandler: function(form){
+							//Aqui pega o formulário e o converte em JSON
+							var json = JSON.parse(JSON.stringify(jQuery('#formAddress').serializeArray()));
+							
+							//Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
+							$.ajax({
+								type: 'post', //Tipo de Conexao
+								url: '/user/address/register/' + idUser, //URL da API
+								dataType: 'json', //Tipo de dado que sera transferido
+								data: json, //Enviando o formulario em formato JSON
+								contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
+								headers:{'token': token}, //Envio em URLEncoded
+								success: function(data) {
+									alert('Cadastro realizado com Sucesso');
+									window.location.href = '/user/orcamento/solicitacao/' + idUser + '?token=' + token;
+								},
+								error: function(request, status, erro){
+									//Captando o erro retornado da API
+									var erroJ = JSON.parse(request.responseText);
+								}
+							}).done(function(result){
+									//Aqui será tratada à resposta do Servidor
+							}).fail(function(jqXHR,textStatus,errorThrown){
+									//alert(errorThrown);
+									//Aqui será mostrado o erro que retornará do Servidor
+							});
+						}                
+					});
+				});
+			})
+		</script>
 		
 		<title>Cadastro de Contatos</title>
 	</head>
@@ -46,7 +135,7 @@
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
 		<h1 class="col-sm-12">Cadastro de Endereços</h1>
 		<div class="container-fluid">
-			<form class="form-horizontal" id="formAddress" action="user/request" method="POST">	
+			<form class="form-horizontal" id="formAddress">	
 				<div class="row col-sm-12">
 					<div class="col-sm-2">
 						<label for="cep">CEP:</label>					
@@ -78,7 +167,6 @@
 					</div>
 					<div class="col-sm-12">
 						<input type="submit" class="col-sm-2" id="btnConfirmar" value="Confirmar">
-						<input type="button" class="col-sm-2" id="btnCancelar" value="Cancelar">
 						<input type="reset" class="col-sm-2" id="btnRedefinir" value="Redefinir">
 					</div>
 				</div>

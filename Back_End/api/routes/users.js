@@ -30,7 +30,7 @@ application.route("/user/getUsers")
     });
 });
 
-application.route("/user/orcamento/solicitacao/:id")
+application.route("/user/orcamento/solicitacao")
     .all(application.config.strategy.authenticate())
     .get(function (req,res) {
     console.log(req.user)
@@ -104,7 +104,7 @@ application.route("/user/orcamento/solicitacao/:id")
     })
 });
 
-application.route("/user/orcamento/resposta/:id")
+application.route("/user/orcamento/resposta")
     .all(application.config.strategy.authenticate())
     .get(function (req, res){
     let appData = {};
@@ -136,7 +136,7 @@ application.route("/user/orcamento/resposta/:id")
     })
 });
 
-application.route("/user/orcamento/detalhe/:idorcamento/:id")
+application.route("/user/orcamento/detalhe/:idorcamento")
     .all(application.config.strategy.authenticate())
     .get(function (req, res){
     let appData = {};
@@ -168,7 +168,7 @@ application.route("/user/orcamento/detalhe/:idorcamento/:id")
     })
 });
 
-application.route("/user/orcamento/resposta/:idorcamento/:id")
+application.route("/user/orcamento/resposta/:idorcamento")
     .all(application.config.strategy.authenticate())
     .post(function (req, res){
     let appData = {};
@@ -205,13 +205,13 @@ application.route("/user/orcamento/resposta/:idorcamento/:id")
     })
 });
 
-application.route("/user/address/:id")
+application.route("/user/address")
     .all(application.config.strategy.authenticate())
     .get(function (req, res){
     res.render("user/enderecos");
 });
 
-application.route("/user/address/register/:id")
+application.route("/user/address/register")
     .all(application.config.strategy.authenticate())
     .post(function (req, res){
     let appData = {};

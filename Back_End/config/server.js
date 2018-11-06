@@ -15,6 +15,8 @@ app.use(express.urlencoded({
     extended: true
 }));
 
+app.use('/images',express.static('api/views/css/'));
+
 app.use(express.json())
 
 consign()

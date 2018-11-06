@@ -23,4 +23,3 @@ application.route("/hello/world")
 }
 
 
-// module.exports = hello;

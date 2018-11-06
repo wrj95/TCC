@@ -99,7 +99,7 @@
 								headers:{'token': token}, //Envio em URLEncoded
 								success: function(data) {
 									alert('Cadastro realizado com Sucesso');
-									window.location.href = '/user/orcamento/solicitacao/' + idUser + '?token=' + token;
+									window.location.href = '/user/orcamento/solicitacao/';
 								},
 								error: function(request, status, erro){
 									//Captando o erro retornado da API

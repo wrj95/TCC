@@ -109,6 +109,7 @@ module.exports = function (application) {
             if (err) {
                 appData["error"] = 1;
                 appData["data"] = "Internal Server Error";
+                console.log(err)
                 res.status(500).json(appData);
                 //If connection works , do a query looking for the email requested
             } else {

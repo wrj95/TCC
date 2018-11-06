@@ -30,75 +30,10 @@ application.route("/user/getUsers")
     });
 });
 
-application.route("/user/solicitacao/:id")
-    .all(application.config.strategy.authenticate())
-    .get(function (req,res) {
-
-    let appData = {};
-    let id = req.user.id;
-    let database = application.config.database()
-    database.getConnection(function (err,connection) {
-        if (err) {
-            appData["error"] = 1;
-            appData["data"] = "Internal Server Error";
-            res.status(500).json(appData);
-        } else {
-            let userDAO = new application.api.models.userDAO(connection)
-            userDAO.listSolicitacao(id, function (err, rows, fields) {
-                if (!err) {
-                    appData["error"] = 0;
-                    appData["data"] = rows;
-                    res.render("user/minhasSolicitacoes",{
-                        itens: rows,
-                    });
-                } else {
-                    appData["data"] = "No data found";
-                    console.log(err)
-                    res.status(404).json(appData);
-                }
-            });
-            connection.release();
-        }
-    })
-});
-
-application.route("/user/solicitacao/:idSolicitacao/:id")
-    .all(application.config.strategy.authenticate())
-    .get(function (req,res) {
-
-    let appData = {};
-    let idSolicitacao = req.params.idSolicitacao
-    
-    let database = application.config.database()
-    database.getConnection(function (err,connection) {
-        if (err) {
-            appData["error"] = 1;
-            appData["data"] = "Internal Server Error";
-            res.status(500).json(appData);
-        } else {
-            let userDAO = new application.api.models.userDAO(connection)
-            userDAO.detailsSolicitacao(idSolicitacao, function (err, rows, fields) {
-                if (!err) {
-                    appData["error"] = 0;
-                    appData["data"] = rows;
-                    res.render("user/detalheSolicitacao",{
-                        detail: rows[0],
-                    });
-                } else {
-                    appData["data"] = "No data found";
-                    console.log(err)
-                    res.status(404).json(appData);
-                }
-            });
-            connection.release();
-        }
-    })
-});
-
 application.route("/user/orcamento/solicitacao/:id")
     .all(application.config.strategy.authenticate())
     .get(function (req,res) {
-
+    console.log(req.user)
     let appData = {};
     let id = req.user.id;
     let database = application.config.database()

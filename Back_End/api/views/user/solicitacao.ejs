@@ -44,9 +44,7 @@
 			$(document).ready(function(){
 				//Catch the ID user
 				var url = window.location.href;
-				var idToken = url.split('/')[6]
-				var idUser = idToken.split('?token=')[0]
-				var token = idToken.split('?token=')[1]
+				var token = url.split('?token=')[1]
 				
 				//Event on Date
 				$('#data').datepicker({
@@ -105,15 +103,15 @@
 				});
 			
 				$('#btnanswer').click(function(e){
-					window.location.href = "/user/orcamento/resposta/" + idUser + "?token=" + token; 
+					window.location.href = "/user/orcamento/resposta" + "?token=" + token; 
 				});
 
 				$('#btnSolicitacoes').click(function(e){
-					window.location.href = "/user/solicitacao/" + idUser + "?token=" + token; 
+					window.location.href = "/user/solicitacao" + "?token=" + token; 
 				});
 
 				$('#btnEndereço').click(function(e){
-					window.location.href = "/user/address/" + idUser + "?token=" + token; 
+					window.location.href = "/user/address" + "?token=" + token; 
 				});				
 			});
 		</script>

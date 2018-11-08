@@ -128,6 +128,38 @@ module.exports = function (application) {
         })
     })
 
+});
+
+//Route error
+application.route("/user/orcamento/detalhe/:idorcamento")
+    .all(application.config.strategy.authenticate())
+    .get(function (req, res){
+    let appData = {};
+    let idorcamento = req.params.idorcamento;
+    let database = application.config.database()
+    database.getConnection(function (err,connection) {
+        if (err) {
+            appData["error"] = 1;
+            appData["data"] = "Internal Server Error";
+            res.status(500).json(appData);
+        } else {
+            let userDAO = new application.api.models.userDAO(connection)
+            userDAO.getDetails(idorcamento, function (err, rows) {
+                if (err) {
+                    appData["data"] = "No data found";
+                    console.log(err)
+                    res.status(404).json(appData);
+
+                } else {                    
+                    appData["error"] = 0;
+                    appData["data"] = rows;
+                    res.render("user/detalheResposta",{
+                        detail: rows[0],
+                    });
+                }
+            });
+            connection.release();
+
         .post(function (req, res) {
         let appData = {};
         let id = req.user.id;
@@ -144,6 +176,7 @@ module.exports = function (application) {
             "valor_estimado": valor,
             "data_servico": data,
             "hora_servico": req.body.hora
+
         }
         // res.send(userData).json
         let database = application.config.database()

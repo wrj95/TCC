@@ -114,8 +114,7 @@ module.exports = function (application) {
                         appData["error"] = 0;
                         appData["data"] = rows;
                         res.render("user/solicitacao", {
-                            address: rows,
-                            id: id
+                            address: rows
                         });
                     } else {
                         appData["data"] = "No data found";
@@ -127,8 +126,6 @@ module.exports = function (application) {
             }
         })
     })
-
-});
 
 //Route error
 application.route("/user/orcamento/detalhe/:idorcamento")
@@ -159,7 +156,8 @@ application.route("/user/orcamento/detalhe/:idorcamento")
                 }
             });
             connection.release();
-
+        }
+    })
         .post(function (req, res) {
         let appData = {};
         let id = req.user.id;
@@ -354,4 +352,5 @@ application.route("/user/orcamento/detalhe/:idorcamento")
             }
         })
     });
+})
 }

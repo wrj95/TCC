@@ -4,7 +4,19 @@
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<!-- CSS -->	
+		<!-- CSS -->
+		<style>
+			#divCabecalho{
+				justify-content: flex-end;
+			}
+
+			#LinhaDivisoria{
+				background-color: brown;
+				height: 3px;	
+			}
+		</style>
+
+		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		
 		<!-- Refenciando o JQuery -->
@@ -31,11 +43,23 @@
 
             $('#btnVoltar').click(function(e){
                 window.location.href = ""
-            })
+			})
+			
+			$('#btnSolicitar').click(function(e){
+				windows.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
+			})
 
-            $('#btnsolicitacao').click(function(e){
-                window.location.href = ""
-            })
+			$('#btnanswer').click(function(e){
+				window.location.href = "/user/orcamento/resposta" + "?token=" + token; 
+			});
+
+			$('#btnSolicitacoes').click(function(e){
+				window.location.href = "/user/solicitacao" + "?token=" + token; 
+			});
+
+			$('#btnEndereço').click(function(e){
+				window.location.href = "/user/address" + "?token=" + token; 
+			});					
 
         })
         </script>
@@ -43,12 +67,11 @@
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<a href="" target="_blank">
-				<button type="button" class="btn btn-sm">Meu Cadastro</button>
-            </a>
-				<button type="button" class="btn btn-sm" id="btnsolicitacao">Solicitação de Mudança</button>
-			<a href="10.1.0.101:8000" target="_blank">
-				<button type="button" class="btn btn-sm">Sair</button>
+			<button type="button" class="btn btn-sm" id="btnSolicitar">Solicitar Orçamentos</button>
+			<button type="button" class="btn btn-sm" id="btnEndereço">Cadastrar Endereço</button>			
+			<button type="button" class="btn btn-sm" id="btnSolicitacoes">Minhas Solicitações</button>
+			<a href="10.1.0.101:80">
+				<button type="button" class="btn btn-sm">Sair</button> 
 			</a>
 		</div>
 			
@@ -82,7 +105,6 @@
 						<% } %>
                     </table>
                     <input type="button" class="col-sm-2" id="btnVer" value="Ver Detalhes">
-					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
                 </div>
 			</div>
 		</div>

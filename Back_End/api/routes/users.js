@@ -98,7 +98,6 @@ module.exports = function (application) {
     application.route("/user/orcamento/solicitacao")
         .all(application.config.strategy.authenticate())
         .get(function (req, res) {
-
             let appData = {};
             let id = req.user.id;
             let database = application.config.database()

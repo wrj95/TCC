@@ -112,21 +112,32 @@
 						}                
 					});
 				});
+				
+				//Buttons Action
+				$('#btnSolicitar').click(function(e){
+					windows.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
+				})
+
+				$('#btnanswer').click(function(e){
+					window.location.href = "/user/orcamento/resposta" + "?token=" + token; 
+				});
+
+				$('#btnSolicitacoes').click(function(e){
+					window.location.href = "/user/solicitacao" + "?token=" + token; 
+				});
+
 			})
 		</script>
 		
 		<title>Cadastro de Contatos</title>
 	</head>
 	<body>
-		<div class="row col-sm-12" id="divCabecalho">
-			<a href="" target="_blank">
-				<button type="button" class="btn btn-sm">Meu Cadastro</button>
-            </a>
-			<a href="./solicitacao.ejs" target="_blank">
-				<button type="button" class="btn btn-sm">Solicitar Mudança</button>
-			</a>
-			<a href="10.1.0.101:80" target="_blank">
-				<button type="button" class="btn btn-sm">Sair</button>
+		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
+			<button type="button" class="btn btn-sm" id="btnanswer">Orçamentos Recebidos</button>
+			<button type="button" class="btn btn-sm" id="btnSolicitar">Solicitar Orçamentos</button>
+			<button type="button" class="btn btn-sm" id="btnSolicitacoes">Minhas Solicitações</button>
+			<a href="10.1.0.101:80">
+				<button type="button" class="btn btn-sm">Sair</button> 
 			</a>
 		</div>
 			

@@ -62,6 +62,18 @@
 				$('#btnVoltar').click(function(e){
 					window.location.href = '/user/orcamento/' + '?token=' + token;
 				})
+
+				$('#btnSolicitar').click(function(e){
+					windows.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
+				})
+
+				$('#btnSolicitacoes').click(function(e){
+					window.location.href = "/user/solicitacao" + "?token=" + token; 
+				});
+
+				$('#btnEndereço').click(function(e){
+					window.location.href = "/user/address" + "?token=" + token; 
+				});	
             })
         </script>
 
@@ -69,14 +81,11 @@
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<a href="" target="_blank">
-				<button type="button" class="btn btn-sm">Meu Cadastro</button>
-            </a>
-			<a href="./solicitacao.ejs" target="_blank">
-				<button type="button" class="btn btn-sm">Solicitação de Mudança</button>
-			</a>
-			<a href="10.1.0.101:8000" target="_blank">
-				<button type="button" class="btn btn-sm">Sair</button>
+			<button type="button" class="btn btn-sm" id="btnSolicitar">Solicitar Orçamentos</button>
+			<button type="button" class="btn btn-sm" id="btnEndereço">Cadastrar Endereço</button>			
+			<button type="button" class="btn btn-sm" id="btnSolicitacoes">Minhas Solicitações</button>
+			<a href="10.1.0.101:80">
+				<button type="button" class="btn btn-sm">Sair</button> 
 			</a>
 		</div>
 			

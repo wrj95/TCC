@@ -36,6 +36,19 @@
 				$('#btnVoltar').click(function(e){
 					window.location.href = "/user/solicitacao/" + "?token=" + token; 					
 				})
+
+				$('#btnSolicitar').click(function(e){
+					windows.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
+				})
+
+				$('#btnanswer').click(function(e){
+					window.location.href = "/user/orcamento/resposta" + "?token=" + token; 
+				});
+
+				$('#btnEndereço').click(function(e){
+					window.location.href = "/user/address" + "?token=" + token; 
+				});	
+
             })
         </script>
 
@@ -43,10 +56,11 @@
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<button type="button" class="btn btn-sm">Orçamentos Recebidos</button>
-			<button type="button" class="btn btn-sm">Solicitação de Mudança</button>
-			<a href="10.1.0.101:8000">
-				<button type="button" class="btn btn-sm">Sair</button>
+			<button type="button" class="btn btn-sm" id="btnanswer">Orçamentos Recebidos</button>
+			<button type="button" class="btn btn-sm" id="btnSolicitar">Solicitar Orçamentos</button>
+			<button type="button" class="btn btn-sm" id="btnEndereço">Cadastrar Endereço</button>			
+			<a href="10.1.0.101:80">
+				<button type="button" class="btn btn-sm">Sair</button> 
 			</a>
 		</div>
 			

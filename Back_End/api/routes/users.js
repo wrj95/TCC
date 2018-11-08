@@ -2,6 +2,7 @@ var moment = require('moment');
 module.exports = function (application) {
 
     application.route("/user/getUsers")
+        .all(application.config.strategy.authenticate())
         .get(function (req, res) {
         let appData = {};
         //Try to get a connection on database if has error return 500 status
@@ -30,6 +31,7 @@ module.exports = function (application) {
     });
 
     application.route("/user/solicitacao")
+        .all(application.config.strategy.authenticate())
         .get(function (req, res) {
 
         let appData = {};
@@ -61,6 +63,7 @@ module.exports = function (application) {
     });
 
     application.route("/user/solicitacao/:idSolicitacao")
+        .all(application.config.strategy.authenticate())
         .get(function (req, res) {
 
         let appData = {};
@@ -93,6 +96,7 @@ module.exports = function (application) {
     });
 
     application.route("/user/orcamento/solicitacao")
+        .all(application.config.strategy.authenticate())
         .get(function (req, res) {
 
         let appData = {};
@@ -166,6 +170,7 @@ module.exports = function (application) {
     });
 
     application.route("/user/orcamento/resposta")
+        .all(application.config.strategy.authenticate())
         .get(function (req, res) {
         let appData = {};
         let id = req.user.id;
@@ -197,6 +202,7 @@ module.exports = function (application) {
     });
 
     application.route("/user/orcamento/detalhe/:idorcamento")
+        .all(application.config.strategy.authenticate())
         .get(function (req, res) {
         let appData = {};
         let idorcamento = req.params.idorcamento;
@@ -225,8 +231,10 @@ module.exports = function (application) {
                 connection.release();
             }
         })
-    })
+    });
 
+    application.route("/user/orcamento/resposta/:idorcamento")
+        .all(application.config.strategy.authenticate())
         .post(function (req, res) {
         let appData = {};
         let id = req.user.id;
@@ -268,10 +276,13 @@ module.exports = function (application) {
     });
 
     application.route("/user/address")
+        .all(application.config.strategy.authenticate())
         .get(function (req, res) {
         res.render("user/enderecos");
-    })
+    });
 
+    application.route("/user/address/register")
+        .all(application.config.strategy.authenticate())
         .post(function (req, res) {
         let appData = {};
         let id = req.user.id;

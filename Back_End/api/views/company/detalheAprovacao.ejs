@@ -36,11 +36,11 @@
 				var token = idToken.split('?token=')[1]
 								
 				$('#btnProposta').click(function(e){
-					window.location.href = '/company/orcamento/emissao/' + idSolicitacao + '/'+ idUser + '?token=' + token;
+					window.location.href = '/company/orcamento/emissao/' + idSolicitacao + '?token=' + token;
 				})
 
 				$('#btnVoltar').click(function(e){
-					window.location.href = '/company/orcamento/' + idUser + '?token=' + token;
+					window.location.href = '/company/orcamento' + '?token=' + token;
 				})
             })
         </script>

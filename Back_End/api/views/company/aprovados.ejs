@@ -30,8 +30,7 @@
             $(document).ready(function(){
 				//Catch the ID user
 				var url = window.location.href;
-				var idToken = url.split('/')[5]
-				var token = idToken.split('?token=')[1]
+				var token = url.split('?token=')[1]
 
 				$('#btnDetalhes').click(function(e){
 					var selValue = $('input[name=radio]:checked').val();

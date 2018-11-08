@@ -30,14 +30,12 @@
 		<script type='text/javascript'>
 			$(document).ready(function(){
 				var url = window.location.href;
-				var idToken = url.split('/')[5]
-				var idUser = idToken.split('?token=')[0]
-				var token = idToken.split('?token=')[1]
+				var token = url.split('?token=')[1]
 
 				$('#btnDetalhes').click(function(e){
 					var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
 					//Redirect to a Details Page
-					window.location.href = '/user/solicitacao/'+ selValue + '/' + idUser + '?token=' + token;					
+					window.location.href = '/user/solicitacao/'+ selValue + '?token=' + token;					
 				})
 			})
 		</script>

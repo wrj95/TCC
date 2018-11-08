@@ -30,14 +30,12 @@
 		<script type='text/javascript'>
 			$(document).ready(function(){
 				var url = window.location.href;
-				var idToken = url.split('/')[5]
-				var idUser = idToken.split('?token=')[0]
-				var token = idToken.split('?token=')[1]
+				var token = url.split('?token=')[1]
 
 				$('#btnDetalhes').click(function(e){
 					var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
 					//Redirect to a Details Page
-					window.location.href = '/company/lista/'+ selValue + '/' + idUser + '?token=' + token;					
+					window.location.href = '/company/lista/'+ selValue + '?token=' + token;					
 				})
 			})
 		</script>
@@ -46,12 +44,9 @@
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<a href="">
 				<button type="button" class="btn btn-sm">Orçamentos Recebidos</button>
-            </a>
-			<a href="./solicitacao.ejs"">
-				<button type="button" class="btn btn-sm">Solicitação de Mudança</button>
-			</a>
+				<button type="button" class="btn btn-sm">Central de Solicitações</button>
+				
 			<a href="10.1.0.101:8000" target="_blank">
 				<button type="button" class="btn btn-sm">Sair</button>
 			</a>

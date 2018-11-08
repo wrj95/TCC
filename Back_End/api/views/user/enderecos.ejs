@@ -37,9 +37,7 @@
 		<script type="text/JavaScript">
 			$(document).ready(function(){
 				var url = window.location.href;
-				var idToken = url.split('/')[5]
-				var idUser = idToken.split('?token=')[0]
-				var token = idToken.split('?token=')[1]
+				var token = url.split('?token=')[1]
 
 				$.getJSON('/lista/estados', function (data) {
 					var options = '<option value="">escolha um estado</option>'; //Iniciando com um Option default	
@@ -92,7 +90,7 @@
 							//Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
 							$.ajax({
 								type: 'post', //Tipo de Conexao
-								url: '/user/address/register/' + idUser, //URL da API
+								url: '/user/address/register', //URL da API
 								dataType: 'json', //Tipo de dado que sera transferido
 								data: json, //Enviando o formulario em formato JSON
 								contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded

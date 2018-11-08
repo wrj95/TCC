@@ -31,22 +31,20 @@
 				//Catch the ID user
 				var url = window.location.href;
 				var idSolicitacao = url.split('/')[5]
-				var idToken = url.split('/')[6]
-				var idUser = idToken.split('?token=')[0]
-				var token = idToken.split('?token=')[1]
+				var token = url.split('?token=')[1]
 								
 				$('#btnVoltar').click(function(e){
-					window.location.href = "/company/lista/" + idUser + "?token=" + token; 					
+					window.location.href = "/company/lista" + "?token=" + token; 					
 				})
             })
         </script>
 
-		<title>Detalhe da Solicitação</title>
+		<title>Detalhe do Orçamento</title>
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
 			<button type="button" class="btn btn-sm">Orçamentos Recebidos</button>
-			<button type="button" class="btn btn-sm">Solicitação de Mudança</button>
+			<button type="button" class="btn btn-sm">Central de Solicitações</button>
 			<a href="10.1.0.101:8000">
 				<button type="button" class="btn btn-sm">Sair</button>
 			</a>

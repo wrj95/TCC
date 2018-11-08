@@ -30,22 +30,20 @@
             $(document).ready(function(){
 				//Catch the ID user
 				var url = window.location.href;
-				var idToken = url.split('/')[5]
-				var idUser = idToken.split('?token=')[0]
-				var token = idToken.split('?token=')[1]
+				var token = url.split('?token=')[1]
 				
 				$('#btnEditar').click(function(e){
 					var selValue = $('input[name=radio]:checked').val();
-					window.location.href = '/company/orcamento/'+ selValue + '/' + idUser + '?token=' + token;		
+					window.location.href = '/company/orcamento/'+ selValue + '?token=' + token;		
 				});
 				
 				//Orcamento approved by User Client
 				$('#btnAprovados').click(function(e){
-					window,location.href = '/company/aprovado/' + idUser + '?token=' + token;
+					window,location.href = '/company/aprovado' + '?token=' + token;
 				});
 
 				$('#btnOrcamentos').click(function(e){
-					window,location.href = '/company/lista/' + idUser + '?token=' + token;
+					window,location.href = '/company/lista' + '?token=' + token;
 				});
             })
         </script>
@@ -68,7 +66,7 @@
 		<div class="container-fluid">
 			<div class="row col-sm-12">
 				<div class="col-sm-12">
-					<table border="1" id="solicit">
+					<table class="table table-striped table-bordered table-condensed table-hover" border="1" id="solicit">
 						<thead>
 							<th>Caixa de seleção</th>
 							<th>Título da Solicitação</th>

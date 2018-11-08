@@ -20,7 +20,7 @@ $(document).ready(function(){
                     data: json, //Enviando o formulario em formato JSON
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(data) {
-                        window.location.href = 'http://10.1.0.102:3050/company/orcamento/' + data.id + '?token=' + data.token;
+                        window.location.href = 'http://10.1.0.102:3050/company/orcamento' + '?token=' + data.token;
                     },
                     error: function(request, status, erro){
                         //Captando o erro retornado da API

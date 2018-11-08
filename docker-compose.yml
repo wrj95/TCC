@@ -5,7 +5,7 @@ services:
     build: 
       context: ./Front_End
       dockerfile: Dockerfile
-    container_name: WebPages
+    container_name: webPages
     networks:
       tcc:
         ipv4_address: '10.1.0.101'

@@ -31,10 +31,11 @@
 				//Catch the ID user
 				var url = window.location.href;
 				var idSolicitacao = url.split('/')[5]
+				var id = idSolicitacao.split('?token=')[0]
 				var token = url.split('?token=')[1]
 								
 				$('#btnProposta').click(function(e){
-					window.location.href = '/company/orcamento/emissao/' + idSolicitacao + '?token=' + token;
+					window.location.href = '/company/orcamento/emissao/' + id + '?token=' + token;
 				})
 
 				$('#btnVoltar').click(function(e){

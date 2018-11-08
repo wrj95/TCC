@@ -25,6 +25,7 @@
             $('#btnVer').click(function(e){
 				var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
 				//Redirect to a Details Page
+				alert(token);
 				window.location.href = '/user/solicitacao/detalhe/'+ selValue + '?token=' + token;		
             })
 

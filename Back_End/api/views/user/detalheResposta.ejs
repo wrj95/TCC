@@ -60,7 +60,7 @@
 				})
 
 				$('#btnVoltar').click(function(e){
-					window.location.href = '/user/orcamento/' + '?token=' + token;
+					window.location.href = "/user/orcamento/resposta" + "?token=" + token;
 				})
 
 				$('#btnSolicitar').click(function(e){
@@ -94,7 +94,7 @@
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
 		<h1 class="col-sm-12">Detalhes dos Orçamento Recebido</h1>
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row">
 				<div class="col-sm-3">    
 					<label><b>Identificação do Orçamento:</b></label>
@@ -108,7 +108,7 @@
 					<label><b>Identificação da Solicitação:</b></label>
 					<p id="idSolicitacao"><%= detail.cod_solicitacao %></p>
 				</div>
-				<div class="col-sm-3">    
+				<div class="col-sm-3">  
 					<label><b>Identificação da Solicitação:</b></label>
 					<p><%= detail.tituloSolicitacao %></p>
 				</div>
@@ -123,32 +123,38 @@
 					<p><%= detail.empresa %></p>
 				</div>
 				<div class="col-sm-3">  
-					<label><b>Descrição sobre à Mudança:</b></label>
-					<p><%= detail.descricao %></p>
-				</div>
-				<div class="col-sm-3">  
 					<label><b>Tempo Estimado:</b></label>
 					<p><%= detail.tempoMudanca %></p>
+				</div>
+				<div class="col-sm-3">  
+					<label><b>Empacotador:</b></label>
+					<p><%= detail.empacotador %></p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-3">  
-					<label><b>Empacotador:</b></label>
-					<p><%= detail.tempoMudanca %></p>
-				</div>
-				<div class="col-sm-3">  
 					<label><b>Seguro contra roubo:</b></label>
-					<p><%= detail.tempoMudanca %></p>
+					<p><%= detail.seguro %></p>
 				</div>
 				<div class="col-sm-3">  
 					<label><b>Valor cobrado pelo Frete:</b></label>
 					<p><%= detail.valor %></p>
 				</div>
-				<div class="col-sm-3">  
-					<label><b>Descrição:</b></label>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">  
+					<label><b>Descrição do Orçamento:</b></label>
 					<p><%= detail.descricao %></p>
                 </div>
 			</div>
+
+			<div class="row">
+				<div class="col-sm-12">    
+					<label><b>Descrição sobre à Mudança:</b></label>
+					<p><%= detail.descricao %></p>
+				</div>
+			</div>
+
 			<input type="button" class="col-sm-2" id="btnProposta" value="Aceitar">
 			<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
 		</div>

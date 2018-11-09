@@ -79,7 +79,7 @@ module.exports = function (application) {
                         appData["data"] = "No Data Found";
                         res.status(500).json(appData);
                     }else{
-                        res.render("company/detailsOrcamento",{
+                        res.render("company/detalheSolicitacao",{
                             detail: rows[0]
                         })
                     }

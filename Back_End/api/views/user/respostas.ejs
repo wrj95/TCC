@@ -35,9 +35,11 @@
 			var token = url.split('?token=')[1]
 
             $('#btnVer').click(function(e){
-				var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
-				//Redirect to a Details Page
-				window.location.href = '/user/orcamento/detalhe/'+ selValue + '?token=' + token;		
+				if ($('input[name=radio]').is(':checked')){
+					var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
+					//Redirect to a Details Page
+					window.location.href = '/user/orcamento/detalhe/'+ selValue + '?token=' + token;
+				}		
             })
 
             $('#btnVoltar').click(function(e){
@@ -45,7 +47,7 @@
 			})
 			
 			$('#btnSolicitar').click(function(e){
-				windows.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
+				window.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
 			})
 
 			$('#btnSolicitacoes').click(function(e){
@@ -88,7 +90,6 @@
 								<th>Empacotador</th>
 								<th>Seguro</th>
 								<th>Valor do Frete</th>
-								<th>Status</th>
 							</thead>
 							<% for (var i=0;i<itens.length; i++){%>
 							<tbody>
@@ -99,7 +100,6 @@
 									<td><%= itens[i].empacotador %></td>
 									<td><%= itens[i].seguro %></td>
 									<td><%= itens[i].valor %></td>
-									<td><%= itens[i].status %></td>
 							</tbody>
 							<% } %>
 						</table>

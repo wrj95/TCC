@@ -33,9 +33,11 @@
 				var token = url.split('?token=')[1]
 
 				$('#btnDetalhes').click(function(e){
-					var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
-					//Redirect to a Details Page
-					window.location.href = '/user/solicitacao/'+ selValue + '?token=' + token;					
+					if ($('input[name=radio]').is(':checked')){
+						var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
+						//Redirect to a Details Page
+						window.location.href = '/user/solicitacao/'+ selValue + '?token=' + token;
+					}					
 				})
 
 				$('#btnSolicitar').click(function(e){

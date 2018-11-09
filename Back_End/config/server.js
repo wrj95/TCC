@@ -15,11 +15,14 @@ app.use(express.urlencoded({
     extended: true
 }));
 
+app.use('/images',express.static('api/views/css/'));
+
 app.use(express.json())
 
 consign()
     .include("./api/routes/authentication.js")
-    //.then("./config/middleware.js")
+    .then("./config/strategy.js")
+    .then("./config/middlewares.js")
     .then("./api/routes")
     .then("./api/models")
     .then("./config/database.js")

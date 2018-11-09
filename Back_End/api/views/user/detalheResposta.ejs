@@ -30,10 +30,8 @@
             $(document).ready(function(){
 				//Catch the ID user
 				var url = window.location.href;
-				var idOrcamento = url.split('/')[6]
-				var idToken = url.split('/')[7]
-				var idUser = idToken.split('?token=')[0]
-				var token = idToken.split('?token=')[1]
+				var idOrcamento = url.split('/')[3]
+				var token = url.split('?token=')[1]
 								
 				$('#btnProposta').click(function(e){
 					var idempresa = document.getElementById("idEmpresa").innerHTML;
@@ -45,7 +43,7 @@
 					}
 					$.ajax({
 						type: 'post',
-						url: '/user/orcamento/resposta/' + idOrcamento + '/'+ idUser,
+						url: '/user/orcamento/resposta/' + idOrcamento,
 						dataType: 'json',
 						data: json,
 						contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -62,71 +60,97 @@
 				})
 
 				$('#btnVoltar').click(function(e){
-					window.location.href = '/user/orcamento/' + idUser + '?token=' + token;
+					window.location.href = '/user/orcamento/' + '?token=' + token;
 				})
+
+				$('#btnSolicitar').click(function(e){
+					windows.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
+				})
+
+				$('#btnSolicitacoes').click(function(e){
+					window.location.href = "/user/solicitacao" + "?token=" + token; 
+				});
+
+				$('#btnEndereço').click(function(e){
+					window.location.href = "/user/address" + "?token=" + token; 
+				});	
+
+				$('#btnSair').click(function(e){
+					window.location.href = "10.1.0.101:80"; 
+				});	
             })
         </script>
 
-		<title>Orçamentos</title>
+		<title>Orçamentos Recebidos</title>
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<a href="" target="_blank">
-				<button type="button" class="btn btn-sm">Meu Cadastro</button>
-            </a>
-			<a href="./solicitacao.ejs" target="_blank">
-				<button type="button" class="btn btn-sm">Solicitação de Mudança</button>
-			</a>
-			<a href="10.1.0.101:8000" target="_blank">
-				<button type="button" class="btn btn-sm">Sair</button>
-			</a>
+			<button type="button" class="btn btn-sm" id="btnSolicitar">Solicitar Orçamentos</button>
+			<button type="button" class="btn btn-outline-primary" id="btnanswer">Orçamentos Recebidos</button>
+			<button type="button" class="btn btn-sm" id="btnEndereço">Cadastrar Endereço</button>			
+			<button type="button" class="btn btn-sm" id="btnSolicitacoes">Minhas Solicitações</button>
+			<button type="button" class="btn btn-sm" id="btnSair">Sair</button> 
 		</div>
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
-		<h1 class="col-sm-12">Detalhes</h1>
+		<h1 class="col-sm-12">Detalhes dos Orçamento Recebido</h1>
 		<div class="container-fluid">
-			<div class="row col-sm-12">
-				<div class="col-sm-12">
+			<div class="row">
+				<div class="col-sm-3">    
 					<label><b>Identificação do Orçamento:</b></label>
 					<p><%= detail.cod_orcamento %></p>
-
+				</div>
+				<div class="col-sm-3">    
 					<label><b>Título do Orçamento:</b></label>
 					<p><%= detail.tituloOrcamento %></p>
-
+				</div>
+				<div class="col-sm-3">    
 					<label><b>Identificação da Solicitação:</b></label>
 					<p id="idSolicitacao"><%= detail.cod_solicitacao %></p>
-
+				</div>
+				<div class="col-sm-3">    
 					<label><b>Identificação da Solicitação:</b></label>
 					<p><%= detail.tituloSolicitacao %></p>
-
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">  
 					<label><b>Código da Empresa:</b></label>
 					<p id="idEmpresa"><%= detail.cod_empresa %></p>
-
+				</div>
+				<div class="col-sm-3">  
 					<label><b>Nome da Empresa:</b></label>
 					<p><%= detail.empresa %></p>
-
+				</div>
+				<div class="col-sm-3">  
 					<label><b>Descrição sobre à Mudança:</b></label>
 					<p><%= detail.descricao %></p>
-
+				</div>
+				<div class="col-sm-3">  
 					<label><b>Tempo Estimado:</b></label>
 					<p><%= detail.tempoMudanca %></p>
-
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">  
 					<label><b>Empacotador:</b></label>
 					<p><%= detail.tempoMudanca %></p>
-
+				</div>
+				<div class="col-sm-3">  
 					<label><b>Seguro contra roubo:</b></label>
 					<p><%= detail.tempoMudanca %></p>
-
+				</div>
+				<div class="col-sm-3">  
 					<label><b>Valor cobrado pelo Frete:</b></label>
 					<p><%= detail.valor %></p>
-					
+				</div>
+				<div class="col-sm-3">  
 					<label><b>Descrição:</b></label>
 					<p><%= detail.descricao %></p>
-
-					<input type="button" class="col-sm-2" id="btnProposta" value="Aceitar">
-					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
                 </div>
 			</div>
+			<input type="button" class="col-sm-2" id="btnProposta" value="Aceitar">
+			<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
 		</div>
 	</body>
 </html>

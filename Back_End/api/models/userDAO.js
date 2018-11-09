@@ -27,11 +27,11 @@ userDAO.prototype.listSolicitacao = function (userData, callback) {
 }
 
 userDAO.prototype.detailsSolicitacao = function (userData, callback) {
-    this._connection.query("SELECT s.tit_solicitacao AS tit_solicitacao, ufo.des_uf AS uf_origem, muno.des_municipio AS mun_origem, " 
+    this._connection.query("SELECT s.tit_solicitacao, ufo.des_uf AS uf_origem, muno.des_municipio AS mun_origem, " 
                             + "CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', eo.complemento) AS end_origem_completo, ufd.des_uf AS uf_destino, "
                             + "mund.des_municipio AS mun_destino, CONCAT(ed.endereco,', ', ed.numero, ' - ', ed.complemento) AS end_destino_completo, "
                             + "DATE_FORMAT(s.data_servico, '%d/%m/%Y') AS data, s.hora_servico AS hora, s.des_solicitacao AS descricao, "
-                            + "s.vlr_estimado_carga AS valor, s.status " 
+                            + "s.vlr_estimado_carga AS valor, IF(s.status='A','Aberto','Fechado') AS status " 
                             + "FROM tab_solicitacao s " 
                             + "INNER JOIN tab_usuario u ON u.cod_usuario = s.cod_usuario "
                             + "LEFT JOIN tab_endereco eo ON eo.cod_usu_emp = s.cod_usuario AND eo.flg_usu_emp = 'U' AND eo.cod_endereco = s.cod_endereco_origem "
@@ -85,6 +85,14 @@ userDAO.prototype.getDetails = function (userData, callback){
 
 userDAO.prototype.Approve = function(userData, callback){
     this._connection.query("INSERT INTO mydatabase.tab_orcamento_aprovado SET ?", userData, callback);
+}
+
+userDAO.prototype.updateStatusSolicitacao = function(userData, callback){
+    this._connection.query("UPDATE mydatabase.tab_solicitacao SET status = 'F' WHERE cod_solicitacao = ?", userData, callback);
+}
+
+userDAO.prototype.updateStatusOrcamento= function(userData, callback){
+    this._connection.query("UPDATE mydatabase.tab_orcamento SET status = 'F' WHERE cod_orcamento = ?", userData, callback);
 }
 
 userDAO.prototype.registerAddress = function(userData, callback){

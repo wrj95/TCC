@@ -1,6 +1,9 @@
 module.exports = function (application) {
-    
-application.get("/hello/world", function (req, res) {
+
+
+application.route("/hello/world")
+ .all(application.config.strategy.authenticate())
+ .get(function (req, res) {
     let appData = {};
     //Try to get a connection on database if has error return 500 status
     var database = application.config.database()
@@ -20,4 +23,3 @@ application.get("/hello/world", function (req, res) {
 }
 
 
-// module.exports = hello;

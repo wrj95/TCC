@@ -39,7 +39,7 @@
 				})
 
 				$('#btnSolicitar').click(function(e){
-					windows.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
+					window.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
 				})
 
 				$('#btnanswer').click(function(e){
@@ -50,6 +50,9 @@
 					window.location.href = "/user/address" + "?token=" + token; 
 				});	
 
+				$('#btnSair').click(function(e){
+					window.location.href = "10.1.0.101:80"; 
+				});	
 			})
 		</script>
 
@@ -57,33 +60,34 @@
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<button type="button" class="btn btn-sm" id="btnanswer">Orçamentos Recebidos</button>
 			<button type="button" class="btn btn-sm" id="btnSolicitar">Solicitar Orçamentos</button>
+			<button type="button" class="btn btn-sm" id="btnanswer">Orçamentos Recebidos</button>
 			<button type="button" class="btn btn-sm" id="btnEndereço">Cadastrar Endereço</button>			
-			<a href="10.1.0.101:80">
-				<button type="button" class="btn btn-sm">Sair</button> 
-			</a>
+			<button type="button" class="btn btn-outline-primary" id="btnSolicitacoes">Minhas Solicitações</button>
+			<button type="button" class="btn btn-sm" id="btnSair">Sair</button> 
 		</div>
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
-		<h1 class="col-sm-12">Meus Orçamentos</h1>
+		<h1 class="col-sm-12">Minhas Solicitações</h1>
 		<div class="container-fluid">
 			<div class="row col-sm-12">
 				<div class="col-sm-12">
-					<table border="1">
-						<thead>
-							<th>Selecionar</th>
-							<th>Titulo da Solicitação</th>
-							<th>Status</th>
-						</thead>
-						<% for (var i=0;i<itens.length; i++){%>
-						<tbody>
-								<td><input type="radio" name="radio" id="radio" value="<%= itens[i].cod_solicitacao %>"/></td>
-								<td><%= itens[i].tit_solicitacao %></td>
-								<td><%= itens[i].status %></td>
-						</tbody>
-						<% } %>
-					</table>
+					<div class="table-responsive">
+						<table class="table table-hover" border="1">
+							<thead class="thead-dark">
+								<th>Selecionar</th>
+								<th>Titulo da Solicitação</th>
+								<th>Status</th>
+							</thead>
+							<% for (var i=0;i<itens.length; i++){%>
+							<tbody>
+									<td><input type="radio" name="radio" id="radio" value="<%= itens[i].cod_solicitacao %>"/></td>
+									<td><%= itens[i].tit_solicitacao %></td>
+									<td><%= itens[i].status %></td>
+							</tbody>
+							<% } %>
+						</table>
+					</div>
 					<input type="button" class="col-sm-2" id="btnDetalhes" value="Ver Detalhes">
                 </div>
 			</div>

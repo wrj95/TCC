@@ -28,7 +28,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
+		
+    	<!--JQuery Mask Plugin-->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+		
 		<!-- JQuery UI -->
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
 		<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
@@ -56,7 +60,7 @@
 				$('#btnConfirmar').click(function(e){
 					$.validator.addMethod("notEqualTo",function(value, element, params) {
 						return this.optional(element) || value != params;
-					});
+					}, "Endereços Iguais");
 
 					$('#formRequest').validate({ //Validação dos campos do formulário
 						rules: { //Validation Rules
@@ -71,7 +75,7 @@
 						messages: {
 							titSolicitacao:{required: 'Campo Obrigatório'},
 							endOrigem:{required: 'Campo Obrigatório'},
-							endDestino:{required: 'Campo Obrigatório', notEqualTo: 'Destino não pode ser igual a Origem'},
+							endDestino:{required: 'Campo Obrigatório'},
 							data:{required: 'Campo Obrigatório'},
 							hora:{required: 'Campo Obrigatório'},
 							valorestimado:{required: 'Campo Obrigatório'},
@@ -89,15 +93,15 @@
 								contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
 								headers:{'token': token}, //Envio em URLEncoded
 								success: function(data) {
-									alert('Success')
+									alert('Solicitação Efetuada com Sucesso')
+									window.location.href = "/user/solicitacao" + "?token=" + token; 
 								},
 								error: function(request, status, erro){
 								}
 							}).done(function(result){
 
 							}).fail(function(jqXHR,textStatus,errorThrown){
-							});
-							
+							});	
 						}  
 					});
 				});
@@ -112,6 +116,10 @@
 
 				$('#btnEndereço').click(function(e){
 					window.location.href = "/user/address" + "?token=" + token; 
+				});		
+
+				$('#btnSair').click(function(e){
+					window.location.href = "10.1.0.101:80"; 
 				});				
 			});
 		</script>
@@ -119,12 +127,11 @@
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
+			<button type="button" class="btn btn-outline-primary" id="btnSolicitar">Solicitar Orçamentos</button>
 			<button type="button" class="btn btn-sm" id="btnanswer">Orçamentos Recebidos</button>
 			<button type="button" class="btn btn-sm" id="btnEndereço">Cadastrar Endereço</button>			
 			<button type="button" class="btn btn-sm" id="btnSolicitacoes">Minhas Solicitações</button>
-			<a href="10.1.0.101:80">
-				<button type="button" class="btn btn-sm">Sair</button> 
-			</a>
+			<button type="button" class="btn btn-sm" id="btnSair">Sair</button> 
 		</div>
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>

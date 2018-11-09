@@ -125,6 +125,49 @@ module.exports = function (application) {
                 }
             })
         })
+        
+        .post(function(req, res){
+            let appData = {};
+            let id = req.user.id;
+            
+            var data = moment(req.body.data, "DD/MM/YYYY").toDate();
+        
+            let valor = parseFloat(req.body.valorestimado);
+        
+            let userData = { 
+                "cod_usuario": id,
+                "tit_solicitacao": req.body.titSolicitacao,
+                "des_solicitacao": req.body.desSolicitacao,
+                "cod_endereco_origem": req.body.endOrigem,
+                "cod_endereco_destino": req.body.endDestino,
+                "vlr_estimado_carga": valor,
+                "data_servico": data,
+                "hora_servico": req.body.hora
+            }
+            // res.send(userData).json
+            let database = application.config.database()
+            database.getConnection(function (err,connection) {
+                if (err) {
+                    appData["error"] = 1;
+                    appData["data"] = "Internal Server Error";
+                    res.status(500).json(appData);
+                } else {
+                    let userDAO = new application.api.models.userDAO(connection)
+                    userDAO.registerRequest(userData, function (err, rows, fields) {
+                        if (err) {
+                            appData["data"] = "No data found";
+                            console.log(err)
+                            res.status(404).json(appData);
+                        } else {
+                            appData["data"] = "Save";
+                            res.status(200).json(appData);
+                        }
+                    });
+                    connection.release();
+                }
+            })
+        });
+   
 
     //Route error
     application.route("/user/orcamento/detalhe/:idorcamento")
@@ -292,14 +335,30 @@ module.exports = function (application) {
                             res.status(500).json(appData);
                         } else {
                             let userDAO = new application.api.models.userDAO(connection)
-                            userDAO.Approve(userData, function (err, rows, fields) {
+                            userDAO.updateStatusSolicitacao(req.body.idSolicitacao, function (err, rows, fields) {
                                 if (err) {
                                     appData["data"] = "No data found";
                                     console.log(err)
                                     res.status(404).json(appData);
                                 } else {
-                                    appData["data"] = "Save";
-                                    res.status(200).json(appData);
+                                    userDAO.updateStatusOrcamento(idorcamento, function (err, rows, fields){
+                                        if(err){
+                                            appData["data"] = "No data found";
+                                            console.log(err)
+                                            res.status(404).json(appData);
+                                        } else{
+                                            userDAO.Approve(userData, function (err, rows, fields) {
+                                                if (err) {
+                                                    appData["data"] = "No data found";
+                                                    console.log(err)
+                                                    res.status(404).json(appData);
+                                                } else {
+                                                    appData["data"] = "Save";
+                                                    res.status(200).json(appData);
+                                                }
+                                            });
+                                        }
+                                    })
                                 }
                             });
                             connection.release();

@@ -39,6 +39,8 @@
 				var url = window.location.href;
 				var token = url.split('?token=')[1]
 
+				$('#cep').mask('99999-999');
+
 				$.getJSON('/lista/estados', function (data) {
 					var options = '<option value="">escolha um estado</option>'; //Iniciando com um Option default	
 					$.each(data, function (key, val) {
@@ -96,8 +98,8 @@
 								contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
 								headers:{'token': token}, //Envio em URLEncoded
 								success: function(data) {
-									alert('Cadastro realizado com Sucesso');
-									window.location.href = '/user/orcamento/solicitacao/';
+									alert('Cadastro de Endereço realizado com Sucesso');
+									window.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
 								},
 								error: function(request, status, erro){
 									//Captando o erro retornado da API
@@ -115,7 +117,7 @@
 				
 				//Buttons Action
 				$('#btnSolicitar').click(function(e){
-					windows.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
+					window.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
 				})
 
 				$('#btnanswer').click(function(e){
@@ -126,23 +128,26 @@
 					window.location.href = "/user/solicitacao" + "?token=" + token; 
 				});
 
+				$('#btnSair').click(function(e){
+					window.location.href = "10.1.0.101:80"; 
+				});	
+
 			})
 		</script>
 		
-		<title>Cadastro de Contatos</title>
+		<title>Cadastrar Endereço</title>
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<button type="button" class="btn btn-sm" id="btnanswer">Orçamentos Recebidos</button>
 			<button type="button" class="btn btn-sm" id="btnSolicitar">Solicitar Orçamentos</button>
+			<button type="button" class="btn btn-sm" id="btnanswer">Orçamentos Recebidos</button>
+			<button type="button" class="btn btn-outline-primary" id="btnEndereço">Cadastrar Endereço</button>			
 			<button type="button" class="btn btn-sm" id="btnSolicitacoes">Minhas Solicitações</button>
-			<a href="10.1.0.101:80">
-				<button type="button" class="btn btn-sm">Sair</button> 
-			</a>
+			<button type="button" class="btn btn-sm" id="btnSair">Sair</button> 
 		</div>
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
-		<h1 class="col-sm-12">Cadastro de Endereços</h1>
+		<h1 class="col-sm-12">Cadastrar Endereço</h1>
 		<div class="container-fluid">
 			<form class="form-horizontal" id="formAddress">	
 				<div class="row col-sm-12">

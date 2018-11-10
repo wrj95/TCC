@@ -19,8 +19,8 @@ module.exports = function (application) {
         //The lib moment convert String to Date on date format Brazil
         let dt_nasc = moment(req.body.dataNascimento, "DD/MM/YYYY").toDate();
         
-        
-        let hashedPassword = bcrypt.hashSync(req.body.passwd, 8)
+        //Encrypting password sended by client.
+        let hashedPassword = bcrypt.hashSync(req.body.passwd, 8);
         
         let email = req.body.email;
         let cpf = req.body.cpf;
@@ -34,7 +34,7 @@ module.exports = function (application) {
             "telefone_fixo": req.body.tel,
             "email": req.body.email,
             "email_alternativo": req.body.emailAlt,
-            "senha": /* req.body.passwd, */ hashedPassword,
+            "senha": hashedPassword,
             "data_nascimento": dt_nasc, //Pass Date to object userData
             "flg_concorda_termos": req.body.checkboxTerm,
             "data_cadastro": today
@@ -164,9 +164,10 @@ module.exports = function (application) {
             "error": 1,
             "data": ""
         };
-        /*
-        //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
-        */
+        
+        //Encrypting password sended by client.
+        let hashedPassword = bcrypt.hashSync(req.body.passwd, 8);
+        
         var email = req.body.email;
         //var city = req.body.cidades; //I need you make a select to catch the City ID before to insert 
 
@@ -178,7 +179,7 @@ module.exports = function (application) {
             "cnpj": req.body.cnpj,//tab_empresa
             "telefone": req.body.tel, //Tab_contatos
             "email": req.body.email, //tab_contatos
-            "senha": req.body.passwd, //???
+            "senha": hashedPassword, //???
             "flg_concorda_termos": req.body.checkboxTerm, //tab_empresa
             "cod_uf": req.body.estados, //tab_empresa
             "cod_municipio":req.body.cidades, //tab_empresa
@@ -271,7 +272,8 @@ module.exports = function (application) {
                     } else {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
-                            if (rows[0].senha == password) {
+                            let hashedPassword = rows[0].senha
+                            if (bcrypt.compareSync(password, hashedPassword)) {
                                 let jwtPayload = {}
                                     jwtPayload["id"] = rows[0].id;
                                     jwtPayload["email"] = rows[0].email;

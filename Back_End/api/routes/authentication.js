@@ -1,32 +1,32 @@
-var cors = require("cors");
-var bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
-var moment = require('moment'); //convert String to Date
+const cors = require("cors");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const moment = require('moment'); //convert String to Date
 module.exports = function (application) {
 
     application.use(cors());
 
     // Route utilized to register the users
     application.post('/user/register', function (req, res) {
-        var today = new Date();
+        let today = new Date();
 
         //Data object returned from api
-        var appData = {
+        let appData = {
             "error": 1,
             "data": ""
         };
         
         //The lib moment convert String to Date on date format Brazil
-        var dt_nasc = moment(req.body.dataNascimento, "DD/MM/YYYY").toDate();
+        let dt_nasc = moment(req.body.dataNascimento, "DD/MM/YYYY").toDate();
         
-        /*
-        //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
-        */
-        var email = req.body.email;
-        var cpf = req.body.cpf;
+        //Encrypting password sended by client.
+        let hashedPassword = bcrypt.hashSync(req.body.passwd, 8);
+        
+        let email = req.body.email;
+        let cpf = req.body.cpf;
 
         //Data informed from user that after it'll be load in Database
-        var userData = { //Make a mapping of the data that it'll be passed by Front-End
+        let userData = { //Make a mapping of the data that it'll be passed by Front-End
             "nome": req.body.name,
             "sobrenome": req.body.sobName,
             "cpf": req.body.cpf,
@@ -34,14 +34,14 @@ module.exports = function (application) {
             "telefone_fixo": req.body.tel,
             "email": req.body.email,
             "email_alternativo": req.body.emailAlt,
-            "senha": req.body.passwd, //hashedPassword,
+            "senha": hashedPassword,
             "data_nascimento": dt_nasc, //Pass Date to object userData
             "flg_concorda_termos": req.body.checkboxTerm,
             "data_cadastro": today
         }
 
         //Try to get a connection on database if has error return 500 status
-        var database = application.config.database()
+        let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
                 appData["error"] = 1;
@@ -99,12 +99,12 @@ module.exports = function (application) {
     // Route utilized to login the user into the app
     application.post('/user/login', function (req, res) {
 
-        var appData = {};
-        var email = req.body.email;
-        var password = req.body.password;
+        let appData = {};
+        let email = req.body.email;
+        let password = req.body.password;
 
         //Try to get a connection on database if has error return 500 status
-        var database = application.config.database()
+        let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
                 appData["error"] = 1;
@@ -124,7 +124,8 @@ module.exports = function (application) {
                     } else {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
-                            if (rows[0].senha == password) {
+                            let hashedPassword = rows[0].senha
+                            if (bcrypt.compareSync(password, hashedPassword)) {
                                 let jwtPayload = {}
                                     jwtPayload["id"] = rows[0].id;
                                     jwtPayload["email"] = rows[0].email;
@@ -156,28 +157,29 @@ module.exports = function (application) {
 
     // Route utilized to register the Companies
     application.post('/company/register', function (req, res) {
-        var today = new Date();
+        let today = new Date();
 
         //Data object returned from api
-        var appData = {
+        let appData = {
             "error": 1,
             "data": ""
         };
-        /*
-        //var hashedPassword = bcrypt.hashSync(req.body.password, 8)
-        */
-        var email = req.body.email;
+        
+        //Encrypting password sended by client.
+        let hashedPassword = bcrypt.hashSync(req.body.passwd, 8);
+        
+        let email = req.body.email;
         //var city = req.body.cidades; //I need you make a select to catch the City ID before to insert 
 
         //Data informed from user that after it'll be load in Database
-        var userData = { //Make a mapping of the data that it'll be passed by Front-End
+        let userData = { //Make a mapping of the data that it'll be passed by Front-End
             "data_cadastro": today, //Tab_empresa
             "nome_fantasia": req.body.name_fant, //tab_empresa
             "razao_social": req.body.raz_soc, //tab_empresa
             "cnpj": req.body.cnpj,//tab_empresa
             "telefone": req.body.tel, //Tab_contatos
             "email": req.body.email, //tab_contatos
-            "senha": req.body.passwd, //???
+            "senha": hashedPassword, //???
             "flg_concorda_termos": req.body.checkboxTerm, //tab_empresa
             "cod_uf": req.body.estados, //tab_empresa
             "cod_municipio":req.body.cidades, //tab_empresa
@@ -185,7 +187,7 @@ module.exports = function (application) {
         }
 
         //Try to get a connection on database if has error return 500 status
-        var database = application.config.database()
+        let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
                 appData["error"] = 1;
@@ -246,12 +248,12 @@ module.exports = function (application) {
     // Route utilized to login the company into the app
     application.post('/company/login', function (req, res) {
 
-        var appData = {};
-        var email = req.body.emailComp;
-        var password = req.body.passwordComp;
+        let appData = {};
+        let email = req.body.emailComp;
+        let password = req.body.passwordComp;
 
         //Try to get a connection on database if has error return 500 status
-        var database = application.config.database()
+        let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
                 appData["error"] = 1;
@@ -270,7 +272,8 @@ module.exports = function (application) {
                     } else {
                         //If email is found compare the password with the email password stored and generates the JWT Token
                         if (rows.length > 0) {
-                            if (rows[0].senha == password) {
+                            let hashedPassword = rows[0].senha
+                            if (bcrypt.compareSync(password, hashedPassword)) {
                                 let jwtPayload = {}
                                     jwtPayload["id"] = rows[0].id;
                                     jwtPayload["email"] = rows[0].email;

@@ -41,7 +41,7 @@ module.exports = function (application) {
         }
 
         //Try to get a connection on database if has error return 500 status
-        var database = application.config.database()
+        let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
                 appData["error"] = 1;
@@ -157,10 +157,10 @@ module.exports = function (application) {
 
     // Route utilized to register the Companies
     application.post('/company/register', function (req, res) {
-        var today = new Date();
+        let today = new Date();
 
         //Data object returned from api
-        var appData = {
+        let appData = {
             "error": 1,
             "data": ""
         };
@@ -168,11 +168,11 @@ module.exports = function (application) {
         //Encrypting password sended by client.
         let hashedPassword = bcrypt.hashSync(req.body.passwd, 8);
         
-        var email = req.body.email;
+        let email = req.body.email;
         //var city = req.body.cidades; //I need you make a select to catch the City ID before to insert 
 
         //Data informed from user that after it'll be load in Database
-        var userData = { //Make a mapping of the data that it'll be passed by Front-End
+        let userData = { //Make a mapping of the data that it'll be passed by Front-End
             "data_cadastro": today, //Tab_empresa
             "nome_fantasia": req.body.name_fant, //tab_empresa
             "razao_social": req.body.raz_soc, //tab_empresa
@@ -187,7 +187,7 @@ module.exports = function (application) {
         }
 
         //Try to get a connection on database if has error return 500 status
-        var database = application.config.database()
+        let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
                 appData["error"] = 1;
@@ -248,12 +248,12 @@ module.exports = function (application) {
     // Route utilized to login the company into the app
     application.post('/company/login', function (req, res) {
 
-        var appData = {};
-        var email = req.body.emailComp;
-        var password = req.body.passwordComp;
+        let appData = {};
+        let email = req.body.emailComp;
+        let password = req.body.passwordComp;
 
         //Try to get a connection on database if has error return 500 status
-        var database = application.config.database()
+        let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
                 appData["error"] = 1;

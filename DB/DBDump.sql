@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.23, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
 --
 -- Host: localhost    Database: mydatabase
 -- ------------------------------------------------------
--- Server version	5.7.23
+-- Server version	5.7.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -50,7 +50,7 @@ CREATE TABLE `tab_empresa` (
 
 LOCK TABLES `tab_empresa` WRITE;
 /*!40000 ALTER TABLE `tab_empresa` DISABLE KEYS */;
-INSERT INTO `tab_empresa` VALUES (1,'teste','teste','123456791023','AC',1,'R. Capao Redondo','teste@gmail.com','123','2018-10-26 02:42:26',NULL,'N'),(2,'Annex Consultoria','Alliance','08088399000116','SP',5274,'Rua Quitana 753','alliance@gmail.com','321','2018-11-04 15:21:13','(11)5893-1497','S');
+INSERT INTO `tab_empresa` VALUES (1,'teste','teste','123456791023','AC',1,'R. Capao Redondo','teste@gmail.com','$2a$08$GZKnYxXvmnme8aEOd2d6FuwnLynSvIkdlf5DgINLE60P1r45QVkx.','2018-10-26 02:42:26',NULL,'N'),(2,'Annex Consultoria','Alliance','08088399000116','SP',5274,'Rua Quitana 753','alliance@gmail.com','$2a$08$dZp.uDtFhopUExQa0E.h1ew8GB1m7dhy8MwbkzgD4tiRPg68AbERq','2018-11-04 15:21:13','(11)5893-1497','S');
 /*!40000 ALTER TABLE `tab_empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,7 +271,7 @@ CREATE TABLE `tab_usuario` (
   `data_cadastro` date NOT NULL,
   PRIMARY KEY (`cod_usuario`),
   UNIQUE KEY `CPF_UNIQUE` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de usuários.';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Cadastro de usuários.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,7 +280,7 @@ CREATE TABLE `tab_usuario` (
 
 LOCK TABLES `tab_usuario` WRITE;
 /*!40000 ALTER TABLE `tab_usuario` DISABLE KEYS */;
-INSERT INTO `tab_usuario` VALUES (1,'Welinton','Ribeiro Junior','1995-05-24','44089264855','teste@gmail.com','123','juniortrimundial@hotmail.com','(11)5893-1497','(11)99378-1102','S','2018-09-25');
+INSERT INTO `tab_usuario` VALUES (1,'Welinton','Ribeiro Junior','1995-05-24','44089264855','teste@gmail.com','$2a$08$GZKnYxXvmnme8aEOd2d6FuwnLynSvIkdlf5DgINLE60P1r45QVkx.','juniortrimundial@hotmail.com','(11)5893-1497','(11)99378-1102','S','2018-09-25'),(2,'Gabriel','Pellegrini','1996-11-30','41769334882','gabriel@gmail.com','$2a$08$GZKnYxXvmnme8aEOd2d6FuwnLynSvIkdlf5DgINLE60P1r45QVkx.','gabriel@gmail.com','(11)5667-4725','(11)94737-9641','S','2018-11-09'),(3,'Gabriel','Pellegrini','1996-11-30','45934883888','tst@gmail.com','$2a$08$VYv8wc/MkCp3PipicDFlMupEjfnu5iQH/RWr0MB0lt.hz4lWu7amO','gabriel@gmail.com','(11)5667-4725','(11)94737-9641','S','2018-11-09'),(4,'Gabriel','Pellegrini','1996-11-30','88451140076','bea@gmail.com','$2a$08$GZKnYxXvmnme8aEOd2d6FuwnLynSvIkdlf5DgINLE60P1r45QVkx.','gabriel@gmail.com','(11)5667-4725','(11)94737-9641','S','2018-11-10'),(5,'Teste','Pellegrini','1996-11-30','59015201064','123@gmail.com','$2a$10$1XELqm61fnmjtPKBya4LqOynCbgL1cIU7VrM/5stN5fp/p1RB96iq','gabriel@gmail.com','(11)5667-4725','(11)94737-9641','S','2018-11-10');
 /*!40000 ALTER TABLE `tab_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -293,4 +293,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-05  0:54:10
+-- Dump completed on 2018-11-10  3:36:19

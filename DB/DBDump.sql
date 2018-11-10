@@ -65,7 +65,7 @@ CREATE TABLE `tab_endereco` (
   `cod_uf` char(2) NOT NULL,
   `cod_municipio` int(11) NOT NULL,
   `cod_endereco` int(11) NOT NULL AUTO_INCREMENT,
-  `CEP` char(8) DEFAULT NULL,
+  `CEP` char(9) DEFAULT NULL,
   `endereco` varchar(200) DEFAULT NULL,
   `numero` varchar(6) DEFAULT NULL,
   `complemento` varchar(50) DEFAULT NULL,

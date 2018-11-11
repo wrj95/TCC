@@ -1,8 +1,16 @@
 $(document).ready(function(){
 
     $('#dataNascimento').mask("99/99/9999"); //Tratando o Data
-    $('#tel').mask("(99)9999-9999"); //Tratando Numero de Telefone
-    $('#cel').mask("(99)99999-9999"); //Tratando Numero de Celular
+    var MobileBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        mobileOptions = {
+            onKeyPress: function (val, e, field, options) {
+                field.mask(MobileBehavior.apply({}, arguments), options);
+            }
+        };
+    $('#tel').mask(MobileBehavior, mobileOptions); //Tratando Numero de Telefone
+    $('#cel').mask(MobileBehavior, mobileOptions); //Tratando Numero de Celular
     $('#cpf').mask("99999999999")
 
     $("#name").keyup(function() { //Validacao do campo nome

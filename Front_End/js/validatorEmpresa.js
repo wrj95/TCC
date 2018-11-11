@@ -28,8 +28,16 @@ $(document).ready(function(){
         }).change();		
     });
 
-    $('#tel').mask("(99)9999-9999"); //Tratando Numero de Telefone
-    $('#cnpj').mask("99999999999999") //Tratando CNPJ
+    var MobileBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+        mobileOptions = {
+            onKeyPress: function (val, e, field, options) {
+                field.mask(MobileBehavior.apply({}, arguments), options);
+            }
+        };
+    $('#tel').mask(MobileBehavior, mobileOptions); //Tratando Numero de Telefone
+    $('#cnpj').mask("00000000000000") //Tratando CNPJ
     
     $("#name_fant").keyup(function() { //Validacao do campo nome
         //Substitui por nada, tudo aquilo que nao for de encontro com o Regx declarado, ou seja, letra e caracteres especiais

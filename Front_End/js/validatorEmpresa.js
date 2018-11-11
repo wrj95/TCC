@@ -29,7 +29,6 @@ $(document).ready(function(){
     });
 
     $('#tel').mask("(99)9999-9999"); //Tratando Numero de Telefone
-    $('#cel').mask("(99)99999-9999"); //Tratando Numero de Celular
     $('#cnpj').mask("99999999999999") //Tratando CNPJ
     
     $("#name_fant").keyup(function() { //Validacao do campo nome

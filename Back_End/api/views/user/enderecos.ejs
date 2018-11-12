@@ -76,18 +76,14 @@
 							UF:{required: true}, //Nao aceita o campo CPF vazio
 							municipio:{required: true}, //Nao aceita o campo Telefone vazio
 							endereco:{required: true}, //Nao aceita o campo Email vazio e um email válido
-							numero:{required: true}, //Nao aceita o campo Email Alternativo vazio e um email válido
-							bairro:{required: true},
-							complemento:{required: true}
+							numero:{required: true} //Nao aceita o campo Email Alternativo vazio e um email válido
 						},
 						messages: {
 							cep:{required: 'Campo Obrigatório'},   
 							UF:{required: 'Campo Obrigatório'},
 							municipio:{required: 'Campo Obrigatório'},                        
 							endereco:{required: 'Campo Obrigatório'},
-							numero:{required: 'Campo Obrigatório'},
-							bairro:{required: 'Campo Obrigatório'},
-							complemento:{required: 'Campo Obrigatório'}
+							numero:{required: 'Campo Obrigatório'}
 						},
 						submitHandler: function(form){
 							//Aqui pega o formulário e o converte em JSON

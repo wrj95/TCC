@@ -67,7 +67,7 @@
 							//Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
 							$.ajax({
 								type: 'post', //Tipo de Conexao
-								url: '/company/orcamento/emissao/' + idSolicitacao + '/' + idUser, //URL da API
+								url: '/company/orcamento/emissao/' + idSolicitacao, //URL da API
 								dataType: 'json', //Tipo de dado que sera transferido
 								data: json, //Enviando o formulario em formato JSON
 								contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -111,7 +111,7 @@
 			<button type="button" class="btn btn-outline-primary" id="btnCentral">Central de Solicitações</button>
 			<button type="button" class="btn btn-sm" id="btnAprovados">Orçamentos Aprovados</button>
 			<button type="button" class="btn btn-sm" id="btnOrcamentos">Meus Orçamentos</button>
-			<button type="button" class="btn btn-sm">Sair</button>
+			<button type="button" class="btn btn-sm" id="btnSair" >Sair</button>
 		</div>
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>

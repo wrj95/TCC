@@ -30,7 +30,7 @@
             $(document).ready(function(){
 				//Catch the ID user
 				var url = window.location.href;
-				var idOrcamento = url.split('/')[3]
+				var idOrcamento = url.split('/')[6]
 				var token = url.split('?token=')[1]
 								
 				$('#btnProposta').click(function(e){
@@ -49,7 +49,7 @@
 						contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
 						headers:{'token': token}, //Envio em URLEncoded
 						success: function(data){
-							alert(success);
+							alert("Solicitação Aprovada - Empresa entrará em contato");
 						},
 						error: function(request, status, erro){
 
@@ -151,7 +151,7 @@
 			<div class="row">
 				<div class="col-sm-12">    
 					<label><b>Descrição sobre à Mudança:</b></label>
-					<p><%= detail.descricao %></p>
+					<p><%= detail.SolicitDescricao %></p>
 				</div>
 			</div>
 

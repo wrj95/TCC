@@ -65,7 +65,7 @@ userDAO.prototype.getAnswer = function (userData, callback){
                             + "INNER JOIN tab_empresa e ON e.cod_empresa = o.cod_empresa "
                             + "WHERE o.cod_solicitacao IN (SELECT cod_solicitacao "
                             + "FROM mydatabase.tab_solicitacao " 
-                            + "WHERE cod_usuario = ?) "
+                            + "WHERE status = 'A' AND cod_usuario = ?) "
                             + "ORDER BY o.data_cadastro DESC", userData, callback);
 }
 

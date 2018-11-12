@@ -412,5 +412,4 @@ module.exports = function (application) {
                         }
                     })
                 });
-        
 }

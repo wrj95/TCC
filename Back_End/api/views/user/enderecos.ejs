@@ -77,6 +77,8 @@
 							municipio:{required: true}, //Nao aceita o campo Telefone vazio
 							endereco:{required: true}, //Nao aceita o campo Email vazio e um email válido
 							numero:{required: true}, //Nao aceita o campo Email Alternativo vazio e um email válido
+							bairro:{required: true},
+							complemento:{required: true}
 						},
 						messages: {
 							cep:{required: 'Campo Obrigatório'},   
@@ -84,6 +86,8 @@
 							municipio:{required: 'Campo Obrigatório'},                        
 							endereco:{required: 'Campo Obrigatório'},
 							numero:{required: 'Campo Obrigatório'},
+							bairro:{required: 'Campo Obrigatório'},
+							complemento:{required: 'Campo Obrigatório'}
 						},
 						submitHandler: function(form){
 							//Aqui pega o formulário e o converte em JSON
@@ -169,7 +173,7 @@
 					</div>
 					<div class="col-sm-1">
 						<label for="numero">Nº:</label>
-						<input type="text" class="form-control" numero="numero" id="numero">
+						<input type="text" class="form-control" name="numero" id="numero">
 					</div>
 					<div class="col-sm-2">
 						<label for="bairro">Bairro:</label>

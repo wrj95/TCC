@@ -73,7 +73,8 @@
 								contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
 								headers:{'token': token}, //Envio em URLEncoded
 								success: function(data) {
-									alert('Success')
+									alert('Proposta enviada ao Solicitante')
+									window.location.href = '/company/orcamento' + '?token=' + token;
 								},
 								error: function(request, status, erro){
 								}

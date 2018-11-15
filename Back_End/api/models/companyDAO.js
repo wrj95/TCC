@@ -108,7 +108,7 @@ companyDAO.prototype.ApproveDetails = function (userData, callback){
                             + "s.tit_solicitacao AS tituloSolicitacao, ufo.des_uf AS uf_origem, muno.des_municipio AS mun_origem, "
                             + "CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', eo.complemento) AS end_origem_completo, "
                             + "ufd.des_uf AS uf_destino, mund.des_municipio AS mun_destino, "
-                            + "CONCAT(ed.endereco,', ', ed.numero, ' - ', ed.complemento) AS end_destino_completo, CONCAT('R$ ', Format(o.valor,2)) AS valorAcordado "
+                            + "CONCAT(ed.endereco,', ', ed.numero, ' - ', ifnull(ed.complemento,'')) AS end_destino_completo, CONCAT('R$ ', Format(o.valor,2)) AS valorAcordado "
                             + "FROM tab_orcamento_aprovado a "
                             + "INNER JOIN tab_usuario u ON a.cod_usuario = u.cod_usuario "
                             + "INNER JOIN tab_solicitacao s ON a.cod_solicitacao = s.cod_solicitacao "

@@ -33,7 +33,7 @@
 				var idOrcamento = url.split('/')[6]
 				var token = url.split('?token=')[1]
 								
-				$('#btnProposta').click(function(e){
+				$('#btnAceita').click(function(e){
 					var idempresa = document.getElementById("idEmpresa").innerHTML;
 					var idSolicitacao = document.getElementById("idSolicitacao").innerHTML;
 
@@ -50,6 +50,7 @@
 						headers:{'token': token}, //Envio em URLEncoded
 						success: function(data){
 							alert("Solicitação Aprovada - Empresa entrará em contato");
+							window.location.href = "/user/solicitacao" + "?token=" + token; 
 						},
 						error: function(request, status, erro){
 
@@ -155,7 +156,7 @@
 				</div>
 			</div>
 
-			<input type="button" class="col-sm-2" id="btnProposta" value="Aceitar">
+			<input type="button" class="col-sm-2" id="btnAceita" value="Aceitar">
 			<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
 		</div>
 	</body>

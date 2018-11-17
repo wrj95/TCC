@@ -136,7 +136,7 @@ $(document).ready(function(){
                 var json = JSON.parse(JSON.stringify(jQuery('#myform').serializeArray()));
                 
                 //Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
-                $.post({
+                $.ajax({
                     type: 'POST', //Tipo de Conexao
                     url: 'http://10.1.0.102:3050/company/register', //URL da API
                     dataType: 'json', //Tipo de dado que sera transferido
@@ -144,7 +144,7 @@ $(document).ready(function(){
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(data) {
                          alert('Cadastro realizado com Sucesso');
-                         location.href("./LoginEmp.html")
+                         location.href="./LoginEmp.html"
                     },
                     error: function(request, status, erro){
                         //Captando o erro retornado da API

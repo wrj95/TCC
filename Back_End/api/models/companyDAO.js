@@ -28,9 +28,9 @@ companyDAO.prototype.listOrcamentos = function (userData, callback) {
 companyDAO.prototype.detailsOrcamento = function (userData, callback) {
     this._connection.query("SELECT o.titorcamento, s.tit_solicitacao, CONCAT(u.nome, ' ', u.sobrenome) AS nome_completo, "
                             + "ufo.des_uf AS uf_origem, muno.des_municipio AS mun_origem, "
-                            + "CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', eo.complemento) AS end_origem_completo, "
+                            + "CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', ifnull(eo.complemento,'')) AS end_origem_completo, "
                             + "ufd.des_uf AS uf_destino, mund.des_municipio AS mun_destino, "
-                            + "CONCAT(ed.endereco,', ', ed.numero, ' - ', ed.complemento) AS end_destino_completo, "
+                            + "CONCAT(ed.endereco,', ', ed.numero, ' - ', ifnull(ed.complemento,'')) AS end_destino_completo, "
                             + "IF(o.status='A','Aberto','Fechado') AS status, o.des_orcamento, o.tempo_execucao, FORMAT(o.valor,2) AS valor, "
                             + "IF(o.empacotador='S','Com Empacotador','Sem Empacotador'), IF(o.seguro='S','Tem Seguro','Sem Seguro') "
                             + "FROM tab_orcamento o "
@@ -67,8 +67,8 @@ companyDAO.prototype.getRequest = function (callback){
 //Details about Request
 companyDAO.prototype.getRequestSelected = function (userData, callback){
     this._connection.query("SELECT s.cod_solicitacao AS idsolicitacao, s.tit_solicitacao AS tit_solicitacao, CONCAT(u.nome, ' ', u.sobrenome) AS nome_completo, "
-                            + "ufo.des_uf AS uf_origem, muno.des_municipio AS mun_origem, CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', eo.complemento) AS end_origem_completo, "
-                            + "ufd.des_uf AS uf_destino, mund.des_municipio AS mun_destino, CONCAT(ed.endereco,', ', ed.numero, ' - ', ed.complemento) AS end_destino_completo, "
+                            + "ufo.des_uf AS uf_origem, muno.des_municipio AS mun_origem, CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', ifnull(eo.complemento,'')) AS end_origem_completo, "
+                            + "ufd.des_uf AS uf_destino, mund.des_municipio AS mun_destino, CONCAT(ed.endereco,', ', ed.numero, ' - ', ifnull(ed.complemento,'')) AS end_destino_completo, "
                             + "DATE_FORMAT(s.data_servico, '%d/%m/%Y') AS data, s.hora_servico AS hora, s.des_solicitacao AS descricao, CONCAT('R$ ', Format(s.vlr_estimado_carga,2)) AS valor "
                             + "FROM tab_solicitacao s "
                             + "INNER JOIN tab_usuario u ON u.cod_usuario = s.cod_usuario "
@@ -106,7 +106,7 @@ companyDAO.prototype.ApproveDetails = function (userData, callback){
     this._connection.query("SELECT CONCAT(u.nome, ' ', u.sobrenome) AS solicitante, u.email AS email, u.telefone_fixo, u.telefone_celular, "
                             + "DATE_FORMAT(s.data_servico, '%d/%m/%Y') AS data, s.hora_servico AS hora, s.des_solicitacao AS descricao, "
                             + "s.tit_solicitacao AS tituloSolicitacao, ufo.des_uf AS uf_origem, muno.des_municipio AS mun_origem, "
-                            + "CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', eo.complemento) AS end_origem_completo, "
+                            + "CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', ifnull(eo.complemento,'')) AS end_origem_completo, "
                             + "ufd.des_uf AS uf_destino, mund.des_municipio AS mun_destino, "
                             + "CONCAT(ed.endereco,', ', ed.numero, ' - ', ifnull(ed.complemento,'')) AS end_destino_completo, CONCAT('R$ ', Format(o.valor,2)) AS valorAcordado "
                             + "FROM tab_orcamento_aprovado a "

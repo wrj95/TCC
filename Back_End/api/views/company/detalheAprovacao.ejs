@@ -71,40 +71,27 @@
 		<h1 class="col-sm-12">Detalhes da Aprovação</h1>
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-3">  
-                    <label><b>Titulo do Orçamento:</b></label>
-                    <p><%= detail.tituloSolicitacao %></p>
+				<div class="col-sm-6">  
+                    <label><h3><%= detail.tituloSolicitacao %></h3></label>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-sm-3">  
 					<label><b>Solicitante:</b></label>
 					<p><%= detail.solicitante %></p>
 				</div>
+				<div class="col-sm-3">  
 					<label><b>E-mail:</b></label>
 					<p><%= detail.email %></p>
+				</div>
 				<div class="col-sm-3">  
 					<label><b>Telefone para Contato:</b></label>
 					<p><%= detail.telefone_fixo %></p>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">  
+				<div class="col-sm-3">  
 					<label><b>Celular:</b></label>
 					<p><%= detail.telefone_celular %></p>
 				</div>
-				<div class="col-sm-4">  
-					<label><b>Data da Mudança:</b></label>
-					<p><%= detail.data %></p>
-				</div>
-				<div class="col-sm-4">  
-					<label><b>Hora mercada:</b></label>
-                    <p><%= detail.hora %></p>
-				</div>
-			</div>
-			<div class="row"> 
-				<div class="col-sm-12">  
-					<label><b>Descrição:</b></label>
-					<p><%= detail.data %></p>
-				</div>  
 			</div>
 			<div class="row"> 
 				<div class="col-sm-3">  
@@ -112,34 +99,52 @@
                     <p><%= detail.hora %></p>
 				</div>
 				<div class="col-sm-3">  
-					<label><b>Estado de Origem:</b></label>
-					<p><%= detail.uf_origem %></p>
+					<label><b>Data da Mudança:</b></label>
+					<p><%= detail.data %></p>
 				</div>
 				<div class="col-sm-3">  
-					<label><b>Municipio de Origem:</b></label>
-					<p><%= detail.mun_origem %></p>
-				</div>
-				<div class="col-sm-3">  
-					<label><b>Endereço de Origem:</b></label>
-					<p><%= detail.end_origem_completo %></p>
-				</div>
-			</div>
-			<div class="row"> 
-				<div class="col-sm-3">  
-					<label><b>Estado de Destino:</b></label>
-					<p><%= detail.uf_destino %></p>
-				</div>
-					<label><b>Municipio de Destino:</b></label>
-					<p><%= detail.mun_destino %></p>
-				</div>
-				<div class="col-sm-3">  
-					<label><b>Endereço de Destino:</b></label>
-                    <p><%= detail.end_destino_completo %></p>
+					<label><b>Hora mercada:</b></label>
+                    <p><%= detail.hora %></p>
 				</div>
 				<div class="col-sm-3">  
 					<label><b>Valor do Frete Acertado:</b></label>
 					<p><%= detail.valorAcordado%></p>
 				</div>
+			</div>
+
+			<div class="row"> 
+				<div class="col-sm-4">  
+					<label><b>Estado de Origem:</b></label>
+					<p><%= detail.uf_origem %></p>
+				</div>
+				<div class="col-sm-4">  
+					<label><b>Municipio de Origem:</b></label>
+					<p><%= detail.mun_origem %></p>
+				</div>
+				<div class="col-sm-4">  
+					<label><b>Endereço de Origem:</b></label>
+					<p><%= detail.end_origem_completo %></p>
+				</div>
+			</div>
+			<div class="row"> 
+				<div class="col-sm-4">  
+					<label><b>Estado de Destino:</b></label>
+					<p><%= detail.uf_destino %></p>
+				</div>
+				<div class="col-sm-4"> 
+					<label><b>Municipio de Destino:</b></label>
+					<p><%= detail.mun_destino %></p>
+				</div>
+				<div class="col-sm-4">  
+					<label><b>Endereço de Destino:</b></label>
+                    <p><%= detail.end_destino_completo %></p>
+				</div>
+			</div>
+			<div class="row"> 
+				<div class="col-sm-12">  
+					<label><b>Descrição:</b></label>
+					<p><%= detail.data %></p>
+				</div>  
 			</div>
 			<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
 		</div>

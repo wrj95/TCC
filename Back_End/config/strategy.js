@@ -4,7 +4,6 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 module.exports = function (application) {
 
-
     const params = {
         secretOrKey: process.env.SECRET_KEY,
         jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromHeader("token"), ExtractJwt.fromUrlQueryParameter("token")])
@@ -15,22 +14,44 @@ module.exports = function (application) {
             if (err) {
                 return done("Service is unavaiable, please try again later", null)
             } else {
-                let userDAO = new application.api.models.userDAO(connection)
-                userDAO.login(payload.email, function (err, rows) {
-                    if (err) {
-                        console.log(err)
-                        return done("An Error ocurred , please check the console log", null)
-                    } else {
-                        if (rows.length > 0) {
-                            return done(null, {
-                                id: rows[0].id,
-                                email: rows[0].email
-                            })
+                if(payload.mode == 'user'){
+                    let userDAO = new application.api.models.userDAO(connection)
+                    userDAO.login(payload.email, function (err, rows) {
+                        if (err) {
+                            console.log(err)
+                            return done("An Error ocurred, please check the console log", null)
                         } else {
-                            return done("User Not Found", false);
+                            if (rows.length > 0) {
+                                return done(null, {
+                                    id: rows[0].id,
+                                    email: rows[0].email
+                                })
+                            } else {
+                                return done("User Not Found", false);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
+                if(payload.mode == 'company'){
+                    let companyDAO = new application.api.models.companyDAO(connection)
+                    companyDAO.login(payload.email, function (err, rows) {
+                        if (err) {
+                            console.log(err)
+                            return done("An Error ocurred, please check the console log", null)
+                        } else {
+                            if (rows.length > 0) {
+                                return done(null, {
+                                    id: rows[0].id,
+                                    email: rows[0].email
+                                })
+                            } else {
+                                return done("User Not Found", false);
+                            }
+                        }
+                    }); 
+                }
+
                 connection.release();
             }
         });

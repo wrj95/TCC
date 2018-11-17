@@ -20,10 +20,10 @@ app.use('/images',express.static('api/views/css/'));
 app.use(express.json())
 
 consign()
-    .include("./api/routes/authentication.js")
+    .include("./api/controllers/authentication.js")
     .then("./config/strategy.js")
     .then("./config/middlewares.js")
-    .then("./api/routes")
+    .then("./api/controllers")
     .then("./api/models")
     .then("./config/database.js")
     .then("./config/errorhandler.js")

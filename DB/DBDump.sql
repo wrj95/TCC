@@ -31,9 +31,9 @@ CREATE TABLE `tab_empresa` (
   `cod_municipio` int(11) NOT NULL,
   `endereco` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `senha` varchar(50) NOT NULL,
+  `senha` varchar(60) NOT NULL,
   `data_cadastro` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `telefone` char(13) DEFAULT NULL,
+  `telefone` char(14) DEFAULT NULL,
   `flg_concorda_termos` char(1) DEFAULT 'N',
   PRIMARY KEY (`cod_empresa`),
   UNIQUE KEY `cnpj_UNIQUE` (`cnpj`),
@@ -41,7 +41,7 @@ CREATE TABLE `tab_empresa` (
   KEY `fk_empresa_municipio` (`cod_municipio`),
   CONSTRAINT `fk_empresa_municipio` FOREIGN KEY (`cod_municipio`) REFERENCES `tab_municipio` (`cod_municipio`),
   CONSTRAINT `fk_empresa_uf` FOREIGN KEY (`cod_uf`) REFERENCES `tab_uf` (`cod_uf`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Empresas.';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Empresas.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +50,7 @@ CREATE TABLE `tab_empresa` (
 
 LOCK TABLES `tab_empresa` WRITE;
 /*!40000 ALTER TABLE `tab_empresa` DISABLE KEYS */;
-INSERT INTO `tab_empresa` VALUES (1,'teste','teste','123456791023','AC',1,'R. Capao Redondo','teste@gmail.com','123','2018-10-26 02:42:26',NULL,'N'),(2,'Annex Consultoria','Alliance','08088399000116','SP',5274,'Rua Quitana 753','alliance@gmail.com','321','2018-11-04 15:21:13','(11)5893-1497','S');
+INSERT INTO `tab_empresa` VALUES (3,'Frete Já','','08088399000116','SP',5274,'Rua Nhambiquaras 753','fretes@fretes.com','$2a$08$Ti5LJldpM5lr7SVtGEzU1.m7Sfd93sNVIPBcIFP1WFRCbPPl2mPBa','2018-11-17 00:41:45','(11)3882-3593','S');
 /*!40000 ALTER TABLE `tab_empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +65,7 @@ CREATE TABLE `tab_endereco` (
   `cod_uf` char(2) NOT NULL,
   `cod_municipio` int(11) NOT NULL,
   `cod_endereco` int(11) NOT NULL AUTO_INCREMENT,
-  `CEP` char(8) DEFAULT NULL,
+  `CEP` char(9) DEFAULT NULL,
   `endereco` varchar(200) DEFAULT NULL,
   `numero` varchar(6) DEFAULT NULL,
   `complemento` varchar(50) DEFAULT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE `tab_endereco` (
   `flg_usu_emp` char(1) NOT NULL,
   `cod_usu_emp` int(11) NOT NULL,
   PRIMARY KEY (`cod_endereco`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Cadastro de endereços do usuário.';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Cadastro de endereços do usuário.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,7 +82,7 @@ CREATE TABLE `tab_endereco` (
 
 LOCK TABLES `tab_endereco` WRITE;
 /*!40000 ALTER TABLE `tab_endereco` DISABLE KEYS */;
-INSERT INTO `tab_endereco` VALUES ('SP',1,1,'04931100','rua Capão Redondo','2','A','jd. Santa Margarida','u',1),('AC',1,2,'04931100','R Jussara',NULL,'A','Piracanjuba','U',1);
+INSERT INTO `tab_endereco` VALUES ('SP',5274,3,'04931-100','Rua Capão Redondo','2','A','JD. Santa Margarida','U',6),('MG',2378,4,'04932-001','Rua Jussara','324','','Jd das Oliveiras','U',6);
 /*!40000 ALTER TABLE `tab_endereco` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +137,7 @@ CREATE TABLE `tab_orcamento` (
   KEY `fk_empresa_idx` (`cod_empresa`),
   CONSTRAINT `fk_empresa` FOREIGN KEY (`cod_empresa`) REFERENCES `tab_empresa` (`cod_empresa`),
   CONSTRAINT `fk_solicitacao` FOREIGN KEY (`cod_solicitacao`) REFERENCES `tab_solicitacao` (`cod_solicitacao`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Orçamentos.';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Orçamentos.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +146,7 @@ CREATE TABLE `tab_orcamento` (
 
 LOCK TABLES `tab_orcamento` WRITE;
 /*!40000 ALTER TABLE `tab_orcamento` DISABLE KEYS */;
-INSERT INTO `tab_orcamento` VALUES (1,1,1,'Respostas WRJ','Teste','01:30',24.5,'S','S','A','2018-10-28 03:50:30');
+INSERT INTO `tab_orcamento` VALUES (2,3,2,'Frete para TV','-Frete para levar a Televisão até o destino\r\n-Levaremos um empacotador\r\n-Seguro da Liberty Seguro\r\n','05:00',150,'S','S','F','2018-11-17 00:43:28');
 /*!40000 ALTER TABLE `tab_orcamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,7 +174,7 @@ CREATE TABLE `tab_orcamento_aprovado` (
   CONSTRAINT `fk_orcamento_aprovado` FOREIGN KEY (`cod_orcamento`) REFERENCES `tab_orcamento` (`cod_orcamento`),
   CONSTRAINT `fk_solicitacao_aprovado` FOREIGN KEY (`cod_solicitacao`) REFERENCES `tab_solicitacao` (`cod_solicitacao`),
   CONSTRAINT `fk_usuario_aprovado` FOREIGN KEY (`cod_usuario`) REFERENCES `tab_usuario` (`cod_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,6 +183,7 @@ CREATE TABLE `tab_orcamento_aprovado` (
 
 LOCK TABLES `tab_orcamento_aprovado` WRITE;
 /*!40000 ALTER TABLE `tab_orcamento_aprovado` DISABLE KEYS */;
+INSERT INTO `tab_orcamento_aprovado` VALUES (6,2,3,2,1,NULL,NULL),(6,2,3,2,2,NULL,NULL);
 /*!40000 ALTER TABLE `tab_orcamento_aprovado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +213,7 @@ CREATE TABLE `tab_solicitacao` (
   CONSTRAINT `fk_endereco_destino` FOREIGN KEY (`cod_endereco_destino`) REFERENCES `tab_endereco` (`cod_endereco`),
   CONSTRAINT `fk_endereco_origem` FOREIGN KEY (`cod_endereco_origem`) REFERENCES `tab_endereco` (`cod_endereco`),
   CONSTRAINT `fk_usuario` FOREIGN KEY (`cod_usuario`) REFERENCES `tab_usuario` (`cod_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Solicitação de Serviço';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Cadastro de Solicitação de Serviço';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +222,7 @@ CREATE TABLE `tab_solicitacao` (
 
 LOCK TABLES `tab_solicitacao` WRITE;
 /*!40000 ALTER TABLE `tab_solicitacao` DISABLE KEYS */;
-INSERT INTO `tab_solicitacao` VALUES (1,1,'Mudança',1,1,300,'2018-10-31','20:00:00','A','Tetste','2018-10-26 04:24:07');
+INSERT INTO `tab_solicitacao` VALUES (2,6,'Televisão para Familia',3,4,240,'2018-11-30','08:00:00','F','- Televisão de 29 polegadas','2018-11-17 00:40:49');
 /*!40000 ALTER TABLE `tab_solicitacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,15 +264,15 @@ CREATE TABLE `tab_usuario` (
   `data_nascimento` date DEFAULT NULL,
   `cpf` char(11) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `senha` varchar(50) NOT NULL,
+  `senha` varchar(60) NOT NULL,
   `email_alternativo` varchar(45) NOT NULL,
-  `telefone_fixo` char(13) DEFAULT NULL,
+  `telefone_fixo` char(14) DEFAULT NULL,
   `telefone_celular` char(14) DEFAULT NULL,
   `flg_concorda_termos` char(1) NOT NULL DEFAULT 'N',
   `data_cadastro` date NOT NULL,
   PRIMARY KEY (`cod_usuario`),
   UNIQUE KEY `CPF_UNIQUE` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Cadastro de usuários.';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Cadastro de usuários.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,7 +281,7 @@ CREATE TABLE `tab_usuario` (
 
 LOCK TABLES `tab_usuario` WRITE;
 /*!40000 ALTER TABLE `tab_usuario` DISABLE KEYS */;
-INSERT INTO `tab_usuario` VALUES (1,'Welinton','Ribeiro Junior','1995-05-24','44089264855','teste@gmail.com','123','juniortrimundial@hotmail.com','(11)5893-1497','(11)99378-1102','S','2018-09-25');
+INSERT INTO `tab_usuario` VALUES (6,'Welinton','Ribeiro Junior','1995-05-24','44089264855','wrj@hotmail.com','$2a$08$h3TDjzfM55HGYbNytIeKbOoxs9ZobhNgWP70u6sPuD/MKb5H2Du0K','welintonribeirojunior@gmail.com','(11)5893-1497','(11)99378-1102','S','2018-11-17');
 /*!40000 ALTER TABLE `tab_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -293,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-05  0:54:10
+-- Dump completed on 2018-11-17  1:11:08

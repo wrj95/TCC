@@ -31,13 +31,28 @@
 				//Catch the ID user
 				var url = window.location.href;
 				var idSolicitacao = url.split('/')[5]
-				var idToken = url.split('/')[6]
-				var idUser = idToken.split('?token=')[0]
-				var token = idToken.split('?token=')[1]
-								
+				var token = url.split('?token=')[1]
+				
 				$('#btnVoltar').click(function(e){
-					window.location.href = "/user/solicitacao/" + idUser + "?token=" + token; 					
+					window.location.href = "/user/solicitacao/" + "?token=" + token; 					
 				})
+
+				$('#btnSolicitar').click(function(e){
+					window.location.href = "/user/orcamento/solicitacao" + "?token=" + token; 
+				})
+
+				$('#btnanswer').click(function(e){
+					window.location.href = "/user/orcamento/resposta" + "?token=" + token; 
+				});
+
+				$('#btnEndereço').click(function(e){
+					window.location.href = "/user/address" + "?token=" + token; 
+				});	
+
+				$('#btnSair').click(function(e){
+					window.location.href = "http://10.1.0.101:80"; 
+				});			
+
             })
         </script>
 
@@ -45,57 +60,76 @@
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<button type="button" class="btn btn-sm">Orçamentos Recebidos</button>
-			<button type="button" class="btn btn-sm">Solicitação de Mudança</button>
-			<a href="10.1.0.101:8000">
-				<button type="button" class="btn btn-sm">Sair</button>
-			</a>
+			<button type="button" class="btn btn-sm" id="btnSolicitar">Solicitar Orçamentos</button>
+			<button type="button" class="btn btn-sm" id="btnanswer">Orçamentos Recebidos</button>
+			<button type="button" class="btn btn-sm" id="btnEndereço">Cadastrar Endereço</button>			
+			<button type="button" class="btn btn-outline-primary" id="btnSolicitacoes">Minhas Solicitações</button>
+			<button type="button" class="btn btn-sm" id="btnSair">Sair</button> 
 		</div>
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
 		<h1 class="col-sm-12">Detalhes da Solicitação</h1>
-		<div class="container-fluid">
-			<div class="row col-sm-12">
-				<div class="col-sm-12">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
                     <label><b>Titulo do Orçamento:</b></label>
-                    <p><%= detail.tit_Solicitacao %></p>
-
+                    <p><%= detail.tit_solicitacao %></p>
+				</div>
+				<div class="col-sm-4">
 					<label><b>Data da Mudança:</b></label>
 					<p><%= detail.data %></p>
-
+				</div>
+				<div class="col-sm-4">
 					<label><b>Hora mercada:</b></label>
                     <p><%= detail.hora %></p>
-                    
-					<label><b>Descrição:</b></label>
-                    <p><%= detail.descricao %></p>
-                    
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">                    
 					<label><b>Estado de Origem:</b></label>
 					<p><%= detail.uf_origem %></p>
-
+				</div>
+				<div class="col-sm-4">
 					<label><b>Municipio de Origem:</b></label>
 					<p><%= detail.mun_origem %></p>
-
+				</div>
+				<div class="col-sm-4">
 					<label><b>Endereço de Origem:</b></label>
 					<p><%= detail.end_origem_completo %></p>
-
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
 					<label><b>Estado de Destino:</b></label>
 					<p><%= detail.uf_destino %></p>
-
+				</div>
+				<div class="col-sm-4">
 					<label><b>Municipio de Destino:</b></label>
 					<p><%= detail.mun_destino %></p>
-
+				</div>
+				<div class="col-sm-4">
 					<label><b>Endereço de Destino:</b></label>
                     <p><%= detail.end_destino_completo %></p>
-                    
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">    
 					<label><b>Valor do Bens:</b></label>
                     <p><%= detail.valor %></p>
-                    
+				</div>
+				<div class="col-sm-4">
                     <label><b>Status:</b></label>
 					<p><%= detail.status %></p>
-
-					<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
-                </div>
+				</div>
 			</div>
+			
+			<div class="row">
+				<div class="col-sm-12">
+					<label><b>Descrição:</b></label>
+                    <p><%= detail.descricao %></p>
+				</div>
+			</div>
+			<input type="button" class="col-sm-2" id="btnVoltar" value="Voltar">
 		</div>
 	</body>
 </html>

@@ -30,15 +30,28 @@
 		<script type='text/javascript'>
 			$(document).ready(function(){
 				var url = window.location.href;
-				var idToken = url.split('/')[5]
-				var idUser = idToken.split('?token=')[0]
-				var token = idToken.split('?token=')[1]
+				var token = url.split('?token=')[1]
 
 				$('#btnDetalhes').click(function(e){
-					var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
-					//Redirect to a Details Page
-					window.location.href = '/company/lista/'+ selValue + '/' + idUser + '?token=' + token;					
+					if ($('input[name=radio]').is(':checked')){
+						var selValue = $('input[name=radio]:checked').val(); //Catch value of line checked
+						//Redirect to a Details Page
+						window.location.href = '/company/lista/'+ selValue + '?token=' + token;	
+					}				
 				})
+
+				$('#btnCentral').click(function(e){
+					window.location.href = '/company/orcamento' + '?token=' + token;
+				});
+
+				//Orcamento approved by User Client
+				$('#btnAprovados').click(function(e){
+					window.location.href = '/company/aprovado' + '?token=' + token;
+				});
+
+				$('#btnSair').click(function(e){
+					window.location.href = "http://10.1.0.101:80";
+				});
 			})
 		</script>
 
@@ -46,15 +59,10 @@
 	</head>
 	<body>
 		<div class="row col-xs-12 col-sm-12" id="divCabecalho">
-			<a href="">
-				<button type="button" class="btn btn-sm">Orçamentos Recebidos</button>
-            </a>
-			<a href="./solicitacao.ejs"">
-				<button type="button" class="btn btn-sm">Solicitação de Mudança</button>
-			</a>
-			<a href="10.1.0.101:8000" target="_blank">
-				<button type="button" class="btn btn-sm">Sair</button>
-			</a>
+			<button type="button" class="btn btn-sm" id="btnCentral">Central de Solicitações</button>
+			<button type="button" class="btn btn-sm" id="btnAprovados">Orçamentos Aprovados</button>
+			<button type="button" class="btn btn-outline-primary" id="btnOrcamentos">Meus Orçamentos</button>
+			<button type="button" class="btn btn-sm" id="btnSair">Sair</button>
 		</div>
 			
 		<div class="row col-sm-12" id="LinhaDivisoria"></div>
@@ -62,22 +70,24 @@
 		<div class="container-fluid">
 			<div class="row col-sm-12">
 				<div class="col-sm-12">
-					<table border="1">
-						<thead>
-                            <th>Selecionar</th>
-                            <th>Titulo da Orçamento</th>
-							<th>Titulo da Solicitação</th>
-							<th>Status</th>
-						</thead>
-						<% for (var i=0;i<itens.length; i++){%>
-						<tbody>
-								<td><input type="radio" name="radio" id="radio" value="<%= itens[i].cod_orcamento %>"/></td>
-                                <td><%= itens[i].titorcamento %></td>
-                                <td><%= itens[i].tit_solicitacao %></td>
-								<td><%= itens[i].status %></td>
-						</tbody>
-						<% } %>
-					</table>
+					<div class="table-responsive">
+						<table class="table table-hover" border="1">
+							<thead class="thead-dark">
+								<th>Selecionar</th>
+								<th>Titulo da Orçamento</th>
+								<th>Titulo da Solicitação</th>
+								<th>Status</th>
+							</thead>
+							<% for (var i=0;i<itens.length; i++){%>
+							<tbody>
+									<td><input type="radio" name="radio" id="radio" value="<%= itens[i].cod_orcamento %>"/></td>
+									<td><%= itens[i].titorcamento %></td>
+									<td><%= itens[i].tit_solicitacao %></td>
+									<td><%= itens[i].status %></td>
+							</tbody>
+							<% } %>
+						</table>
+					</div>
 					<input type="button" class="col-sm-2" id="btnDetalhes" value="Ver Detalhes">
                 </div>
 			</div>

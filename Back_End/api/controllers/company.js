@@ -1,6 +1,8 @@
 module.exports = function (application) {
 
-    application.get("/company/getCompany", function (req, res) {
+    application.route("/company/getCompany")
+        .all(application.config.strategy.authenticate())
+        .get(function (req, res) {
         let appData = {};
         //Try to get a connection on database if has error return 500 status
         var database = application.config.database()
@@ -27,9 +29,10 @@ module.exports = function (application) {
         });
     });
 
-    application.get("/company/orcamento/:id", function (req, res) {
+    application.route("/company/orcamento")
+        .all(application.config.strategy.authenticate())
+        .get(function (req, res) {
         let appData = {}
-        let id = req.params.id;
         let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
@@ -40,7 +43,6 @@ module.exports = function (application) {
                 let companyDAO = new application.api.models.companyDAO(connection)
                 companyDAO.getRequest(function (err, rows, fields) {
                     if(err){
-                        console.log(err)
                         appData["error"] = 1;
                         appData["data"] = "No Data Found";
                         res.status(500).json(appData);
@@ -55,10 +57,11 @@ module.exports = function (application) {
         })
     });
 
-    application.get("/company/orcamento/:idrequest/:id", function (req, res) {
+    application.route("/company/orcamento/:idrequest")
+        .all(application.config.strategy.authenticate())
+        .get(function (req, res) {
         let appData = {}
         let idrequest = req.params.idrequest;
-        let id = req.params.id;
         
 
         let database = application.config.database()
@@ -75,7 +78,7 @@ module.exports = function (application) {
                         appData["data"] = "No Data Found";
                         res.status(500).json(appData);
                     }else{
-                        res.render("company/detailsOrcamento",{
+                        res.render("company/detalheSolicitacao",{
                             detail: rows[0]
                         })
                     }
@@ -85,13 +88,15 @@ module.exports = function (application) {
         })
     });
 
-    application.get("/company/orcamento/emissao/:idrequest/:id", function (req, res) {
+    application.route("/company/orcamento/emissao/:idrequest")
+        .all(application.config.strategy.authenticate())
+        .get(function (req, res) {
         res.render("company/emissao")
-    });
+    })
 
-    application.post("/company/orcamento/emissao/:idrequest/:id", function (req, res) {
+        .post(function (req, res) {
         let appData = {}
-        let id = req.params.id;
+        let id = req.user.id;
         let idrequest = req.params.idrequest;
         let database = application.config.database()
 
@@ -131,9 +136,11 @@ module.exports = function (application) {
         })
     });
 
-    application.get("/company/aprovado/:id", function (req, res) {
+    application.route("/company/aprovado")
+        .all(application.config.strategy.authenticate())
+        .get(function (req, res) {
         let appData = {}
-        let id = req.params.id;
+        let id = req.user.id;
         let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
@@ -159,9 +166,10 @@ module.exports = function (application) {
         })
     });
 
-    application.get("/company/aprovado/detalhe/:idApprove/:id", function (req, res) {
+    application.route("/company/aprovado/detalhe/:idApprove")
+        .all(application.config.strategy.authenticate())
+        .get(function (req, res) {
         let appData = {}
-        let id = req.params.id;
         let idApprove = req.params.idApprove;
         let database = application.config.database()
         database.getConnection(function (err, connection) {
@@ -188,9 +196,11 @@ module.exports = function (application) {
         })
     });
 
-    application.get("/company/lista/:id", function (req, res) {
+    application.route("/company/lista")
+        .all(application.config.strategy.authenticate())
+        .get(function (req, res) {
         let appData = {}
-        let id = req.params.id;
+        let id = req.user.id;
         let database = application.config.database()
         database.getConnection(function (err, connection) {
             if (err) {
@@ -216,9 +226,10 @@ module.exports = function (application) {
         })
     });
 
-    application.get("/company/lista/:idOrcamento/:id", function (req, res) {
+    application.route("/company/lista/:idOrcamento")
+        .all(application.config.strategy.authenticate())
+        .get(function (req, res) {
         let appData = {}
-        let id = req.params.id;
         let idOrcamento = req.params.idOrcamento;
         let database = application.config.database()
         database.getConnection(function (err, connection) {

@@ -28,9 +28,16 @@ $(document).ready(function(){
         }).change();		
     });
 
-    $('#tel').mask("(99)9999-9999"); //Tratando Numero de Telefone
-    $('#cel').mask("(99)99999-9999"); //Tratando Numero de Celular
-    $('#cnpj').mask("99999999999999") //Tratando CNPJ
+    var MobileBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00)00000-0000' : '(00)0000-00009';
+        },
+        mobileOptions = {
+            onKeyPress: function (val, e, field, options) {
+                field.mask(MobileBehavior.apply({}, arguments), options);
+            }
+        };
+    $('#tel').mask(MobileBehavior, mobileOptions); //Tratando Numero de Telefone
+    $('#cnpj').mask("00000000000000") //Tratando CNPJ
     
     $("#name_fant").keyup(function() { //Validacao do campo nome
         //Substitui por nada, tudo aquilo que nao for de encontro com o Regx declarado, ou seja, letra e caracteres especiais
@@ -129,7 +136,7 @@ $(document).ready(function(){
                 var json = JSON.parse(JSON.stringify(jQuery('#myform').serializeArray()));
                 
                 //Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
-                $.post({
+                $.ajax({
                     type: 'POST', //Tipo de Conexao
                     url: 'http://10.1.0.102:3050/company/register', //URL da API
                     dataType: 'json', //Tipo de dado que sera transferido
@@ -137,7 +144,7 @@ $(document).ready(function(){
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(data) {
                          alert('Cadastro realizado com Sucesso');
-                         location.href("./LoginEmp.html")
+                         location.href="./LoginEmp.html"
                     },
                     error: function(request, status, erro){
                         //Captando o erro retornado da API

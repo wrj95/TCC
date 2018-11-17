@@ -22,7 +22,7 @@ $(document).ready(function(){
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(res, status, erro) {
                         //Redirecionando para a página no Back-End
-                        window.location.href = 'http://10.1.0.102:3050/user/orcamento/solicitacao/' + res.id + '?token=' + res.token;
+                        window.location.href = 'http://10.1.0.102:3050/user/address' + '?token=' + res.token;
                     },
                     error: function(request, status, erro){
                         //Captando o erro retornado da API

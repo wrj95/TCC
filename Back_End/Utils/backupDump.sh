@@ -1,0 +1,1 @@
+docker exec mysql_app /usr/bin/mysqldump -u root --password=yourpassword mydatabase > ./DB/DBDump.sql

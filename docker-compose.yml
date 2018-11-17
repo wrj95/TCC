@@ -5,14 +5,12 @@ services:
     build: 
       context: ./Front_End
       dockerfile: Dockerfile
-    container_name: WebPages
+    container_name: webPages
     networks:
       tcc:
         ipv4_address: '10.1.0.101'
     expose:
       - 80    
-    ports:
-      - "8000:80"
     depends_on:
       - node_app
   node_app:
@@ -30,14 +28,12 @@ services:
       - DB_PASS=yourpassword
       - DB_DATABASE=mydatabase
       - PORT=3050
-      - SECRET_KEY=mydatabase
+      - SECRET_KEY=TccUnip2018!
     expose:
       - 3050
     networks: 
       tcc:
         ipv4_address: '10.1.0.102'
-    ports:
-      - 3050:3050
     depends_on:
       - mysql_app
   mysql_app:

@@ -139,9 +139,7 @@ module.exports = function (application) {
                 }
             })
         });
-   
 
-    //Route error
     application.route("/user/orcamento/detalhe/:idorcamento")
         .all(application.config.strategy.authenticate())
         .get(function (req, res) {

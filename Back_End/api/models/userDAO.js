@@ -28,8 +28,8 @@ userDAO.prototype.listSolicitacao = function (userData, callback) {
 
 userDAO.prototype.detailsSolicitacao = function (userData, callback) {
     this._connection.query("SELECT s.tit_solicitacao, ufo.des_uf AS uf_origem, muno.des_municipio AS mun_origem, " 
-                            + "CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', eo.complemento) AS end_origem_completo, ufd.des_uf AS uf_destino, "
-                            + "mund.des_municipio AS mun_destino, CONCAT(ed.endereco,', ', ed.numero, ' - ', ed.complemento) AS end_destino_completo, "
+                            + "CONCAT(eo.endereco ,  ', ' , eo.numero, ' - ', ifnull(eo.complemento,'')) AS end_origem_completo, ufd.des_uf AS uf_destino, "
+                            + "mund.des_municipio AS mun_destino, CONCAT(ed.endereco,', ', ed.numero, ' - ', ifnull(ed.complemento,'')) AS end_destino_completo, "
                             + "DATE_FORMAT(s.data_servico, '%d/%m/%Y') AS data, s.hora_servico AS hora, s.des_solicitacao AS descricao, "
                             + "CONCAT('R$ ', Format(s.vlr_estimado_carga,2)) AS valor, IF(s.status='A','Aberto','Fechado') AS status " 
                             + "FROM tab_solicitacao s " 

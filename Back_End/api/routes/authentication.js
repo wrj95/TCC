@@ -129,6 +129,7 @@ module.exports = function (application) {
                                 let jwtPayload = {}
                                     jwtPayload["id"] = rows[0].id;
                                     jwtPayload["email"] = rows[0].email;
+                                    jwtPayload["mode"] = 'user';
                                 let token = jwt.sign(jwtPayload, process.env.SECRET_KEY, {
                                     expiresIn: 3600
                                 });
@@ -277,6 +278,7 @@ module.exports = function (application) {
                                 let jwtPayload = {}
                                     jwtPayload["id"] = rows[0].id;
                                     jwtPayload["email"] = rows[0].email;
+                                    jwtPayload["mode"] = "company";
                                 let token = jwt.sign(jwtPayload, process.env.SECRET_KEY, {
                                     expiresIn: 3600
                                 });

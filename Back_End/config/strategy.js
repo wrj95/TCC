@@ -14,7 +14,7 @@ module.exports = function (application) {
             if (err) {
                 return done("Service is unavaiable, please try again later", null)
             } else {
-                if(payload.mode == 'user'){
+                if (payload.profileType == 'user') {
                     let userDAO = new application.api.models.userDAO(connection)
                     userDAO.login(payload.email, function (err, rows) {
                         if (err) {
@@ -33,7 +33,7 @@ module.exports = function (application) {
                     });
                 }
 
-                if(payload.mode == 'company'){
+                if (payload.profileType == 'company') {
                     let companyDAO = new application.api.models.companyDAO(connection)
                     companyDAO.login(payload.email, function (err, rows) {
                         if (err) {

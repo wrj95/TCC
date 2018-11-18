@@ -11,6 +11,8 @@ services:
         ipv4_address: '10.1.0.101'
     expose:
       - 80    
+    ports:
+      - 8000:80
     depends_on:
       - node_app
   node_app:

@@ -33,6 +33,8 @@ services:
       - SECRET_KEY=TccUnip2018!
     expose:
       - 3050
+    ports:
+      - 3050:3050
     networks: 
       tcc:
         ipv4_address: '10.1.0.102'

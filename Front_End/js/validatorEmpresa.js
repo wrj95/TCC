@@ -144,7 +144,7 @@ $(document).ready(function(){
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(data) {
                          alert('Cadastro realizado com Sucesso');
-                         location.href="./LoginEmp.html"
+                         location.href="http://buscafrete.net:80/LoginEmp.html"
                     },
                     error: function(request, status, erro){
                         //Captando o erro retornado da API

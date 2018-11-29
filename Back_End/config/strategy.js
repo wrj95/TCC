@@ -65,7 +65,7 @@ module.exports = function (application) {
         },
         authenticate: function () {
             return passport.authenticate("jwt",{session:false,
-            failureRedirect: 'http://10.1.0.101:80/'
+            failureRedirect: 'http://buscafrete.net:80/'
             });
         },
     };

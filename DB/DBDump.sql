@@ -282,7 +282,7 @@ CREATE TABLE `tab_usuario` (
 
 LOCK TABLES `tab_usuario` WRITE;
 /*!40000 ALTER TABLE `tab_usuario` DISABLE KEYS */;
-INSERT INTO `tab_usuario` VALUES (6,'Welinton','Ribeiro Junior','1995-05-24','44089264855','wrj@hotmail.com','$2a$08$h3TDjzfM55HGYbNytIeKbOoxs9ZobhNgWP70u6sPuD/MKb5H2Du0K','welintonribeirojunior@gmail.com','(11)5893-1497','(11)99378-1102','S','2018-11-17');
+INSERT INTO `tab_usuario` VALUES (6,'Welinton','Ribeiro Junior','1995-05-24','44089264855','wrj@hotmail.com','$2a$08$h3TDjzfM55HGYbNytIeKbOoxs9ZobhNgWP70u6sPuD/MKb5H2Du0K','welintonribeirojunior@gmail.com','(11)5893-1497','(11)99378-1102','S','2018-11-17'),(7,'gabriel','Pellegrini','1996-11-30','59015201064','123@gmail.com','$2a$08$lccWsjApJoTT97.jg6eQ..22NygyO1Mk7MsaZQDbt1TnpTvHLEGXq','gabriel@gmail.com','(11)5667-4725','(11)94737-9641','S','2020-05-15');
 /*!40000 ALTER TABLE `tab_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

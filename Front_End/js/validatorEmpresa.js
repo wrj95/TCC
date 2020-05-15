@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $.getJSON('http://10.1.0.102:3050/lista/estados', function (data) {
+    $.getJSON('http://buscafrete.com:3050/lista/estados', function (data) {
         var options = '<option value="">escolha um estado</option>'; //Iniciando com um Option default	
         $.each(data, function (key, val) {
             //Para cada Item Nome encontrado no JSON adicionar ao Select
@@ -17,7 +17,7 @@ $(document).ready(function(){
                 str += $(this).val(); //Pegando o Estado foi selecionado no Estado
                 
             });
-            $.getJSON('http://10.1.0.102:3050/lista/cidades/' + str, function (data){
+            $.getJSON('http://buscafrete.com:3050/lista/cidades/' + str, function (data){
                 var options_cidades = '<option value="">escolha uma Cidade</option>';    
                 $.each(data, function (key, val) {		
                     options_cidades += '<option value="' + val.cod_municipio + '">' + val.des_municipio + '</option>';
@@ -138,7 +138,7 @@ $(document).ready(function(){
                 //Abro uma conexão com o outro servidor, do tipo Post, passo a URL da API, 
                 $.ajax({
                     type: 'POST', //Tipo de Conexao
-                    url: 'http://10.1.0.102:3050/company/register', //URL da API
+                    url: 'http://buscafrete.com:3050/company/register', //URL da API
                     dataType: 'json', //Tipo de dado que sera transferido
                     data: json, //Enviando o formulario em formato JSON
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded

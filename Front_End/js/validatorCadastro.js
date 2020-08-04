@@ -101,7 +101,7 @@ $(document).ready(function(){
                     contentType: 'application/x-www-form-urlencoded;charset=UTF-8', //Envio em URLEncoded
                     success: function(data) {
                         alert('Cadastrado concluído com Sucesso');
-                        location.href='./index.html';
+                        location.href='http://buscafrete.net:80/index.html';
                     },
                     error: function(request, status, erro){
                         //Captando o erro retornado da API

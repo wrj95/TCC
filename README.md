@@ -9,5 +9,6 @@ o outro por meio de Serviço Prestados por profissionais da área, onde também 
 
 How to configure the Environment : 
 
-Add this line to the end of your "/etc/hosts"
-127.0.0.1 	buscafrete.com
+<p>Add this line to the end of your "/etc/hosts" </p>
+<p>10.1.1.10 	buscafrete.com</p>
+<p>10.1.1.5 	buscafrete.net</p>

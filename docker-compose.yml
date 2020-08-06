@@ -5,16 +5,15 @@ services:
     build: 
       context: ./Front_End
       dockerfile: Dockerfile
-    container_name: webPages
+    container_name: Tatooine
     networks:
       frontend:
         ipv4_address: '10.1.1.5'
       backend:
         ipv4_address: '10.1.1.11'
-    expose:
-      - 80    
     ports:
       - 80:80
+      - 443:443
     depends_on:
       - node_app
   node_app:
